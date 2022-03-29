@@ -43,7 +43,31 @@ t_matrix	*init_zero_matrix(int rows, int cols)
 	{
 		r = -1;
 		while (++r < rows)
-			z_mat->mat[c][r] = 0;
+				z_mat->mat[c][r] = 0;
+	}
+	return (z_mat);
+}
+
+t_matrix	*init_unit_matrix(int rows, int cols)
+{
+	t_matrix	*z_mat;
+	int			r;
+	int			c;
+
+	z_mat = init_matrix(rows, cols);
+	if (z_mat == NULL)
+		return (NULL);
+	c = -1;
+	while (++c < cols)
+	{
+		r = -1;
+		while (++r < rows)
+		{
+			if (r == c)
+				z_mat->mat[c][r] = 1;
+			else
+				z_mat->mat[c][r] = 0;
+		}
 	}
 	return (z_mat);
 }

@@ -6,7 +6,7 @@ RM = rm -f
 
 TARGET  = test
 
-OBJS = test_mlx.o
+OBJS = hook_test.o
 
 SRCS = $(OBJS.o=.c)
 
@@ -27,4 +27,4 @@ $(TARGET) : $(OBJS)
 	-Imlx_linux -lXext -lX11 -lm -lz -o $(TARGET)
 
 .c.o :
-	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@

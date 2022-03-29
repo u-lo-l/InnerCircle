@@ -1,49 +1,41 @@
 #include "matrix.h"
 
-t_matrix	*mat_sum(t_matrix *a, t_matrix *b)
+int	mat_sum(t_matrix *target, t_matrix *b)
 {
-	t_matrix	*result;
 	int			r;
 	int			c;
 
-	if (!a || !b)
-		return (NULL);
-	if ((a->dim[0] != b->dim[0]) || (a->dim[1] != b->dim[1]))
-		return (NULL);
-	result = init_matrix(a->dim[0], a->dim[1]);
-	if (result == NULL)
-		return (NULL);
+	if (!target || !b)
+		return (FALSE);
+	if ((target->dim[0] != b->dim[0]) || (target->dim[1] != b->dim[1]))
+		return (FALSE);
 	r = -1;
-	while (++r < a->dim[0])
+	while (++r < target->dim[0])
 	{
 		c = -1;
-		while (++c < a->dim[1])
-			result->mat[r][c] = a->mat[r][c] + b->mat[r][c];
+		while (++c < target->dim[1])
+			target->mat[r][c] += b->mat[r][c];
 	}
-	return (result);
+	return (TRUE);
 }
 
-t_matrix	*mat_sub(t_matrix *a, t_matrix *b)
+int	mat_sub(t_matrix *target, t_matrix *b)
 {
-	t_matrix	*result;
 	int			r;
 	int			c;
 
-	if (!a || !b)
-		return (NULL);
-	if ((a->dim[0] != b->dim[0]) || (a->dim[1] != b->dim[1]))
-		return (NULL);
-	result = init_matrix(a->dim[0], a->dim[1]);
-	if (result == NULL)
-		return (NULL);
+	if (!target || !b)
+		return (FALSE);
+	if ((target->dim[0] != b->dim[0]) || (target->dim[1] != b->dim[1]))
+		return (FALSE);
 	r = -1;
-	while (++r < a->dim[0])
+	while (++r < target->dim[0])
 	{
 		c = -1;
-		while (++c < a->dim[1])
-			result->mat[r][c] = a->mat[r][c] - b->mat[r][c];
+		while (++c < target->dim[1])
+			target->mat[r][c] -= b->mat[r][c];
 	}
-	return (result);
+	return (TRUE);
 }
 
 t_matrix	*mat_mul(t_matrix *a, t_matrix *b)
@@ -70,23 +62,19 @@ t_matrix	*mat_mul(t_matrix *a, t_matrix *b)
 	return (result);
 }
 
-t_matrix	*mat_scale(t_matrix *a, double scaler)
+int		mat_scale(t_matrix *a, double scaler)
 {
-	t_matrix	*result;
 	int			r;
 	int			c;
 
 	if (!a || scaler == INFINITY)
-		return (NULL);
-	result = init_matrix(a->dim[0], a->dim[1]);
-	if (!result)
-		return (NULL);
+		return (FALSE);
 	r = -1;
-	while (++r < result->dim[0])
+	while (++r < a->dim[0])
 	{
 		c = -1;
-		while (++c <result->dim[1])
-			result->mat[r][c] = a->mat[r][c] * scaler;
+		while (++c <a->dim[1])
+			a->mat[r][c] = a->mat[r][c] * scaler;
 	}
-	return (result);
+	return (TRUE);
 }
