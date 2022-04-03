@@ -80,12 +80,6 @@ int	mousemove(int x, int y, void *p)
 	return (0);
 }
 
-int	expose(t_vars *vars)
-{
-	printf("expose\n");
-	return (0);
-}
-
 int	destroy(t_vars *vars)
 {
 	if (!vars) return (0);
@@ -107,7 +101,6 @@ int	main(void)
 	mlx_hook(vars->win, 4, 1L<<2, mousedown, NULL);
 	mlx_hook(vars->win, 5, 1L<<3, mouseup, NULL);
 	mlx_hook(vars->win, 6, 1L<<6, mousemove, NULL);
-	mlx_hook(vars->win, 12, 0, expose, vars);
 	mlx_hook(vars->win, 17, 0, destroy, vars);
 	mlx_loop(vars->mlx);
 }

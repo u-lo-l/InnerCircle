@@ -32,16 +32,16 @@ int main()
 
 	t_matrix	*v_vec = init_3d_vec(1, 0, 0);
 	t_matrix	*o_vec = mat_mul(Rot_O2V, v_vec);
+	printf("(1,0,0) of local from global\n");
 	print_matrix(o_vec);
 	destroy_matrix(v_vec);
 	destroy_matrix(o_vec);
 
-	// Rot_V2O = mat_inverse(Rot_O2V);
 	Rot_V2O = mat_transpose(Rot_O2V);
 	print_matrix(Rot_V2O);
 	o_vec = init_3d_vec(-1/sqrt(2), 1/sqrt(2), 0);
+	printf("o_vec\n");
 	print_matrix(o_vec);
 	v_vec = mat_mul(Rot_V2O, o_vec);
 	print_matrix(v_vec);
-
 }

@@ -14,15 +14,20 @@ double	l2_norm(t_matrix *vec)
 	return (euclidean_norm);
 }
 
-double	vec3_dot(double vec_1[3], double vec_2[3])
+double	vec_dot(double *vec_1, double *vec_2, int size)
 {
 	double	result;
+	int		i;
 
 	if (!vec_1 || !vec_2)
 		return (NAN);
-	result = vec_1[0] * vec_2[0];
-	result += vec_1[1] * vec_2[1];
-	result += vec_1[2] * vec_2[2];
+	i = 0;
+	result = 0;
+	while (i < size)
+	{
+		result += vec_1[i] * vec_2[i];
+		i++;
+	}
 	return (result);
 }
 

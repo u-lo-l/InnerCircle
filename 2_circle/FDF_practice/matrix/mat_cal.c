@@ -56,7 +56,7 @@ t_matrix	*mat_mul(t_matrix *a, t_matrix *b)
 	{
 		r = -1;
 		while (++r < result->dim[0])
-			result->mat[c][r] = vec3_dot(trans->mat[r], b->mat[c]);
+			result->mat[c][r] = vec_dot(trans->mat[r], b->mat[c], b->dim[0]);
 	}
 	destroy_matrix(trans);
 	return (result);

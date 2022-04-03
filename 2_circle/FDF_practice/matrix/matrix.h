@@ -26,7 +26,6 @@ t_matrix	*init_zero_matrix(int rows, int cols);
 t_matrix	*init_unit_matrix(int rows, int cols);
 t_matrix	*init_3d_vec(double x, double y, double z);
 
-
 /*matrix2*/
 t_matrix	*mat_mini(t_matrix *a, int row, int col);
 double		mat_determinant(t_matrix *a);
@@ -41,11 +40,11 @@ int			mat_scale(t_matrix *a, double scaler);
 
 /*vec_cal*/
 double		l2_norm(t_matrix *vec);
-double		vec3_dot(double vec_1[3], double vec_2[3]);
+double		vec_dot(double *vec_1, double *vec_2, int size);
 t_matrix	*unit_vec(t_matrix *vec);
 
 /*transformation matrix*/
-t_matrix	*screw_symetric_matrix(double	vec3[3]);
+t_matrix	*cross_matrix(double	vec3[3]);
 t_matrix	*rotation_matrix_rodrique(t_matrix *axis_vec, double rad);
 t_matrix	*rotation_to_view_cords(t_matrix *view);
 t_matrix	*transformation_matrix(t_matrix *rotaion, t_matrix *traslation);
