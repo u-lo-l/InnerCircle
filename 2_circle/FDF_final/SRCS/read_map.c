@@ -130,14 +130,3 @@ t_inputmap	*get_origin_map(char *filepath)
 	close(fd);
 	return (origin_map);
 }
-/*
-int 	main(int argc, char ** argv)
-{
-	t_inputmap *map = get_origin_map(argv[argc - 1]);
-	if (map == NULL)
-		printf("ERROR\n");
-	else
-		print_orgmap(map);
-	delete_map_org(map);
-}
-*/

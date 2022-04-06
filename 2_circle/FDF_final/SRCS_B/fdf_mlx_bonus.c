@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/fdf.h"
+#include "../INC_B/fdf_bonus.h"
 
 t_mlx	*creat_mlx(t_inputmap *in)
 {

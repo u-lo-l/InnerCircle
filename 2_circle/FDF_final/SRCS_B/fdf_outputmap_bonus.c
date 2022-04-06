@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/fdf.h"
+#include "../INC_B/fdf_bonus.h"
 
 t_outputmap	*create_ouputmap(int sizeof_y, int sizeof_x)
 {

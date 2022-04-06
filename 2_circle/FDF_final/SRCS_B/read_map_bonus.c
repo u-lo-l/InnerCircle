@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/fdf.h"
+#include "../INC_B/fdf_bonus.h"
 #include <fcntl.h>
 
 t_inputmap	*init_map(int sizeof_y, int sizeof_x)

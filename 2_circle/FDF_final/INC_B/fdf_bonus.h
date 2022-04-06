@@ -6,13 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 00:37:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/05 00:49:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/05 15:29:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
-# include "fdf_data.h"
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
+# include "fdf_data_bonus.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
