@@ -2,8 +2,6 @@
 
 SERVER = server
 CLIENT = client
-SERVER_B = server_bonus
-CLIENT_B = client_bonus
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -25,17 +23,23 @@ UTILS_B_C = bonus/utils_bonus.c
 SERVER_B_C = bonus/server_bonus.c
 CLIENT_B_C = bonus/client_bonus.c
 
-all : s c
+ifdef WITH_BONUS
+	SRV_O = $(UTILS_B_O) $(SERVER_B_O)
+	CLI_O = $(UTILS_B_O) $(CLIENT_B_O)
+else
+	SRV_O = $(UTILS_O) $(SERVER_O)
+	CLI_O = $(UTILS_O) $(CLIENT_O)
+endif
 
-bonus : s_bonus c_bonus
 
-s : $(SERVER)
+all : srv cli
 
-c : $(CLIENT)
+bonus :
+	@make WITH_BONUS=1 all
 
-s_bonus : $(SERVER_B)
+srv : $(SERVER)
 
-c_bonus : $(CLIENT_B)
+cli : $(CLIENT)
 
 clean :
 	$(RM) $(UTILS_O) $(CLIENT_O) $(SERVER_O) $(UTILS_B_O) $(CLIENT_B_O) $(SERVER_B_O)
@@ -45,18 +49,12 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all s c clean fclean re
+.PHONY : all s c clean fclean re bonus
 
-$(SERVER) : $(UTILS_O) $(SERVER_O)
+$(SERVER) : $(SRV_O)
 	$(CC) -o $@ $^
 
-$(CLIENT) : $(UTILS_O) $(CLIENT_O)
-	$(CC) -o $@ $^
-
-$(SERVER_B) : $(UTILS_B_O) $(SERVER_B_O)
-	$(CC) -o $@ $^
-
-$(CLIENT_B) : $(UTILS_B_O) $(CLIENT_B_O)
+$(CLIENT) : $(CLI_O)
 	$(CC) -o $@ $^
 
 .c.o :
