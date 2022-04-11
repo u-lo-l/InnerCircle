@@ -12,83 +12,80 @@
 
 #include "minitalk_bonus.h"
 
-int	receive_client_pid(int signo, int *connected)
+static void	signal_interference(int *pid1, int pid2, char **message)
 {
-	static int	i;
-	static int	client_pid;
-
-	if (i > 31)
-		client_pid = 0;
-	if (i < 32)
+	if (*pid1 != pid2)
 	{
-		client_pid <<= 1;
-		if (signo == SIGUSR2)
-			client_pid++;
-		i++;
-	}
-	if (i > 31)
-	{
-		i = 0;
+		free(*message);
+		*message = NULL;
 		usleep(TIME);
+		kill(*pid1, SIGUSR2);
+		kill(pid2, SIGUSR2);
+		*pid1 = 0;
+		exit(0);
+	}
+}
+
+static char	*init_message(int signo, int client_pid)
+{
+	char	*message;
+	int		len;
+
+	len = receive_message_len(signo, client_pid);
+	if (len != -1)
+	{
+		message = malloc(sizeof(char) * (len + 1));
+		if (message)
+			return (message);
+	}
+	return (NULL);
+}
+
+static void	print_message(char **message, int *client_pid)
+{
+	ft_putstr(*message);
+	ft_putstr("\n");
+	*client_pid = 0;
+	free(*message);
+	*message = NULL;
+}
+
+static void	signal_handler(int signo, siginfo_t *info, void *context)
+{
+	static int	client_pid;
+	static char	*message;
+
+	(void)context;
+	if (client_pid == 0)
+	{
+		client_pid = info->si_pid;
 		if (kill(client_pid, SIGUSR1) == -1)
 			exit(0);
-		*connected = TRUE;
-		return (client_pid);
 	}
-	return (0);
-}
-
-int	receive_string(int signo, int client_pid)
-{
-	static char	c;
-	static int	i;
-
-	if (i < 0 || i > 7)
-	{
-		i = 0;
-		c = 0;
-	}
-	if (i < 8)
-	{
-		c <<= 1;
-		if (signo == SIGUSR2)
-			c++;
-		i++;
-	}
-	usleep(TIME);
-	if (kill(client_pid, SIGUSR1) == -1)
-		exit(0);
-	if (i == 8 && c)
-		write(1, &c, 1);
-	if (i == 8 && !c)
-		return (TRUE);
-	return (FALSE);
-}
-
-static void	signal_handler(int signo)
-{
-	static int	connected;
-	static int	client_pid;
-
-	if (connected == FALSE)
-		client_pid = receive_client_pid(signo, &connected);
 	else
 	{
-		if (receive_string(signo, client_pid) == TRUE)
+		signal_interference(&client_pid, info->si_pid, &message);
+		if (message == NULL)
 		{
-			connected = FALSE;
-			client_pid = 0;
-			write(1, "\n", 1);
+			message = init_message(signo, client_pid);
+			return ;
 		}
+		else
+			if (receive_string(signo, client_pid, message) == TRUE)
+				print_message(&message, &client_pid);
 	}
 }
 
 int	main(void)
 {
+	struct sigaction	new_act;
+
 	ft_putpid(getpid(), 10);
-	ft_putstr("\n");
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
-	while (1)
+	new_act.sa_flags = SA_SIGINFO;
+	new_act.sa_sigaction = signal_handler;
+	sigemptyset(&new_act.sa_mask);
+	sigaction(SIGUSR1, &new_act, NULL);
+	sigaction(SIGUSR2, &new_act, NULL);
+	while (TRUE)
 		pause();
 }

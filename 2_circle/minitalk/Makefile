@@ -16,11 +16,11 @@ SERVER_C = server.c
 CLIENT_C = client.c
 
 UTILS_B_O = bonus/utils_bonus.o
-SERVER_B_O = bonus/server_bonus.o
+SERVER_B_O = bonus/server_bonus.o bonus/server_receiver_bonus.o
 CLIENT_B_O = bonus/client_bonus.o
 
 UTILS_B_C = bonus/utils_bonus.c
-SERVER_B_C = bonus/server_bonus.c
+SERVER_B_C = bonus/server_bonus.c bonus/server_receiver_bonus.c
 CLIENT_B_C = bonus/client_bonus.c
 
 ifdef WITH_BONUS

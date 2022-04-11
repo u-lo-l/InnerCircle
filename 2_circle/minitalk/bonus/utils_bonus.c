@@ -58,6 +58,7 @@ void	ft_putpid(pid_t pid, int radix)
 	if (minus)
 		str[0] = '-';
 	ft_putstr(str);
+	ft_putstr("\n");
 	free(str);
 }
 

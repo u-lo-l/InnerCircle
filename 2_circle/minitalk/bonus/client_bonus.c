@@ -18,12 +18,12 @@ static void	receive_sig_from_server(int signo)
 		exit(0);
 }
 
-void	send_client_pid_by_signal(pid_t server_pid, int client_pid)
+void	send_strlen_by_signal(pid_t server_pid, int strlen)
 {
 	int	i;
 	int	sigarr[2];
 
-	if (client_pid <= 1)
+	if (strlen < 0)
 		return ;
 	sigarr[0] = SIGUSR1;
 	sigarr[1] = SIGUSR2;
@@ -31,8 +31,9 @@ void	send_client_pid_by_signal(pid_t server_pid, int client_pid)
 	while (i >= 0)
 	{
 		usleep(TIME);
-		if (kill(server_pid, sigarr[(client_pid >> i) & 0b1]) == -1)
+		if (kill(server_pid, sigarr[(strlen >> i) & 0b1]) == -1)
 			exit(0);
+		pause();
 		i--;
 	}
 }
@@ -64,21 +65,22 @@ void	send_str_by_signal(pid_t server_pid, char *str)
 
 int	main(int argc, char *argv[])
 {
-	int	server_pid;
-	int	err;
-	int	client_pid;
+	int					server_pid;
+	int					err;
 
 	if (argc != 3)
 		return (-1);
 	err = FALSE;
 	server_pid = ft_atoi(argv[1], &err);
-	client_pid = (int)getpid();
+	ft_putpid(getpid(), 10);
 	usleep(TIME);
 	signal(SIGUSR1, receive_sig_from_server);
 	signal(SIGUSR2, receive_sig_from_server);
-	if (err == TRUE || server_pid <= 1)
-		return (-1);
-	send_client_pid_by_signal(server_pid, client_pid);
+	if (kill(server_pid, SIGUSR1) == -1)
+		exit(0);
 	pause();
+	if (err == TRUE || server_pid <= 1 || ft_strlen(argv[2]) < 0)
+		return (-1);
+	send_strlen_by_signal(server_pid, ft_strlen(argv[2]));
 	send_str_by_signal(server_pid, argv[2]);
 }
