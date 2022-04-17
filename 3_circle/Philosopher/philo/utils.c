@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/15 20:34:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:28:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,19 @@ int	ft_atou(char *str)
 	if (str == NULL)
 		return (-1);
 	num = 0;
-	while (*str >= '0' && *str <= '9')
+	if (*str >= '0' && *str <= '9')
 	{
-		num = num * 10 + *str - '0';
-		if (num < 0)
-			return (-1);
-		str++;
+		while (*str != 0)
+		{
+			if (*str >= '0' && *str <= '9')
+				num = num * 10 + *str - '0';
+			else
+				return (-1);
+			str++;
+		}
+		return (num);
 	}
-	return (num);
+	return (-1);
 }
 
 void	clear_table(t_table *table)
@@ -45,4 +50,14 @@ void	clear_table(t_table *table)
 		pthread_mutex_destroy(&(table->forks[i]));
 	free(table->philos);
 	free(table->forks);
+}
+
+void	print_log(int philosopher_id, char *message, t_mutex *mtx, long start)
+{
+	long	timestamp_in_ms;
+
+	pthread_mutex_lock(mtx);
+	timestamp_in_ms = get_ltime() - start;
+	printf("%ld %d %s\n", timestamp_in_ms, philosopher_id, message);
+	pthread_mutex_unlock(mtx);
 }

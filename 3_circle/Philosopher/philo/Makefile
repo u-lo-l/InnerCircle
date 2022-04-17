@@ -1,7 +1,7 @@
 .SUFFIXES : .c .o
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread
+CFLAGS = -Wall -Werror -Wextra 
 RM = rm -f
 
 TARGET  = philo
@@ -26,7 +26,7 @@ re : fclean all
 .PHONY : all clean fclean re
 
 $(TARGET) : $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET) -lpthread
+	$(CC) $(OBJS) -o $(TARGET) -lpthread -g
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $@

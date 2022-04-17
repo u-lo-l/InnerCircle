@@ -6,11 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:02 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/16 15:23:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:26:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+t_mutex	mut;
 
 int	check_args(int argc, char **argv, t_table *table)
 {
@@ -40,10 +42,14 @@ int	init_philosophers(t_table *table)
 	table->forks = malloc(sizeof(t_mutex) * table->nop);
 	if (table->philos != NULL && table->forks != NULL)
 	{
+		table->die = 0;
+		table->start = get_ltime();
 		i = -1;
 		while (++i < table->nop)
 		{
 			table->philos[i].id = i + 1;
+			table->philos[i].eat_count = 0;
+			table->philos[i].tab = table;
 			if (pthread_mutex_init(&(table->forks[i]), NULL) == 0)
 				continue;
 			free(table->philos);
@@ -56,7 +62,6 @@ int	init_philosophers(t_table *table)
 			table->philos[i].lfork = &(table->forks[i]);
 			table->philos[i].rfork = &(table->forks[(i + 1) % table->nop]);
 		}
-		printf("DD\n");
 		if (pthread_mutex_init(&(table->log), NULL) == 0)
 			return (TRUE);
 	}
@@ -69,45 +74,51 @@ int	init_thread(t_table *table)
 {
 	int	i;
 
-	table->start = get_ltime();
 	i = -1;
 	while (++i < table->nop)
 	{
-		if (pthread_create(&(table->philos[i].phil_thread), \
-							NULL, \
-							start_dining, \
-							(void *)&(table->philos[i])) != 0)
-		{
-			while (i >= 0)
-				pthread_join(table->philos[i--].phil_thread, NULL);
+		table->philos[i].last_eat = get_ltime();
+		if (pthread_create(&(table->philos[i].phil_thread), NULL, \
+							start_dining, &(table->philos[i])) != 0)
 			return (FALSE);
-		}
-		pthread_detach(table->philos[i].phil_thread);
-		usleep(500);
+		usleep(1000);
 	}
-
 	return (TRUE);
 }
 
 void	*start_dining(void *vargp)
 {
 	t_philo	*philo;
+	long	gap;
 
-	philo = (t_philo *)vargp;
-	printf("%d l : %p r : %p\n", philo->id, philo->lfork, philo->rfork);
-	pthread_mutex_lock(philo->lfork);
-	printf("\033[0;31m %d get left fork\n\033[0m", philo->id);
-	usleep(100);
-	pthread_mutex_lock(philo->rfork);
-	printf("\033[0;31m %d get right fork\n\033[0m", philo->id);
-	usleep(100);
-	printf("phil id : %d\n", philo->id);
-	for (int k = 0 ; k < 4 ; k++)
+	philo = vargp;
+	while (philo->tab->die == 0)
 	{
-		printf("%d->%d\n", philo->id, k + 1);
-		usleep(1000000 / 4);
+		gap = get_ltime() - philo->last_eat;
+		printf("%d) gap : %ld\n", philo->id, gap);
+		if (gap > philo->tab->t2d)
+		{
+			philo->tab->die = 1;
+			print_log(philo->id, "died", &mut, philo->tab->start);
+			return (NULL);
+		}
+		pthread_mutex_lock(philo->lfork);
+		print_log(philo->id, "has taken a lfork", &mut, philo->tab->start);
+
+		pthread_mutex_lock(philo->rfork);
+		print_log(philo->id, "has taken a rfork", &mut, philo->tab->start);
+
+		print_log(philo->id, "is eating", &mut, philo->tab->start);
+		usleep(philo->tab->t2e * 10000);
+		philo->last_eat = get_ltime();
+		pthread_mutex_unlock(philo->lfork);
+		pthread_mutex_unlock(philo->rfork);
+
+		print_log(philo->id, "is sleeping", &mut, philo->tab->start);
+		usleep(philo->tab->t2s * 10000);
+		
+		print_log(philo->id, "is thinking", &mut, philo->tab->start);
 	}
-	pthread_mutex_unlock(philo->rfork);
 	return (NULL);
 }
 
@@ -121,10 +132,12 @@ int	main(int argc, char **argv)
 		return (str_error("Error : Invalid Arguments!", 1));
 	if (init_philosophers(&table) == FALSE)
 		return (str_error("Error : Fail to set table", 1));
+	pthread_mutex_init(&mut, NULL);
 	if (init_thread(&table) == FALSE)
 		return (str_error("Error : Fail to start dining", 1));
 	i = -1;
 	while (++i < table.nop)
 		pthread_join(table.philos[i].phil_thread, NULL);
 	clear_table(&table);
+	pthread_mutex_destroy(&mut);
 }
