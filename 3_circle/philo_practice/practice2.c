@@ -13,6 +13,7 @@ typedef struct temp
 	int			count;
 	t_mutex		*left;
 	t_mutex		*right;
+	t_mutex		*put_log;
 	pthread_t	thread;
 	struct table *tab;
 }		t_temp;
@@ -21,6 +22,7 @@ typedef struct table
 {
 	int		total_num;
 	int		total_cnt;
+	t_mutex	log;
 	t_mutex	*mutex_arr;
 	t_temp	*temp_arr;
 }			t_table;
@@ -84,5 +86,7 @@ int main()
 		pthread_join(table.temp_arr[i].thread, NULL);
 	for (int i = 0 ; i < table.total_num; i++)
 		pthread_mutex_destroy(table.mutex_arr + i);
+	free(table.mutex_arr);
+	free(table.temp_arr);
 	return (0);
 }
