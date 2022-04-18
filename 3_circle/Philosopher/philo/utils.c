@@ -11,6 +11,21 @@
 /* ************************************************************************** */
 
 #include "philosopher.h"
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/time.h>
+
+long	get_ltime(void)
+{
+	struct timeval	time;
+	long			mili_sec;
+
+	gettimeofday(&time, NULL);
+	mili_sec = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (mili_sec);
+}
 
 int	str_error(char *str, int ret)
 {
@@ -19,24 +34,26 @@ int	str_error(char *str, int ret)
 	return (ret);
 }
 
-int	ft_atou(char *str)
+long	ft_atou(char *str)
 {
-	int	num;
+	long	num;
 
 	if (str == NULL)
 		return (-1);
 	num = 0;
-	if (*str >= '0' && *str <= '9')
+	while ((*str <= 13 && *str >= 9) || *str == 32)
+		str++;
+	if (*str == '+')
+		str++;
+	while (TRUE)
 	{
-		while (*str != 0)
-		{
-			if (*str >= '0' && *str <= '9')
-				num = num * 10 + *str - '0';
-			else
-				return (-1);
-			str++;
-		}
-		return (num);
+		if (*str >= '0' && *str <= '9' && num >= 0)
+			num = num * 10 + *str - '0';
+		else
+			break ;
+		str++;
+		if (*str == 0)
+			return (num);
 	}
 	return (-1);
 }
@@ -46,18 +63,22 @@ void	clear_table(t_table *table)
 	int	i;
 
 	i = -1;
-	while(++i < table->nop)
+	while (++i < table->nop)
+	{
+		pthread_join(table->philos[i].phil_thread, NULL);
 		pthread_mutex_destroy(&(table->forks[i]));
+	}
 	free(table->philos);
 	free(table->forks);
 }
 
-void	print_log(int philosopher_id, char *message, t_mutex *mtx, long start)
+void	print_log(t_table *table, int philosopher_id, char *message)
 {
 	long	timestamp_in_ms;
 
-	pthread_mutex_lock(mtx);
-	timestamp_in_ms = get_ltime() - start;
-	printf("%ld %d %s\n", timestamp_in_ms, philosopher_id, message);
-	pthread_mutex_unlock(mtx);
+	pthread_mutex_lock(&(table->log));
+	timestamp_in_ms = get_ltime() - table->start;
+	if (table->die == 0)
+		printf("%ld %d %s\n", timestamp_in_ms, philosopher_id, message);
+	pthread_mutex_unlock(&(table->log));
 }

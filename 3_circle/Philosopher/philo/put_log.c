@@ -1,3 +1,0 @@
-#include "philosopher.h"
-
-void	

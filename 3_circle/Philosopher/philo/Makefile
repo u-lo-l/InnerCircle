@@ -4,29 +4,26 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
 RM = rm -f
 
-TARGET  = philo
+NAME  = philo
 
-OBJS = dining.o \
-		main.o \
-		time.o \
-		utils.o
+OBJS = utils.o preprocess.o philosopher.o main.o
 
 SRCS = $(OBJS.o = .c)
 
-all : $(TARGET)
+all : $(NAME)
 
 clean :
 	$(RM) $(OBJS)
 
 fclean	: clean
-	$(RM) $(TARGET)
+	$(RM) $(NAME)
 
 re : fclean all
 
 .PHONY : all clean fclean re
 
-$(TARGET) : $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET) -lpthread -g
+$(NAME) : $(OBJS)
+	$(CC) $(OBJS) -o $(NAME) -lpthread -g
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $@
