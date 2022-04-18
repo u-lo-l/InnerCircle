@@ -24,7 +24,7 @@ void	*start_dining(void *vargp)
 	{
 		if (pick_fork_up(philo) == NULL)
 			return (NULL);
-		print_log(philo->tab, philo->id, "is eating");
+		print_log(philo->tab, philo->id, "\x1b[33mis eating\x1b[0m");
 		usleep(philo->tab->t2e * 1000);
 		if (philo->tab->die == 1)
 			return (put_fork_down(philo->lfork, philo->rfork));
@@ -35,9 +35,9 @@ void	*start_dining(void *vargp)
 			return (put_fork_down(philo->lfork, philo->rfork));
 		}
 		put_fork_down(philo->lfork, philo->rfork);
-		print_log(philo->tab, philo->id, "is sleeping");
+		print_log(philo->tab, philo->id, "\x1b[32mis sleeping\x1b[0m");
 		usleep(philo->tab->t2s * 1000);
-		print_log(philo->tab, philo->id, "is thinking");
+		print_log(philo->tab, philo->id, "\x1b[36mis thinking\x1b[0m");
 	}
 	return (NULL);
 }
@@ -52,7 +52,7 @@ void	check_terminate(t_table	*table)
 		pthread_mutex_lock(&(table->die_check));
 		if (table->philos[i].last_eat + table->t2d <= get_ltime())
 		{
-			print_log(table, table->philos[i].id, "died");
+			print_log(table, table->philos[i].id, "\x1b[31mdied\x1b[0m");
 			table->die = 1;
 			pthread_mutex_unlock(&(table->die_check));
 			break ;
@@ -76,7 +76,7 @@ void	*pick_fork_up(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->rfork);
-		print_log(philo->tab, philo->id, "has taken a fork");
+		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		if (philo->tab->die == 1 || philo->rfork == philo->lfork)
 			return (put_fork_down(philo->rfork, NULL));
 		pthread_mutex_lock(philo->lfork);
@@ -84,12 +84,12 @@ void	*pick_fork_up(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->lfork);
-		print_log(philo->tab, philo->id, "has taken a fork");
+		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		if (philo->tab->die == 1 || philo->lfork == philo->rfork)
 			return (put_fork_down(philo->lfork, NULL));
 		pthread_mutex_lock(philo->rfork);
 	}
-	print_log(philo->tab, philo->id, "has taken a fork");
+	print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 	if (philo->tab->die == 1)
 		return (put_fork_down(philo->rfork, philo->lfork));
 	philo->last_eat = get_ltime();

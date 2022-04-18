@@ -79,6 +79,6 @@ void	print_log(t_table *table, int philosopher_id, char *message)
 	pthread_mutex_lock(&(table->log));
 	timestamp_in_ms = get_ltime() - table->start;
 	if (table->die == 0)
-		printf("%ld %d %s\n", timestamp_in_ms, philosopher_id, message);
+		printf("\x1b[95m%ld\x1b[0m %d %s\n", timestamp_in_ms, philosopher_id, message);
 	pthread_mutex_unlock(&(table->log));
 }
