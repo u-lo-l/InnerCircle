@@ -76,22 +76,22 @@ void	*pick_fork_up(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->rfork);
-		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		if (philo->tab->die == 1 || philo->rfork == philo->lfork)
 			return (put_fork_down(philo->rfork, NULL));
+		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		pthread_mutex_lock(philo->lfork);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->lfork);
-		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		if (philo->tab->die == 1 || philo->lfork == philo->rfork)
 			return (put_fork_down(philo->lfork, NULL));
+		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 		pthread_mutex_lock(philo->rfork);
 	}
-	print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 	if (philo->tab->die == 1)
 		return (put_fork_down(philo->rfork, philo->lfork));
+	print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
 	philo->last_eat = get_ltime();
 	return ((void *)philo);
 }
