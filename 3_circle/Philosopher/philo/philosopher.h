@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/17 15:25:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/22 05:24:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ typedef struct s_table
 	long		t2s;
 	int			noe;
 	int			die;
+	int			full;
 	long		start;
 	t_philo		*philos;
 	t_mutex		*forks;
 	t_mutex		die_check;
 	t_mutex		log;
+	t_mutex		eat;
 }				t_table;
 
 /*utils*/

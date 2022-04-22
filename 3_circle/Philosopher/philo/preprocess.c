@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:10:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/18 18:10:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/22 05:38:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	init_philosophers(t_table *table)
 				return (FALSE);
 		}
 		if (pthread_mutex_init(&(table->log), NULL) == 0 && \
-			pthread_mutex_init(&(table->die_check), NULL) == 0)
+			pthread_mutex_init(&(table->die_check), NULL) == 0 && \
+			pthread_mutex_init(&(table->eat), NULL) == 0)
 			return (TRUE);
 	}
 	return (FALSE);

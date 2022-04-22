@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/17 15:28:33 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/22 05:43:24 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	clear_table(t_table *table)
 		pthread_join(table->philos[i].phil_thread, NULL);
 		pthread_mutex_destroy(&(table->forks[i]));
 	}
+	pthread_mutex_destroy(&(table->log));
+	pthread_mutex_destroy(&(table->eat));
+	pthread_mutex_destroy(&(table->die_check));
 	free(table->philos);
 	free(table->forks);
 }
@@ -79,6 +82,7 @@ void	print_log(t_table *table, int philosopher_id, char *message)
 	pthread_mutex_lock(&(table->log));
 	timestamp_in_ms = get_ltime() - table->start;
 	if (table->die == 0)
-		printf("\x1b[95m%ld\x1b[0m %d %s\n", timestamp_in_ms, philosopher_id, message);
+		printf("\x1b[95m%ld\x1b[0m %d %s\n", timestamp_in_ms, \
+		philosopher_id, message);
 	pthread_mutex_unlock(&(table->log));
 }

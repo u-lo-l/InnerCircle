@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:04:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/18 14:05:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/22 05:43:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ void	*start_dining(void *vargp)
 		if (philo->tab->die == 1)
 			return (put_fork_down(philo->lfork, philo->rfork));
 		philo->eat_count++;
+		pthread_mutex_lock(&(philo->tab->eat));
 		if (philo->tab->noe > 0 && (philo->eat_count == philo->tab->noe))
-		{
-			philo->tab->die = 1;
-			return (put_fork_down(philo->lfork, philo->rfork));
-		}
-		put_fork_down(philo->lfork, philo->rfork);
+			philo->tab->full++;
+		pthread_mutex_unlock(&(philo->tab->eat));
 		print_log(philo->tab, philo->id, "\x1b[32mis sleeping\x1b[0m");
+		put_fork_down(philo->lfork, philo->rfork);
 		usleep(philo->tab->t2s * 1000);
 		print_log(philo->tab, philo->id, "\x1b[36mis thinking\x1b[0m");
 	}
@@ -47,18 +46,20 @@ void	check_terminate(t_table	*table)
 	int	i;
 
 	i = -1;
-	while (++i < table->nop)
+	pthread_mutex_lock(&(table->die_check));
+	if (table->full == table->nop)
+		table->die = 1;
+	pthread_mutex_unlock(&(table->die_check));
+	while (++i < table->nop && table->die == 0)
 	{
+		usleep(10);
 		pthread_mutex_lock(&(table->die_check));
 		if (table->philos[i].last_eat + table->t2d <= get_ltime())
 		{
 			print_log(table, table->philos[i].id, "\x1b[31mdied\x1b[0m");
 			table->die = 1;
-			pthread_mutex_unlock(&(table->die_check));
-			break ;
 		}
 		pthread_mutex_unlock(&(table->die_check));
-		usleep(10);
 	}
 }
 
