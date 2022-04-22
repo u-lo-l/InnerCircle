@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:16:06 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/21 09:16:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/21 17:57:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	struct s_table	*tab;
 	pid_t			philo_pid;
 	t_mutex			die_mut;
+	sem_t			philo_die;
 }					t_philo;
 
 typedef struct s_table
@@ -50,7 +51,7 @@ typedef struct s_table
 	sem_t		*forks_sem;
 	sem_t		*log_sem;
 	sem_t		*die_sem;
-	set_t		*eat_sem;
+	sem_t		*eat_sem;
 	t_mutex		die_check;
 }				t_table;
 
