@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/22 05:43:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/23 18:35:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long	get_ltime(void)
 	long			mili_sec;
 
 	gettimeofday(&time, NULL);
-	mili_sec = time.tv_sec * 1000 + time.tv_usec / 1000;
+	mili_sec = time.tv_sec * 1000000 + time.tv_usec;
 	return (mili_sec);
 }
 
@@ -82,7 +82,7 @@ void	print_log(t_table *table, int philosopher_id, char *message)
 	pthread_mutex_lock(&(table->log));
 	timestamp_in_ms = get_ltime() - table->start;
 	if (table->die == 0)
-		printf("\x1b[95m%ld\x1b[0m %d %s\n", timestamp_in_ms, \
+		printf("%ld %d %s\n", timestamp_in_ms / 1000, \
 		philosopher_id, message);
 	pthread_mutex_unlock(&(table->log));
 }

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:10:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/22 05:38:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/23 18:23:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ int	check_args(int argc, char **argv, t_table *table)
 	return (TRUE);
 }
 
+static void	make_philo(t_philo *philo, t_table *table, int i)
+{
+	philo->id = i + 1;
+	philo->eat_count = 0;
+	philo->tab = table;
+	philo->lfork = table->forks + i;
+	philo->rfork = table->forks + ((i + 1) % table->nop);
+	philo->last_eat = table->start;
+}
+
 int	init_philosophers(t_table *table)
 {
 	int	i;
@@ -47,11 +57,7 @@ int	init_philosophers(t_table *table)
 		i = -1;
 		while (++i < table->nop)
 		{
-			table->philos[i].id = i + 1;
-			table->philos[i].eat_count = 0;
-			table->philos[i].tab = table;
-			table->philos[i].lfork = &(table->forks[i]);
-			table->philos[i].rfork = &(table->forks[(i + 1) % table->nop]);
+			make_philo(table->philos + i, table, i);
 			if (pthread_mutex_init(&(table->forks[i]), NULL) != 0)
 				return (FALSE);
 		}
@@ -68,14 +74,24 @@ int	init_thread(t_table *table)
 	int		i;
 	t_philo	*phil;
 
-	i = -1;
+	i = 0;
 	phil = table->philos;
-	while (++i < table->nop)
+	while (i < table->nop)
 	{
-		phil[i].last_eat = get_ltime();
 		if (pthread_create(&(phil[i].phil_thread), NULL, \
 			start_dining, &(phil[i])) != 0)
 			return (FALSE);
+		i += 2;
+		usleep(10);
+	}
+	i = 1;
+	usleep(table->t2e * 1000);
+	while (i < table->nop)
+	{
+		if (pthread_create(&(phil[i].phil_thread), NULL, \
+			start_dining, &(phil[i])) != 0)
+			return (FALSE);
+		i += 2;
 		usleep(10);
 	}
 	return (TRUE);
