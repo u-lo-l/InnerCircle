@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:47 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/21 09:05:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/23 21:06:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	clear_table(t_table *table)
 	while (table->philo_cnt > 0)
 	{
 		kill(table->philos[table->philo_cnt].philo_pid, SIGTERM);
+		watipid(table->philos[table->philo_cnt].philo_pid. NULL, WNOHANG);
 		table->philo_cnt--;
 	}
 	if (table->forks_sem != SEM_FAILED)
