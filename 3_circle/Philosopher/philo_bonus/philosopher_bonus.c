@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:34 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/21 17:58:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/25 17:03:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
+/*
 int	start_dining(t_philo *philo)
 {
 	pthread_t	die_check_thread;
@@ -71,7 +71,7 @@ void	*check_terminate(void *vargp)
 	}
 	return (0);
 }
-
+*/
 int	put_fork_down(t_philo *philo)
 {
 	while (philo->curr_fork > 0)
@@ -84,13 +84,15 @@ int	put_fork_down(t_philo *philo)
 
 int	pick_fork_up(t_philo *philo)
 {
-	while (philo->curr_fork < 2)
+	while (philo->curr_fork < 2 )
 	{
+		if (philo->curr_fork >= philo->tab->nop)
+			return (FALSE);
 		sem_wait(philo->tab->forks_sem);
 		philo->curr_fork++;
 		if (philo->tab->die == 1)
 			return (put_fork_down(philo));
-		print_log(philo->tab, philo->id, "\x1b[93mhas taken a fork\x1b[0m");
+		print_log(philo, "\x1b[93mhas taken a fork\x1b[0m");
 	}
 	philo->last_eat = get_ltime();
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:47 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/23 21:06:42 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/25 16:27:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	clear_table(t_table *table)
 {
 	while (table->philo_cnt > 0)
 	{
-		kill(table->philos[table->philo_cnt].philo_pid, SIGTERM);
-		watipid(table->philos[table->philo_cnt].philo_pid. NULL, WNOHANG);
+		waitpid(table->philo_pid[table->philo_cnt], NULL, 0);\
+		usleep(100);
 		table->philo_cnt--;
 	}
 	if (table->forks_sem != SEM_FAILED)
@@ -83,16 +83,21 @@ void	clear_table(t_table *table)
 		sem_close(table->log_sem);
 		sem_unlink(LOG_SEM_NAME);
 	}
-	free(table->philos);
+	free(table->philo_pid);
 }
 
-void	print_log(t_table *table, int philosopher_id, char *message)
+int	print_log(t_philo *philo, char *message)
 {
 	long	timestamp;
 
-	sem_wait(table->log_sem);
-	timestamp = get_ltime() - table->start;
-	if (table->die == 0)
-		printf("\x1b[95m%ld\x1b[0m %d %s\n", timestamp, philosopher_id, message);
-	sem_post(table->log_sem);
+	sem_wait(philo->tab->log_sem);
+	if (philo->die == 1)
+	{
+		sem_post(philo->tab->log_sem);
+		return (FALSE);
+	}
+	timestamp = get_ltime() - philo->tab->start;
+	printf("\x1b[95m%ld\x1b[0m %d %s\n",timestamp, philo->id, message);
+	sem_post(philo->tab->log_sem);
+	return (TRUE);
 }

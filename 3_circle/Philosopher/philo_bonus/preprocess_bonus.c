@@ -6,17 +6,18 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/21 09:13:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/25 16:59:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher_bonus.h"
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <semaphore.h>
-
+#include <stdio.h>
 int	check_args(int argc, char **argv, t_table *table)
 {
 	if (argc < 5 || argc > 6)
@@ -34,31 +35,23 @@ int	check_args(int argc, char **argv, t_table *table)
 		if (table->noe < 0)
 			return (FALSE);
 	}
+	table->philo_pid = malloc(sizeof(pid_t) * table->nop);
+	if (table->philo_pid == NULL)
+		return (FALSE);
+	memset(table->philo_pid, -1, sizeof(pid_t) * table->nop);
 	return (TRUE);
 }
 
-int	init_philosophers(t_table *table)
+int	init_table(t_table *table)
 {
-	int	i;
-
-	table->philos = malloc(sizeof(t_philo) * table->nop);
-	if (table->philos == NULL)
-		return (FALSE);
 	table->die = 0;
 	table->start = get_ltime();
 	table->philo_cnt = 0;
-	i = -1;
-	while (++i < table->nop)
-	{
-		table->philos[i].id = i + 1;
-		table->philos[i].eat_count = 0;
-		table->philos[i].tab = table;
-	}
 	sem_unlink(FORKS_SEM_NAME);
 	sem_unlink(DIE_SEM_NAME);
 	sem_unlink(LOG_SEM_NAME);
 	table->forks_sem = sem_open(FORKS_SEM_NAME, O_CREAT, S_IRWXU, table->nop);
-	table->die_sem = sem_open(DIE_SEM_NAME, O_CREAT, S_IRWXU, 1);
+	table->die_sem = sem_open(DIE_SEM_NAME, O_CREAT, S_IRWXU, 0);
 	table->log_sem = sem_open(LOG_SEM_NAME, O_CREAT, S_IRWXU, 1);
 	if ((table->forks_sem == SEM_FAILED) || \
 		(table->die_sem == SEM_FAILED) || \
@@ -67,21 +60,97 @@ int	init_philosophers(t_table *table)
 	return (TRUE);
 }
 
-int	init_thread(t_table *table)
+int	init_philosophers(t_table *table)
 {
-	t_philo		*philo;
+	t_philo	philo;
 
-	philo = table->philos;
+	philo.die = 0;
+	philo.curr_fork = 0;
+	philo.eat_count = 0;
+	philo.last_eat = table->start;
+	philo.tab = table;
 	while (table->philo_cnt < table->nop)
 	{
-		philo[table->philo_cnt].last_eat = table->start;
-		philo[table->philo_cnt].philo_pid = fork();
-		if (philo[table->philo_cnt].philo_pid == -1)
+		table->philo_pid[table->philo_cnt] = fork();
+		if (table->philo_pid[table->philo_cnt] < 0)
 			return (FALSE);
-		if (philo[table->philo_cnt].philo_pid == 0)
-			start_dining(&philo[table->philo_cnt]);
+		else if (table->philo_pid[table->philo_cnt] == 0)
+		{
+			philo.id = table->philo_cnt + 1;
+			philo_process(&philo);
+			exit (TRUE);
+		}
 		table->philo_cnt++;
-		usleep(100);
+		usleep(10);
 	}
 	return (TRUE);
+}
+
+void	*thread_trigger(void *vargp)
+{
+	t_philo	*philo;
+	int		i;
+
+	philo = (t_philo *)vargp;
+	while (philo->die == 0)
+	{
+		if (philo->last_eat + philo->tab->t2d < get_ltime())
+		{
+			sem_wait(philo->tab->log_sem);
+			usleep(10);
+			if (philo->die == 1)
+				break;
+			printf("\x1b[31m%ld %d is died\x1b[0m\n", get_ltime() - philo->tab->start, philo->id);
+			i = -1;
+			while (++i < philo->tab->nop)
+				sem_post(philo->tab->die_sem);
+			break;
+		}
+		usleep(1000);
+	}
+	usleep(philo->tab->t2e * 1000);
+	sem_post(philo->tab->log_sem);
+	return (NULL);
+}
+
+void	*thread_terminate_process(void *vargp)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)vargp;
+	sem_wait(philo->tab->die_sem);
+	philo->die = 1;
+	return (NULL);
+}
+
+void	philo_process(t_philo	*philo)
+{
+	pthread_t	trig_thread;
+	pthread_t	end_thread;
+	// pthread_t	eat_thread;
+	pthread_create(&end_thread, NULL, thread_terminate_process, philo);
+	pthread_create(&trig_thread, NULL, thread_trigger, philo);
+	while (philo->die == 0)
+	{
+		usleep(10);
+		if (pick_fork_up(philo) == FALSE)
+			break;
+		if (print_log(philo, "\x1b[33mis eating\x1b[0m") == FALSE)
+			break ;
+		usleep(philo->tab->t2e * 1000);
+		if (print_log(philo, "\x1b[32mis sleeping\x1b[0m") == FALSE)
+			break ;
+		put_fork_down(philo);
+		usleep(philo->tab->t2s * 1000);
+		if (print_log(philo, "\x1b[36mis thinking\x1b[0m") == FALSE)
+			break ;
+	}
+	put_fork_down(philo);
+	pthread_join(end_thread, NULL);
+	pthread_join(trig_thread, NULL);
+	sem_close(philo->tab->log_sem);
+	sem_close(philo->tab->die_sem);
+	sem_close(philo->tab->forks_sem);
+	free(philo->tab->philo_pid);
+	return ;
 }
