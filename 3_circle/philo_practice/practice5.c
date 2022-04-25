@@ -26,7 +26,7 @@ typedef struct sem_structure
 	long		start;
 	int			die;
 	sem_t		*sem_diecheck;
-	sem_t		*sem_mutex;
+	// sem_t		*sem_mutex;
 	sem_t		*sem_log;
 }				t_sem;
 
@@ -65,7 +65,7 @@ void	*trigger_thread(void *vargp)
 	{
 		if (philo->table->die == 1)
 			return (NULL);
-		if (timestamp() - philo->table->start >= 10000 * 2 * NUM && philo->id == NUM - 1)
+		if (timestamp() - philo->table->start >= 10000 * 2 * NUM && philo->id == NUM - 4)
 		{
 			my_print_status(philo, "READY TO DIE\n");
 			break;
@@ -127,13 +127,13 @@ void	sub_process(t_sem	*table, int num)
 		usleep(200);
 		if (my_print_status(philo, "state5\n") == 0) break;
 	}
-	sem_close(table->sem_diecheck);
-	sem_close(table->sem_mutex);
-	sem_close(table->sem_log);
 	pthread_join(term_thread, NULL);
 	pthread_join(trig_thread, NULL);
+	sem_close(table->sem_diecheck);
+	// sem_close(table->sem_mutex);
+	sem_close(table->sem_log);
 	free(table->philos);
-	return ;
+	exit(1) ;
 }
 
 int main()
@@ -152,9 +152,9 @@ int main()
 	sem_unlink(LOGSEM);
 	table.sem_log = sem_open(LOGSEM, O_CREAT, S_IRWXU, 1);
 	sem_unlink(SEMNAME);
-	table.sem_mutex = sem_open(SEMNAME, O_CREAT, S_IRWXU, 0);
+	// table.sem_mutex = sem_open(SEMNAME, O_CREAT, S_IRWXU, 0);
 
-	for (int i = 0 ; i  < NUM ; i++)
+	for (int i = 0 ; i  < NUM - 2; i++)
 	{
 		table.philos[i].id = i;
 		table.philos[i].pid = fork();
@@ -178,7 +178,7 @@ int main()
 	printf("sub proc done : %d\n", getpid());
 
 	sem_close(table.sem_diecheck);
-	sem_close(table.sem_mutex);
+	// sem_close(table.sem_mutex);
 	sem_close(table.sem_log);
 	sem_unlink(ENDSEM);
 	sem_unlink(SEMNAME);
