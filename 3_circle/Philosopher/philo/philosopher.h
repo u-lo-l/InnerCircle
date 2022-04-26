@@ -6,14 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/23 18:04:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 21:37:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
 # include <pthread.h>
-
 # define TRUE 1
 # define FALSE 0
 
@@ -64,7 +63,7 @@ int		init_thread(t_table *table);
 
 /*philosopher*/
 void	*start_dining(void *vargp);
-void	check_terminate(t_table	*table);
+void	*check_terminate(void *vargp);
 void	*put_fork_down(t_mutex *lfork, t_mutex *rfork);
 void	*pick_fork_up(t_philo *philo);
 

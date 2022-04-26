@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:04:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/23 18:29:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 21:38:59 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,33 @@ void	*start_dining(void *vargp)
 	return (NULL);
 }
 
-void	check_terminate(t_table	*table)
+void	*check_terminate(void *vargp)
 {
-	int	i;
+	t_table	*table;
+	int		i;
 
-	i = -1;
-	pthread_mutex_lock(&(table->die_check));
-	if (table->full >= table->nop)
-		table->die = 1;
-	pthread_mutex_unlock(&(table->die_check));
-	while (++i < table->nop && table->die == 0)
+	table = vargp;
+	while (table->die == 0)
 	{
-		usleep(10);
 		pthread_mutex_lock(&(table->die_check));
-		if (table->philos[i].last_eat + table->t2d * 1000 <= get_ltime())
-		{
-			print_log(table, table->philos[i].id, "died");
+		if (table->full >= table->nop)
 			table->die = 1;
-		}
 		pthread_mutex_unlock(&(table->die_check));
+		i = -1;
+		while (++i < table->nop && table->die == 0)
+		{
+			usleep(10);
+			pthread_mutex_lock(&(table->die_check));
+			if (table->philos[i].last_eat + table->t2d * 1000 <= get_ltime())
+			{
+				print_log(table, table->philos[i].id, "died");
+				table->die = 1;
+			}
+			pthread_mutex_unlock(&(table->die_check));
+		}
+		usleep(10);
 	}
+	return (NULL);
 }
 
 void	*put_fork_down(t_mutex *lfork, t_mutex *rfork)
@@ -75,9 +82,11 @@ void	*put_fork_down(t_mutex *lfork, t_mutex *rfork)
 void	*pick_fork_up(t_philo *philo)
 {
 	pthread_mutex_lock(philo->rfork);
-	if (philo->tab->die == 1 || philo->rfork == philo->lfork)
+	if (philo->tab->die == 1)
 		return (put_fork_down(philo->rfork, NULL));
 	print_log(philo->tab, philo->id, "has taken a fork");
+	if (philo->rfork == philo->lfork)
+		return (put_fork_down(philo->rfork, NULL));
 	pthread_mutex_lock(philo->lfork);
 	if (philo->tab->die == 1)
 		return (put_fork_down(philo->rfork, philo->lfork));

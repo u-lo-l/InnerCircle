@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:10:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/25 17:42:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 21:46:39 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	init_philosophers(t_table *table)
 
 int	init_thread(t_table *table)
 {
-	int		i;
-	t_philo	*phil;
+	int			i;
+	t_philo		*phil;
 
 	i = 0;
 	phil = table->philos;
@@ -86,7 +86,7 @@ int	init_thread(t_table *table)
 	}
 	i = 1;
 	usleep(table->t2e * 1000);
-	while (i < table->nop)
+	while (i < table->nop && table->die == 0)
 	{
 		if (pthread_create(&(phil[i].phil_thread), NULL, \
 			start_dining, &(phil[i])) != 0)
