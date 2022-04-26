@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:34 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/25 17:03:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 20:50:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,63 +15,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-/*
-int	start_dining(t_philo *philo)
-{
-	pthread_t	die_check_thread;
-
-	printf("[%d entered the table : %d]\n", philo->id, getpid());
-	pthread_create(&(die_check_thread), NULL, check_terminate, philo);
-	pthread_detach(die_check_thread);
-	while (philo->tab->die == 0)
-	{
-		if (pick_fork_up(philo) == FALSE)
-			exit (2);
-		print_log(philo->tab, philo->id, "\x1b[3;33mis eating\x1b[0m");
-		usleep(philo->tab->t2e * 1000);
-		if (philo->tab->die == 1)
-		{
-			put_fork_down(philo);
-			exit (2);
-		}
-		philo->eat_count++;
-		if (philo->tab->noe > 0 && (philo->eat_count == philo->tab->noe))
-		{
-			printf("%d enough\n", philo->id);
-			philo->tab->die = 1;
-			put_fork_down(philo);
-			exit (2);
-		}
-		put_fork_down(philo);
-		print_log(philo->tab, philo->id, "\x1b[32mis sleeping\x1b[0m");
-		usleep(philo->tab->t2s * 1000);
-		print_log(philo->tab, philo->id, "\x1b[36mis thinking\x1b[0m");
-	}
-	exit (1);
-}
-
-void	*check_terminate(void *vargp)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)vargp;
-	while (philo->tab->die == 0)
-	{
-		sem_wait(philo->tab->die_sem);
-		// printf("check term %d\n", getpid());
-		if (philo->last_eat + philo->tab->t2d <= get_ltime() || philo->tab->die == 1)
-		{
-			print_log(philo->tab, philo->id, "\x1b[31mdied\x1b[0m");
-			philo->tab->die = 1;
-			sem_post(philo->tab->die_sem);
-			return (0);
-		}
-		sem_post(philo->tab->die_sem);
-		usleep(10);
-	}
-	return (0);
-}
-*/
 int	put_fork_down(t_philo *philo)
 {
 	while (philo->curr_fork > 0)
@@ -84,16 +27,56 @@ int	put_fork_down(t_philo *philo)
 
 int	pick_fork_up(t_philo *philo)
 {
-	while (philo->curr_fork < 2 )
+	while (philo->curr_fork < 2)
 	{
 		if (philo->curr_fork >= philo->tab->nop)
 			return (FALSE);
 		sem_wait(philo->tab->forks_sem);
 		philo->curr_fork++;
-		if (philo->tab->die == 1)
+		if (philo->die == 1)
 			return (put_fork_down(philo));
-		print_log(philo, "\x1b[93mhas taken a fork\x1b[0m");
+		print_log(philo, "has taken a fork");
 	}
 	philo->last_eat = get_ltime();
 	return (TRUE);
+}
+
+void	*thread_trigger(void *vargp)
+{
+	t_philo	*philo;
+	int		i;
+
+	philo = (t_philo *)vargp;
+	while (philo->die == 0)
+	{
+		if (philo->last_eat + philo->tab->t2d < get_ltime() || \
+			philo->tab->full_philos == philo->tab->nop)
+		{
+			sem_wait(philo->tab->log_sem);
+			if (philo->die == 1)
+				break ;
+			if (philo->tab->full_philos != philo->tab->nop)
+				printf("%ld %d is died\n", get_ltime() - \
+				philo->tab->start, philo->id);
+			i = -1;
+			while (++i < philo->tab->nop)
+				sem_post(philo->tab->die_sem);
+			break ;
+		}
+		usleep(10);
+	}
+	usleep(philo->tab->t2e * 1000);
+	sem_post(philo->tab->log_sem);
+	return (NULL);
+}
+
+void	*thread_terminate_process(void *vargp)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)vargp;
+	sem_wait(philo->tab->die_sem);
+	philo->die = 1;
+	put_fork_down(philo);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:16:06 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/25 15:47:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 20:45:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define FORKS_SEM_NAME "/philo_bonus_forks"
 # define DIE_SEM_NAME "/philo_bonus_die"
 # define LOG_SEM_NAME "/philo_bonus_log"
+# define EAT_SEM_NAME "/philo_bonus_eat"
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -27,11 +28,11 @@ typedef struct s_table
 {
 	int		nop;
 	int		philo_cnt;
+	int		full_philos;
 	long	t2d;
 	long	t2e;
 	long	t2s;
 	int		noe;
-	int		die;
 	long	start;
 	pid_t	*philo_pid;
 	sem_t	*forks_sem;
@@ -48,7 +49,6 @@ typedef struct s_philo
 	int		eat_count;
 	long	last_eat;
 	t_table	*tab;
-	t_mutex	die_mut;
 }			t_philo;
 
 /*utils*/
@@ -62,12 +62,15 @@ long	get_ltime(void);
 int		check_args(int argc, char **argv, t_table *table);
 int		init_philosophers(t_table *table);
 int		init_table(t_table *table);
-void	philo_process(t_philo	*philo);
 
 /*philosopher*/
-int		start_dining(t_philo *philo);
-void	*check_terminate(void *vargp);
 int		put_fork_down(t_philo *philo);
 int		pick_fork_up(t_philo *philo);
+void	*thread_trigger(void *vargp);
+void	*thread_terminate_process(void *vargp);
+
+void	*increase_full_philos(void *vargp);
+void	*count_full_philos(void *vargp);
+void	philo_process(t_philo	*philo);
 
 #endif

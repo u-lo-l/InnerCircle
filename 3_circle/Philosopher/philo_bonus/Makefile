@@ -6,7 +6,7 @@ RM = rm -f
 
 NAME  = philo_bonus
 
-OBJS = utils_bonus.o preprocess_bonus.o philosopher_bonus.o main_bonus.o
+OBJS = utils_bonus.o preprocess_bonus.o philosopher_bonus.o main_bonus.o philo_process.o
 
 SRCS = $(OBJS.o = .c)
 

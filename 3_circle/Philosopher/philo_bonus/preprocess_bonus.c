@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/25 16:59:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/26 14:55:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <semaphore.h>
-#include <stdio.h>
+
 int	check_args(int argc, char **argv, t_table *table)
 {
 	if (argc < 5 || argc > 6)
@@ -28,7 +28,7 @@ int	check_args(int argc, char **argv, t_table *table)
 	table->t2s = ft_atou(argv[4]);
 	if (table->nop <= 0 || table->t2d < 0 || table->t2e < 0 || table->t2s < 0)
 		return (FALSE);
-	table->noe = 0;
+	table->noe = -1;
 	if (argc == 6)
 	{
 		table->noe = ft_atou(argv[5]);
@@ -44,18 +44,20 @@ int	check_args(int argc, char **argv, t_table *table)
 
 int	init_table(t_table *table)
 {
-	table->die = 0;
 	table->start = get_ltime();
 	table->philo_cnt = 0;
 	sem_unlink(FORKS_SEM_NAME);
 	sem_unlink(DIE_SEM_NAME);
 	sem_unlink(LOG_SEM_NAME);
+	sem_unlink(EAT_SEM_NAME);
 	table->forks_sem = sem_open(FORKS_SEM_NAME, O_CREAT, S_IRWXU, table->nop);
 	table->die_sem = sem_open(DIE_SEM_NAME, O_CREAT, S_IRWXU, 0);
 	table->log_sem = sem_open(LOG_SEM_NAME, O_CREAT, S_IRWXU, 1);
+	table->eat_sem = sem_open(EAT_SEM_NAME, O_CREAT, S_IRWXU, 0);
 	if ((table->forks_sem == SEM_FAILED) || \
 		(table->die_sem == SEM_FAILED) || \
-		(table->log_sem == SEM_FAILED))
+		(table->log_sem == SEM_FAILED) || \
+		(table->eat_sem == SEM_FAILED))
 		return (FALSE);
 	return (TRUE);
 }
@@ -64,6 +66,8 @@ int	init_philosophers(t_table *table)
 {
 	t_philo	philo;
 
+	if (table->noe == 0)
+		return (TRUE);
 	philo.die = 0;
 	philo.curr_fork = 0;
 	philo.eat_count = 0;
@@ -86,71 +90,41 @@ int	init_philosophers(t_table *table)
 	return (TRUE);
 }
 
-void	*thread_trigger(void *vargp)
+void	*increase_full_philos(void *vargp)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)vargp;
+	if (philo->tab->noe < 0)
+		return (NULL);
+	while (philo->tab->full_philos < philo->tab->nop)
+	{
+		sem_wait(philo->tab->eat_sem);
+		if (philo->die == 1)
+			return (NULL);
+		philo->tab->full_philos++;
+		usleep(100);
+	}
+	return (NULL);
+}
+
+void	*count_full_philos(void *vargp)
 {
 	t_philo	*philo;
 	int		i;
 
 	philo = (t_philo *)vargp;
+	if (philo->tab->noe < 0)
+		return (NULL);
 	while (philo->die == 0)
 	{
-		if (philo->last_eat + philo->tab->t2d < get_ltime())
-		{
-			sem_wait(philo->tab->log_sem);
-			usleep(10);
-			if (philo->die == 1)
-				break;
-			printf("\x1b[31m%ld %d is died\x1b[0m\n", get_ltime() - philo->tab->start, philo->id);
-			i = -1;
-			while (++i < philo->tab->nop)
-				sem_post(philo->tab->die_sem);
-			break;
-		}
-		usleep(1000);
+		if (philo->eat_count != philo->tab->noe)
+			continue ;
+		i = -1;
+		while (++i < philo->tab->nop)
+			sem_post(philo->tab->eat_sem);
+		usleep(100);
+		return (NULL);
 	}
-	usleep(philo->tab->t2e * 1000);
-	sem_post(philo->tab->log_sem);
 	return (NULL);
-}
-
-void	*thread_terminate_process(void *vargp)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)vargp;
-	sem_wait(philo->tab->die_sem);
-	philo->die = 1;
-	return (NULL);
-}
-
-void	philo_process(t_philo	*philo)
-{
-	pthread_t	trig_thread;
-	pthread_t	end_thread;
-	// pthread_t	eat_thread;
-	pthread_create(&end_thread, NULL, thread_terminate_process, philo);
-	pthread_create(&trig_thread, NULL, thread_trigger, philo);
-	while (philo->die == 0)
-	{
-		usleep(10);
-		if (pick_fork_up(philo) == FALSE)
-			break;
-		if (print_log(philo, "\x1b[33mis eating\x1b[0m") == FALSE)
-			break ;
-		usleep(philo->tab->t2e * 1000);
-		if (print_log(philo, "\x1b[32mis sleeping\x1b[0m") == FALSE)
-			break ;
-		put_fork_down(philo);
-		usleep(philo->tab->t2s * 1000);
-		if (print_log(philo, "\x1b[36mis thinking\x1b[0m") == FALSE)
-			break ;
-	}
-	put_fork_down(philo);
-	pthread_join(end_thread, NULL);
-	pthread_join(trig_thread, NULL);
-	sem_close(philo->tab->log_sem);
-	sem_close(philo->tab->die_sem);
-	sem_close(philo->tab->forks_sem);
-	free(philo->tab->philo_pid);
-	return ;
 }
