@@ -22,9 +22,9 @@ int	check_args(int argc, char **argv, t_table *table)
 	table->t2d = ft_atou(argv[2]);
 	table->t2e = ft_atou(argv[3]);
 	table->t2s = ft_atou(argv[4]);
-	if (table->nop <= 0 || table->t2d < 0 || table->t2e < 0 || table->t2s < 0)
+	if (table->nop < 0 || table->t2d < 0 || table->t2e < 0 || table->t2s < 0)
 		return (FALSE);
-	table->noe = 0;
+	table->noe = -1;
 	if (argc == 6)
 	{
 		table->noe = ft_atou(argv[5]);

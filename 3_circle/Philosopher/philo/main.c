@@ -21,6 +21,8 @@ int	main(int argc, char **argv)
 	memset(&table, 0, sizeof(t_table));
 	if (check_args(argc, argv, &table) == FALSE)
 		return (str_error("Error : Invalid Arguments!", 1));
+	if (table.noe == 0 || table.nop == 0)
+		return (0);
 	if (init_philosophers(&table) == FALSE)
 		return (str_error("Error : Fail to set table", 1));
 	if (!pthread_create(&die_check, NULL, check_terminate, &table))
@@ -30,4 +32,5 @@ int	main(int argc, char **argv)
 		pthread_join(die_check, NULL);
 	}
 	clear_table(&table);
+	return (0);
 }
