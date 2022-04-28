@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:34 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 20:50:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:50:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ void	*thread_trigger(void *vargp)
 	philo = (t_philo *)vargp;
 	while (philo->die == 0)
 	{
-		if (philo->last_eat + philo->tab->t2d < get_ltime() || \
+		if (philo->last_eat + philo->tab->t2d * 1000< get_ltime() || \
 			philo->tab->full_philos == philo->tab->nop)
 		{
 			sem_wait(philo->tab->log_sem);
 			if (philo->die == 1)
 				break ;
 			if (philo->tab->full_philos != philo->tab->nop)
-				printf("%ld %d is died\n", get_ltime() - \
-				philo->tab->start, philo->id);
+				printf("%ld %d is died\n", (get_ltime() - \
+				philo->tab->start) / 1000, philo->id);
 			i = -1;
 			while (++i < philo->tab->nop)
 				sem_post(philo->tab->die_sem);
@@ -65,7 +65,8 @@ void	*thread_trigger(void *vargp)
 		}
 		usleep(10);
 	}
-	usleep(philo->tab->t2e * 1000);
+	// usleep(philo->tab->t2e * 1000);
+	mili_sleep(philo->tab->t2e);
 	sem_post(philo->tab->log_sem);
 	return (NULL);
 }

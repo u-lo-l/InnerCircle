@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 21:38:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:35:09 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 long	get_ltime(void)
 {
 	struct timeval	time;
-	long			mili_sec;
+	long			micro_sec;
 
 	gettimeofday(&time, NULL);
-	mili_sec = time.tv_sec * 1000000 + time.tv_usec;
-	return (mili_sec);
+	micro_sec = time.tv_sec * 1000000 + time.tv_usec;
+	return (micro_sec);
 }
 
 int	str_error(char *str, int ret)
@@ -58,21 +58,13 @@ long	ft_atou(char *str)
 	return (-1);
 }
 
-void	clear_table(t_table *table)
+void	mili_sleep(long msec)
 {
-	int	i;
-
-	i = -1;
-	while (++i < table->nop)
-	{
-		pthread_join(table->philos[i].phil_thread, NULL);
-		pthread_mutex_destroy(&(table->forks[i]));
-	}
-	pthread_mutex_destroy(&(table->log));
-	pthread_mutex_destroy(&(table->eat));
-	pthread_mutex_destroy(&(table->die_check));
-	free(table->philos);
-	free(table->forks);
+	long	start;
+	
+	start = get_ltime();
+	while (get_ltime() < start + msec * 1000)
+		usleep(50);
 }
 
 void	print_log(t_table *table, int philosopher_id, char *message)

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:15:47 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 14:51:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:47:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <signal.h>
-#include <sys/wait.h>
 
 long	get_ltime(void)
 {
@@ -25,7 +24,7 @@ long	get_ltime(void)
 	long			mili_sec;
 
 	gettimeofday(&time, NULL);
-	mili_sec = time.tv_sec * 1000 + time.tv_usec / 1000;
+	mili_sec = time.tv_sec * 1000000 + time.tv_usec;
 	return (mili_sec);
 }
 
@@ -60,23 +59,13 @@ long	ft_atou(char *str)
 	return (-1);
 }
 
-void	clear_table(t_table *table)
+void	mili_sleep(long msec)
 {
-	while (table->philo_cnt > 0)
-	{
-		waitpid(table->philo_pid[table->philo_cnt], NULL, 0);
-		usleep(100);
-		table->philo_cnt--;
-	}
-	sem_close(table->forks_sem);
-	sem_close(table->die_sem);
-	sem_close(table->log_sem);
-	sem_close(table->eat_sem);
-	sem_unlink(FORKS_SEM_NAME);
-	sem_unlink(DIE_SEM_NAME);
-	sem_unlink(LOG_SEM_NAME);
-	sem_unlink(EAT_SEM_NAME);
-	free(table->philo_pid);
+	long	start;
+
+	start = get_ltime();
+	while (get_ltime()< start + msec * 1000)
+		usleep(20);
 }
 
 int	print_log(t_philo *philo, char *message)
@@ -90,7 +79,7 @@ int	print_log(t_philo *philo, char *message)
 		return (FALSE);
 	}
 	timestamp = get_ltime() - philo->tab->start;
-	printf("%ld %d %s\n", timestamp, philo->id, message);
+	printf("%ld %d %s\n", timestamp / 1000, philo->id, message);
 	sem_post(philo->tab->log_sem);
 	return (TRUE);
 }

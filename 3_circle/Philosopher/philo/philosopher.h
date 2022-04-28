@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 21:37:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:29:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ typedef struct s_table
 /*utils*/
 long	ft_atou(char *str);
 int		str_error(char *str, int ret);
-void	clear_table(t_table *table);
 void	print_log(t_table *table, int philosopher_id, char *message);
 long	get_ltime(void);
+void	mili_sleep(long msec);
 
 /*preprocess*/
 int		check_args(int argc, char **argv, t_table *table);
 int		init_philosophers(t_table *table);
 int		init_thread(t_table *table);
+void	clear_table(t_table *table);
 
 /*philosopher*/
 void	*start_dining(void *vargp);

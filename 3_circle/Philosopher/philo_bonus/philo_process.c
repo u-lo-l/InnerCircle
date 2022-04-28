@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:53:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 20:44:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:51:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void	philo_process(t_philo *philo)
 	{
 		if (pick_fork_up(philo) == 0 || print_log(philo, "is eating") == 0)
 			break ;
-		philo->last_eat = get_ltime();
-		usleep(philo->tab->t2e * 1000);
+		// usleep(philo->tab->t2e * 1000);
+		mili_sleep(philo->tab->t2e);
 		put_fork_down(philo);
 		if (print_log(philo, "is sleeping") == FALSE)
 			break ;
-		usleep(philo->tab->t2s * 1000);
+		// usleep(philo->tab->t2s * 1000);
+		mili_sleep(philo->tab->t2s);
 		philo->eat_count++;
 		if (print_log(philo, "is thinking") == FALSE)
 			break ;

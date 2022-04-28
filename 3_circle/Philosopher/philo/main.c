@@ -6,12 +6,33 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 18:57:02 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 21:43:42 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:11:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 #include <string.h>
+#include <stdlib.h>
+
+void	clear_table(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table->nop)
+	{
+		if (table->philos[i].phil_thread != 0)
+			pthread_join(table->philos[i].phil_thread, NULL);
+	}
+	i = -1;
+	while (++i < table->nop)
+		pthread_mutex_destroy(&(table->forks[i]));
+	pthread_mutex_destroy(&(table->log));
+	pthread_mutex_destroy(&(table->eat));
+	pthread_mutex_destroy(&(table->die_check));
+	free(table->philos);
+	free(table->forks);
+}
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:16:06 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/26 20:45:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:40:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		str_error(char *str, int ret);
 void	clear_table(t_table *table);
 int		print_log(t_philo *philo, char *message);
 long	get_ltime(void);
+void	mili_sleep(long msec);
 
 /*preprocess*/
 int		check_args(int argc, char **argv, t_table *table);
