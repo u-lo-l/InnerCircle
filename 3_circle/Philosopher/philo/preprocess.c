@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:10:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/28 15:06:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/05/03 15:25:26 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	init_thread(t_table *table)
 		usleep(10);
 	}
 	i = 1;
-	usleep(table->t2e * 1000);
+	mili_sleep(table->t2e);
 	while (i < table->nop && table->die == 0)
 	{
 		if (pthread_create(&(table->philos[i].phil_thread), NULL, \
