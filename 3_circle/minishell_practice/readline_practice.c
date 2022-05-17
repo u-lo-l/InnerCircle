@@ -11,14 +11,16 @@ int main()
 
 	while (TRUE)
 	{
-		line = readline("PROMPT");
-		if (strcmp(line, "q") == 0)
+		line = readline("PROMPT > ");
+		if (line == NULL)
 		{
+			printf("\b\bexit\n");
 			free(line);
 			break;
 		}
 		else
 		{
+			add_history(line);
 			printf("%s\n", line);
 			free(line);
 		}
