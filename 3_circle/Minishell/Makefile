@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 19:20:57 by dkim2             #+#    #+#              #
-#    Updated: 2022/05/17 20:14:15 by dkim2            ###   ########.fr        #
+#    Updated: 2022/05/18 15:59:47 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = minishell
 
 OBJS_FILES = read_command.o\
-				main.o
+				main.o\
+				signal_handler.o
 OBJS = ${addprefix SRC/, ${OBJS_FILES}}
 
 SRCS = ${OBJS.o=.c}

@@ -2,6 +2,13 @@
 #include <stdlib.h>
 
 /*
+ * 전역변수가 하나 필요하다.
+ * 자식 프로세스의 exit status를 저장 할 변수가 전역변수로서 설정되어야한다.
+ * 이 것 외에도 환경변수를 포함 한 쉘 변수를 전역변수(extern)으로
+ * 설정하는 경우도 고려 해 봐야겠다.
+ */
+
+/*
  *	미니쉘이 실행되고 쉘 변수를 초기화 하는 부분이다.
  *	이 부분에서 빌트인 또한 초기화 될 것이다. (MAYBE)
  *	시그널 핸들러 처리도 여기 넣을 수 있다.
@@ -9,6 +16,8 @@
 int init_shell(int argc, char **argv, char **envp)
 {
 	if (argc > 1 || argv[1] != NULL || envp == NULL)
+		return (FALSE);
+	if (set_signal_handler() == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
@@ -39,11 +48,18 @@ int main(int argc, char **argv, char **envp)
 {
 	char *command_line;
 	
+	// 시그널 처리 및 환경변수, 빌트인 설정
 	if (init_shell(argc, argv, envp) == FALSE)
 		return (1);
 	while (1)
 	{
-		command_line = read_command("vv MINISHELL vv\n> ");
+		// 명령어 한 줄 읽어오기
+		command_line = read_command("mini >>  ");
+
+		// 읽어 온 명령어를 파싱하여 token_list를 생성한다.
+		// (우선은 리스트로 구현하고 개념이 이해되면 트리로 할 계획이다.)
+		
+		// 파싱 된 명령어를 실행한다.
 		free(command_line);
 	}
 	return (0);

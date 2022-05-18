@@ -1,4 +1,5 @@
 #include "../INC/minishell.h"
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -10,7 +11,10 @@ char *read_command(const char *promt)
 
 	command_line = readline(promt);
 	if (command_line == NULL)
-		exit(0);
+	{
+		write(2, "exit\n", 5);
+		exit (0);
+	}
 	else
 	{
 		add_history(command_line);
@@ -18,4 +22,5 @@ char *read_command(const char *promt)
 	}
 	return (command_line);
 }
+
 
