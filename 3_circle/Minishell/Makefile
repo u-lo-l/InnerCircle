@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 19:20:57 by dkim2             #+#    #+#              #
-#    Updated: 2022/05/18 15:59:47 by dkim2            ###   ########.fr        #
+#    Updated: 2022/05/19 16:07:22 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ OBJS = ${addprefix SRC/, ${OBJS_FILES}}
 
 SRCS = ${OBJS.o=.c}
 
+HEADERS = INC/minishell.h INC/minishell_datastructrue.h
+
 all : ${NAME}
 
 clean : 
@@ -37,9 +39,9 @@ re : clean all
 .PHONY : all clean fclean re
 
 ${NAME} : ${OBJS}
-		${CC} ${OBJS} -o ${NAME} -lreadline \
-		-L /Users/dkim2/.brew/opt/readline/lib \
-		-I /Users/dkim2/.brew/opt/readline/include
-
-.c.o :
-		${CC} ${CFLAGS} -c $< -o $@
+		${CC} -o ${NAME} ${OBJS} -lreadline \
+		-L/Users/dkim2/.brew/Cellar/readline/8.1.2/lib \
+		-I/Users/dkim2/.brew/Cellar/readline/8.1.2/include
+.c.o : ${HEADERS}
+		${CC} ${CFLAGS} -c $< -o $@ \
+		-I/Users/dkim2/.brew/Cellar/readline/8.1.2/include

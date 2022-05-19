@@ -12,7 +12,7 @@ char *read_command(const char *promt)
 	command_line = readline(promt);
 	if (command_line == NULL)
 	{
-		write(2, "exit\n", 5);
+		write(2, "\b\bexit\n", 7);
 		exit (0);
 	}
 	else
