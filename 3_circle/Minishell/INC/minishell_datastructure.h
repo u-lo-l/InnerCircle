@@ -1,5 +1,5 @@
 #ifndef MINISHELL_DATASTRUCTURE_H
-# define MINISEHLL_DATASTRUCTURE_H
+# define MINISHELL_DATASTRUCTURE_H
 
 /*global variable*/
 
