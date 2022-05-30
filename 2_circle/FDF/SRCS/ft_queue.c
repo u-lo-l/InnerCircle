@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../INC/fdf.h"
-#include <stdlib.h>
 
 t_queue	*ft_create_queque(void)
 {
