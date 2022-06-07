@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:04:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/04/28 15:44:55 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/05/03 15:25:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	*start_dining(void *vargp)
 		if (pick_fork_up(philo) == NULL)
 			return (NULL);
 		print_log(philo->tab, philo->id, "is eating");
-		// mili_sleep(philo->tab->t2e);
-		usleep(philo->tab->t2e * 1000);
+		mili_sleep(philo->tab->t2e);
 		if (philo->tab->die == 1)
 			return (put_fork_down(philo->lfork, philo->rfork));
 		philo->eat_count++;
@@ -36,8 +35,7 @@ void	*start_dining(void *vargp)
 		pthread_mutex_unlock(&(philo->tab->eat));
 		print_log(philo->tab, philo->id, "is sleeping");
 		put_fork_down(philo->lfork, philo->rfork);
-		// mili_sleep(philo->tab->t2s);
-		usleep(philo->tab->t2s * 1000);
+		mili_sleep(philo->tab->t2s);
 		print_log(philo->tab, philo->id, "is thinking");
 	}
 	return (NULL);

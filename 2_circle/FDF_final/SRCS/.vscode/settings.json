@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"fdf.h": "c",
-		"fdf_matrix.h": "c",
-		"fcntl.h": "c",
-		"math.h": "c"
-	}
-}
