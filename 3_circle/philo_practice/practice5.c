@@ -10,7 +10,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <string.h>
-#define NUM 10
+#define NUM 4
 #define SEMNAME "/semname"
 #define ENDSEM "/endsem"
 #define LOGSEM "/logsem"
