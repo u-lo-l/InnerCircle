@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 18:45:29 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/16 01:24:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/16 01:27:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_input	*read_command(char *prompt)
 	t_input	*input;
 	char	*trimed_input;
 	char	*colored_prompt;
-	char	*temp;
+//	char	*temp;
 	
 	input = ft_calloc(1, sizeof(t_input));
-	temp = ft_strjoin("\033[1;3;33m", prompt);
-	colored_prompt = ft_strjoin(temp, " > \033[0m");
+//	temp = ft_strjoin("\033[1;3;33m", prompt);
+	colored_prompt = ft_strjoin(prompt, " > ");
 	input->cmd = readline(colored_prompt);
-	free(temp);
+//	free(temp);
 	free(colored_prompt);
 	if (input->cmd == NULL)
 	{
