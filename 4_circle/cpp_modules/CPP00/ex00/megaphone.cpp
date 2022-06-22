@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include <iomanip>
 // NO STL(vector map lst ,,,), NO <algorithm>
 
 int main(int argc, char **argv)
@@ -9,6 +9,7 @@ int main(int argc, char **argv)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
 	else
 	{
+		
 		for (int i = 1 ; i < argc ; i++)
 		{
 			std::string str(argv[i]);
