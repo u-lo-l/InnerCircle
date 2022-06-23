@@ -1,19 +1,29 @@
 #include "contact.hpp"
 #include <iomanip>
 
-void		Contact::fillContact()
+bool		Contact::fillContact()
 {
-	std::cout << "Enter the first name: ";
+	std::cout << "\tEnter the first name     : ";
 	std::getline(std::cin, _names[0]);
-	std::cout << "Enter the last name: ";
+	if (std::cin.fail() == true)
+		return (false);
+	std::cout << "\tEnter the last name      : ";
 	std::getline(std::cin, _names[1]);
-	std::cout << "Enter the nickname: ";
+	if (std::cin.fail() == true)
+		return (false);
+	std::cout << "\tEnter the nickname       : ";
 	std::getline(std::cin, _names[2]);
-	std::cout << "Enter the phone number: ";
+	if (std::cin.fail() == true)
+		return (false);
+	std::cout << "\tEnter the phone number   : ";
 	std::getline(std::cin, _phoneNumber);
-	std::cout << "Enter the darkest secret: ";
+	if (std::cin.fail() == true)
+		return (false);
+	std::cout << "\tEnter the darkest secret : ";
 	std::getline(std::cin, _darkestSecret);
-	std::cout << "done!" << std::endl;
+	if (std::cin.fail() == true)
+		return (false);
+	return (true);
 }
 
 void	Contact::printNames() const

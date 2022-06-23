@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:39:10 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/22 17:39:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/22 22:15:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ private :
 public :
 	Contact() {};
 	~Contact() {};
-	void		fillContact();
-	void		printNames(void) const;
+	bool	fillContact();
+	void	printNames(void) const;
 };
 
 #endif

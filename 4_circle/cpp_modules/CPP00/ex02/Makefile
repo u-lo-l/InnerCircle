@@ -5,18 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/23 14:53:30 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/23 22:11:16 by dkim2            ###   ########.fr        #
+#    Created: 2022/06/23 15:24:55 by dkim2             #+#    #+#              #
+#    Updated: 2022/06/23 21:05:51 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = phonebook
+NAME = account
 
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
-SRCS = Phonebook.cpp Contact.cpp main.cpp
+SRCS = Account.cpp tests.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 all : ${NAME}
@@ -24,12 +24,12 @@ all : ${NAME}
 clean :
 	${RM} ${OBJS}
 
-fclean :
-	${RM} ${OBJS} ${NAME}
+fclean : clean
+	${RM} ${NAME}
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
 
 ${NAME} : ${OBJS}
 	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}

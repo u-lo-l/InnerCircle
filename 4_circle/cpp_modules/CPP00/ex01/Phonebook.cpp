@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:47:55 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/22 18:18:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/23 15:21:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,61 @@ Phonebook::Phonebook ()
 
 Phonebook::~Phonebook () {};
 
-void	Phonebook::addContact(void)
+bool	Phonebook::addContact(void)
 {
+	int	targetIndex;
+
 	if (_numOfConts < MAXCONTS)
-	{
-		_contacts[_numOfConts] = Contact();
-		_contacts[_numOfConts].fillContact();
-		_numOfConts++;
-	}
+		targetIndex = _numOfConts;	
 	else
+		targetIndex = _oldestIndex;
+	if (_contacts[targetIndex].fillContact() == false)
 	{
-		_contacts[_oldestIndex] = Contact();
-		_contacts[_oldestIndex].fillContact();
-		_oldestIndex++;
-		_oldestIndex %= MAXCONTS;
+		std::cin.clear();
+		std::cin.ignore(256, '\n');
+		std::cout << "\n\tfail to add contact\n";
+		return (false);
 	}
+	if (_numOfConts < MAXCONTS)
+		_numOfConts++;
+	else
+		++_oldestIndex %= MAXCONTS;
+	std::cout << "\tcontact added\n";
+	return (true);
 }
 
-void	Phonebook::searchContact(void) const
+bool	Phonebook::searchContact(void) const
 {
 	int idx;
 
 	if (_numOfConts == 0)
 	{
-		std::cout << "Phonebook is empty\n";
-		return ;
+		std::cout << "\tPhonebook is empty\n";
+		return (true);
 	}
-	std::cout << "Enter index to print :";
-	std::cin >> idx;
-	if (std::cin.fail())
+	while (true)
 	{
-		std::cout << "WRONG FORMAT\n";
+		std::cout << "\tEnter index to print : ";
+		(std::cin >> idx).get();
+		if (std::cin.good() == true)
+		{
+			if (idx < 0 || idx >= _numOfConts)
+			{
+				std::cout << "\tINDEX OUT OF RANGE : 0 ~ " << _numOfConts - 1 << std::endl;
+				continue ;
+			}
+			else
+			{
+				std::cout << std::setw(10) << idx << "|";
+				_contacts[idx].printNames();
+				break;
+			}
+		}
+		if (std::cin.fail() == true && std::cin.eof() == true)
+			return (false);
+		std::cout << "\tWRONG FORMAT\n";
 		std::cin.clear();
 		std::cin.ignore(256, '\n');
-		return ;
 	}
-	if (idx < 0 || idx >= _numOfConts)
-		std::cout << "INDEX OUT OF RANGE\n";
-	else
-	{
-		std::cout << std::setw(10) << idx << "|";
-		_contacts[idx].printNames();
-	}
+	return (true);
 }

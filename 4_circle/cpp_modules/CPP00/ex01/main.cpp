@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:06:14 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/22 18:01:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/23 15:17:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,30 @@
 
 int main()
 {
-	Phonebook phonebook;
-	std::cout << phonebook.getnoc() << std::endl;
+	Phonebook	phonebook;
 	std::string	cmd;
-	while (1)
+	bool		res;
+
+	res = true;
+	while (res == true)
 	{
+		std::cout << "ENTER command : ";
 		std::getline(std::cin, cmd);
-		if (cmd == "ADD")
-			phonebook.addContact();
+		if (std::cin.fail() == true)
+			res = false;
+		else if (cmd == "ADD")
+			res = phonebook.addContact();
 		else if (cmd == "SEARCH")
-			phonebook.searchContact();
+			res = phonebook.searchContact();
 		else if (cmd == "EXIT")
 			break;
+		else
+			std::cout << "commands : [ADD, SEARCH, EXIT]" << std::endl;
+	}
+	if (res == false)
+	{
+		std::cout << "input error. quit program\n";
+		return (1);
 	}
 	return (0);
 }
