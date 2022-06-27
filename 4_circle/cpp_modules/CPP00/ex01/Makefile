@@ -6,13 +6,15 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/23 14:53:30 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/23 22:11:16 by dkim2            ###   ########.fr        #
+#    Updated: 2022/06/27 11:42:41 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.SUFFIXES: .cpp .o
+
 NAME = phonebook
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
@@ -32,4 +34,6 @@ re : fclean all
 .PHONY : all clean fclean re
 
 ${NAME} : ${OBJS}
-	${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}
+	${CXX} ${OBJS} -o ${NAME}
+.cpp.o:
+	${CXX} ${CXXFLAGS} -c $< -o $@

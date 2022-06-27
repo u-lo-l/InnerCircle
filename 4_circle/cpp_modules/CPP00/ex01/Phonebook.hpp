@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/23 15:13:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 #include <iostream>
 #include <string>
-#include "contact.hpp"
+#include "Contact.hpp"
 
 
 class Phonebook
 {
 private :
-	const static int MAXCONTS = 3;
+	const static int MAXCONTS = 8;
 	Contact _contacts[MAXCONTS];
 	int		_numOfConts;
 	int		_oldestIndex;

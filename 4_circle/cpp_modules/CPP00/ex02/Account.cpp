@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:25:09 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/23 22:43:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/27 11:50:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void Account::_displayTimestamp( void )
 	std::cout << std::setw(2) << localTime.tm_min;
 	std::cout << std::setw(2) << localTime.tm_sec;
 	std::cout << "]";
-	std::cout << set::setfill('_');
+	std::cout << std::setfill('_');
 }
 
 Account::Account( void )
