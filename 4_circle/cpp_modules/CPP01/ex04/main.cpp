@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:27:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 17:11:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/06/28 14:00:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include <fstream>
 #include <istream>
 
-void exit_err(std::string str)
-{
-	std::cout << str << std::endl;
-	exit (1);
-}
+void exit_err(std::string str);
+
+void ft_replace(std::string & source, const std::string & s1, const std::string &s2);
 
 int main(int argc, char **argv)
 {
@@ -40,7 +38,6 @@ int main(int argc, char **argv)
 		inFile.close();
 		exit_err("Fail to make replace file");
 	}
-
 	std::string temp("");
 	std::string line;
 	while (true)
@@ -48,12 +45,35 @@ int main(int argc, char **argv)
 		std::getline(inFile, line);
 		if (inFile.fail() == true)
 		{
-			inFile.close();
-			outFile.close();
-			exit_err("Unexpected File Error\n");
+			std::cout << "infile failed\n";
+			std::cout << "curr teemp : " << temp;
+			// break ;
 		}
-
-		if (inFile.eof() == true)
+		temp += line;
+		if (inFile.eof() == false)
+			temp += "\n";
+		else
+		{
+			std::cout << "met EOF\n";
 			break;
+		}
 	}
+	inFile.close();
+	ft_replace(temp, string1, string2);
+	outFile << temp;
+	outFile.close();
+}
+
+void exit_err(std::string str)
+{
+	std::cout << str << std::endl;
+	exit (1);
+}
+
+void ft_replace(std::string & source, const std::string & s1, const std::string &s2)
+{
+	const size_t s1_len = s1.length();
+	size_t	start = 0;
+	while ((start = source.find(s1, start)) != std::string::npos)
+		source.erase(start, s1_len).insert(start, s2);
 }
