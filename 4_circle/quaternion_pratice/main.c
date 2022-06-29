@@ -52,5 +52,6 @@ int main()
 
 	printf("\n\n\n");
 	t_vec3 *C = cross(Y, X);
+	printf("j_hat cross i_hat -> ");
 	printf("C : [%3.3f, %3.3f, %3.3f]\n",C->x, C->y, C->z);
 }
