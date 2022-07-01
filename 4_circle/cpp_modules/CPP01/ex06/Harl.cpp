@@ -6,21 +6,31 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:41:23 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/02 04:43:45 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/02 04:40:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
 
 
-const std::string Harl::_LEVEL[4] = {
-	"DEBUG", "INFO", "WARNING", "ERROR"
+const std::string Harl::_LEVEL[5] = {
+	"DEBUG",
+	"INFO",
+	"WARNING",
+	"ERROR",
+	"I am not sure how tired I am today..."
 };
+
+void	Harl::_extra( void )
+{
+	std::cout << "[ Probably complaining about insignificant problems]";
+	std::cout << std::endl;
+}
 
 void	Harl::_debug( void )
 {
 	std::cout << "[ DEBUG ]\n";
-	std::cout << "I love having extra bacon for my &XL=double-cheese";
+	std::cout << "I love having extra bacon for my 7XL-double-cheese";
 	std::cout << "-triple-pickle-special-ketchup burger. I really do!\n";
 	std::cout << std::endl;
 }
@@ -58,13 +68,21 @@ Harl::Harl( void )
 	_complaints[3] = &Harl::_error;
 }
 
-Harl::~Harl( void ) {}	
+Harl::~Harl( void ) {}
 
 void	Harl::complain( std::string level)
 {
+	if (level == _LEVEL[4])
+	{
+		_extra();
+		return ;
+	}
 	for (int i = 0 ; i < 4 ; i++)
 	{
 		if (level == _LEVEL[i])
-			(this->*_complaints[i])();
+		{
+			for (;i < 4; i++)
+				(this->*_complaints[i])();
+		}
 	}
 }

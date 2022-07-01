@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 14:35:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/02 00:42:50 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 15:31:24 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/02 04:41:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "Harl.hpp"
 
-class Harl
+int main(int argc, char ** argv)
 {
-private :
-	const static std::string _LEVEL[4];
-	void	(Harl::*_complaints[4])(void);
-	
-	void	_debug( void );
-	void	_info( void );
-	void	_warning( void );
-	void	_error( void );
-public :
-	Harl( void );
-	~Harl( void );
-	void 	complain( std::string level);
-};
+	Harl H;
 
+	if (argc != 2)
+		return (1);
+	H.complain(argv[1]);
+	return (0);
+}
