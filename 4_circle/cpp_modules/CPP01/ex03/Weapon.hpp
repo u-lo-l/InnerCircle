@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 14:35:13 by dkim2             #+#    #+#             */
+/*   Updated: 2022/06/27 15:43:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONEBOOK_HPP_
-# define _PHONEBOOK_HPP_
-
+#pragma once
 #include <iostream>
-#include <string>
-#include "Contact.hpp"
 
-
-class Phonebook
+class Weapon
 {
 private :
-	const static int MAXCONTS = 8;
-	Contact _contacts[MAXCONTS];
-	int		_numOfConts;
-	int		_oldestIndex;
+	std::string _type;
 public :
-	Phonebook ();
-	~Phonebook ();
-
-	bool	addContact(void);
-	bool	searchContact(void) const;
+	Weapon( void );
+	Weapon( std::string type );
+	~Weapon( void );
+	const std::string & getType( void );
+	void setType( std::string type );
 };
 
-#endif

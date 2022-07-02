@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 12:02:03 by dkim2             #+#    #+#             */
+/*   Updated: 2022/06/27 12:17:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONEBOOK_HPP_
-# define _PHONEBOOK_HPP_
+#include "Zombie.hpp"
 
-#include <iostream>
-#include <string>
-#include "Contact.hpp"
+Zombie::Zombie( std::string name ) : _name(name) {}
 
-
-class Phonebook
+Zombie::~Zombie( void )
 {
-private :
-	const static int MAXCONTS = 8;
-	Contact _contacts[MAXCONTS];
-	int		_numOfConts;
-	int		_oldestIndex;
-public :
-	Phonebook ();
-	~Phonebook ();
+	std::cout << "(R I P] : " << _name << std::endl;
+}
 
-	bool	addContact(void);
-	bool	searchContact(void) const;
-};
-
-#endif
+void Zombie::announce( void )
+{
+	std::cout << _name << " : BraiiiiiiinnnzzzZ\n";
+}

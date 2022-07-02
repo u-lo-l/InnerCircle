@@ -6,11 +6,11 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:06:14 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/23 15:17:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/01 17:31:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
 	res = true;
 	while (res == true)
 	{
-		std::cout << "ENTER command : ";
+		std::cout << "ENTER command [ADD, SEARCH, EXIT] : ";
 		std::getline(std::cin, cmd);
 		if (std::cin.fail() == true)
 			res = false;
@@ -31,12 +31,10 @@ int main()
 			res = phonebook.searchContact();
 		else if (cmd == "EXIT")
 			break;
-		else
-			std::cout << "commands : [ADD, SEARCH, EXIT]" << std::endl;
 	}
 	if (res == false)
 	{
-		std::cout << "input error. quit program\n";
+		std::cout << "<err>input error. quit program\n";
 		return (1);
 	}
 	return (0);

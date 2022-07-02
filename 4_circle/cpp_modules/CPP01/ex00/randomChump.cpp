@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   randomChump.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 12:13:19 by dkim2             #+#    #+#             */
+/*   Updated: 2022/06/27 12:15:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONEBOOK_HPP_
-# define _PHONEBOOK_HPP_
+#include "Zombie.hpp"
 
-#include <iostream>
-#include <string>
-#include "Contact.hpp"
-
-
-class Phonebook
+void Zombie::randomChump( std::string name )
 {
-private :
-	const static int MAXCONTS = 8;
-	Contact _contacts[MAXCONTS];
-	int		_numOfConts;
-	int		_oldestIndex;
-public :
-	Phonebook ();
-	~Phonebook ();
-
-	bool	addContact(void);
-	bool	searchContact(void) const;
-};
-
-#endif
+	Zombie tempZombie(name);
+	tempZombie.announce();
+}

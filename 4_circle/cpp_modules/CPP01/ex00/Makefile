@@ -5,35 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/23 14:53:30 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/27 11:42:41 by dkim2            ###   ########.fr        #
+#    Created: 2022/06/27 11:11:12 by dkim2             #+#    #+#              #
+#    Updated: 2022/06/27 12:25:28 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = phonebook
-
-CXX = c++
+CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-RM = rm -f
 
-SRCS = Phonebook.cpp Contact.cpp main.cpp
+NAME = zombie
+SRCS = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 all : ${NAME}
 
 clean :
-	${RM} ${OBJS}
+	rm -f ${OBJS}
 
-fclean :
-	${RM} ${OBJS} ${NAME}
-
+fclean : clean
+	rm -f ${NAME};
+	
 re : fclean all
-
-.PHONY : all clean fclean re
 
 ${NAME} : ${OBJS}
 	${CXX} ${OBJS} -o ${NAME}
-.cpp.o:
+.cpp.o :
 	${CXX} ${CXXFLAGS} -c $< -o $@

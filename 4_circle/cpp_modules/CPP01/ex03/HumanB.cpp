@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 15:09:38 by dkim2             #+#    #+#             */
+/*   Updated: 2022/06/27 16:20:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONEBOOK_HPP_
-# define _PHONEBOOK_HPP_
+#include "HumanB.hpp"
 
-#include <iostream>
-#include <string>
-#include "Contact.hpp"
+HumanB::HumanB(std::string name) : _name(name) {}
 
+HumanB::~HumanB() {}
 
-class Phonebook
+void HumanB::attack( void )
 {
-private :
-	const static int MAXCONTS = 8;
-	Contact _contacts[MAXCONTS];
-	int		_numOfConts;
-	int		_oldestIndex;
-public :
-	Phonebook ();
-	~Phonebook ();
+	std::cout << _name << " attacks with their ";
+	std::cout << _weapon->getType() << std::endl;
+}
 
-	bool	addContact(void);
-	bool	searchContact(void) const;
-};
-
-#endif
+void HumanB::setWeapon(Weapon * weapon)
+{
+	_weapon = weapon;
+}

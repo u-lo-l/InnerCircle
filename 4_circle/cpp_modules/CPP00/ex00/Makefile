@@ -6,13 +6,15 @@
 #    By: dkim2 <dkim2@student.42Seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 15:09:45 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/22 15:27:30 by dkim2            ###   ########.fr        #
+#    Updated: 2022/06/27 11:38:12 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.SUFFIXEX: .cpp .o
+
 NAME = megaphone
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
@@ -32,4 +34,7 @@ re : fclean all
 .PHONY: all clean fclean re
 
 ${NAME} : ${OBJS}
-	${CXX} ${CXXFLAGS} -o ${NAME} ${OBJS}
+	${CXX} ${OBJS} -o ${NAME}
+
+.cpp.o :
+	${CXX} ${CXXFLAGS} -c $< -o $@

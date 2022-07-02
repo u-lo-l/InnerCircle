@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 15:44:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 11:40:53 by dkim2            ###   ########.fr       */
+/*   Created: 2022/06/27 14:35:13 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/02 00:42:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _PHONEBOOK_HPP_
-# define _PHONEBOOK_HPP_
-
 #include <iostream>
-#include <string>
-#include "Contact.hpp"
 
-
-class Phonebook
+class Harl
 {
 private :
-	const static int MAXCONTS = 8;
-	Contact _contacts[MAXCONTS];
-	int		_numOfConts;
-	int		_oldestIndex;
+	const static std::string _LEVEL[4];
+	void	(Harl::*_complaints[4])(void);
+	
+	void	_debug( void );
+	void	_info( void );
+	void	_warning( void );
+	void	_error( void );
 public :
-	Phonebook ();
-	~Phonebook ();
-
-	bool	addContact(void);
-	bool	searchContact(void) const;
+	Harl( void );
+	~Harl( void );
+	void 	complain( std::string level);
 };
 
-#endif

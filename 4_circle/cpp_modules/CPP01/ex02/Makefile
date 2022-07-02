@@ -5,35 +5,34 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/23 14:53:30 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/27 11:42:41 by dkim2            ###   ########.fr        #
+#    Created: 2022/06/27 14:19:03 by dkim2             #+#    #+#              #
+#    Updated: 2022/06/27 14:31:00 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = phonebook
-
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-RM = rm -f
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRCS = Phonebook.cpp Contact.cpp main.cpp
-OBJS = ${SRCS:.cpp=.o}
+NAME = brain
+SRC = main.cpp
+OBJ = main.o
 
 all : ${NAME}
 
 clean :
-	${RM} ${OBJS}
+	rm -f ${OBJ}
 
-fclean :
-	${RM} ${OBJS} ${NAME}
+fclean : clean
+	rm -rf ${NAME}
 
-re : fclean all
+re	: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
 
-${NAME} : ${OBJS}
-	${CXX} ${OBJS} -o ${NAME}
-.cpp.o:
+${NAME} : ${OBJ}
+	$(CXX) ${OBJ} -o ${NAME}
+
+.cpp.o :
 	${CXX} ${CXXFLAGS} -c $< -o $@
