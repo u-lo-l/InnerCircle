@@ -6,21 +6,22 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:29:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/04 01:41:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 #include <iostream>
 
-void	ClapTrap::_showPoints( void )
+// protected member function
+void	ClapTrap::_showPoints( void ) const
 {
 	std::cout << "hitpoint : " << _hitPoint;
 	std::cout << " energypoint : " << _energyPoint;
 }
 
+// Cosntruct, Destruct
 ClapTrap::ClapTrap()
-: _hitPoint(10), _energyPoint(10), _attackDamage(0)
 {
 	std::cout << "ClapTrap default constructor\n";
 }
@@ -57,6 +58,7 @@ ClapTrap & ClapTrap::operator=(const ClapTrap & c)
 	return (*this);
 }
 
+// setter
 void	ClapTrap::setName( std::string name )
 {	this->_name = name; }
 void	ClapTrap::setHitPoint( int amount )
@@ -65,7 +67,7 @@ void	ClapTrap::setEnergePoint( int amount )
 {	this->_energyPoint = amount; }
 void	ClapTrap::setAttackDamage( int amount )
 {	this->_attackDamage = amount; }
-
+// getter
 std::string		ClapTrap::getName( void ) const
 {	return (_name); }
 int	ClapTrap::getHitPoint( void ) const
@@ -75,6 +77,7 @@ int	ClapTrap::getEnergePoint( void ) const
 int	ClapTrap::getAttackDamage( void ) const
 {	return (_attackDamage); }
 
+// methods
 void	ClapTrap::attack( const std::string & target )
 {
 	if (_hitPoint == 0 || _energyPoint == 0)

@@ -6,12 +6,14 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 12:33:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:55:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/04 01:37:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 #include <iostream>
+
+FragTrap::FragTrap() {}
 
 FragTrap::FragTrap(std::string name)
 	: ClapTrap(name, 100, 100, 30)
@@ -43,7 +45,7 @@ FragTrap & FragTrap::operator=(const FragTrap & c)
 	return (*this);
 }
 
-void FragTrap::attack(const std::string & target)
+void	FragTrap::attack(const std::string & target)
 {
 	if (getHitPoint() == 0 || getEnergePoint() == 0)
 	{

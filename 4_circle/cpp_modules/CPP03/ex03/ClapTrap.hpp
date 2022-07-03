@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:39 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:26:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/03 22:54:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ private:
 	int				_attackDamage;
 protected :
 	static const int	_COST = 1;
-	void				_showPoints( void );
+	void				_showPoints( void ) const;
 public:
 	ClapTrap();
 	ClapTrap(std::string name, int h = 10, int e = 10, int a = 0);
-	~ClapTrap( void );
+	virtual ~ClapTrap( void );
 	ClapTrap(const ClapTrap & c);
 	ClapTrap & operator=(const ClapTrap & c);
 
@@ -42,9 +42,9 @@ public:
 	int			getEnergePoint( void ) const;
 	int			getAttackDamage( void ) const;
 	
-	void	attack( const std::string & target );
-	void	takeDamage( int amount );
-	void	beRepaired( int amount );
+	virtual void	attack( const std::string & target );
+	void			takeDamage( int amount );
+	void			beRepaired( int amount );
 };
 
 #endif

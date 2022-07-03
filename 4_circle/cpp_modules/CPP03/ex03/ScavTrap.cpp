@@ -6,12 +6,14 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 02:43:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:56:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/03 23:52:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 #include <iostream>
+
+ScavTrap::ScavTrap() {}
 
 ScavTrap::ScavTrap(std::string name)
 	: ClapTrap(name, 100, 50, 20)
