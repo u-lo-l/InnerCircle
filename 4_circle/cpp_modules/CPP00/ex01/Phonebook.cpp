@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:47:55 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/01 17:26:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:02:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Phonebook::Phonebook ()
 	_oldestIndex = 0;
 }
 
-Phonebook::~Phonebook () {};
+Phonebook::~Phonebook () {}
 
 bool	Phonebook::addContact(void)
 {

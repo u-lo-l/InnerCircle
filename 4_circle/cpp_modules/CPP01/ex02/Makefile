@@ -6,14 +6,14 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 14:19:03 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/27 14:31:00 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/04 15:04:05 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
 CXX = c++
-CXXFLAGS = -Wall -Werror -Wextra -std=c++98
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 
 NAME = brain
 SRC = main.cpp

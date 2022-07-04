@@ -6,14 +6,14 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 11:11:12 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/02 04:09:47 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/04 15:04:20 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = harl
 SRCS = main.cpp Harl.cpp

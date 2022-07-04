@@ -6,14 +6,14 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 13:48:11 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/28 13:50:04 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/04 15:04:15 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = no_more_sed
 SRC = main.cpp

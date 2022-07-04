@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42Seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 15:09:45 by dkim2             #+#    #+#              #
-#    Updated: 2022/06/27 11:38:12 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/04 15:00:19 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = megaphone
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98
 RM = rm -f
 
 OBJS = megaphone.o

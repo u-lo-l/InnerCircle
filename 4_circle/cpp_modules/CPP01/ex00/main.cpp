@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:17:36 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 12:24:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:05:06 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int main()
 	Zombie zombieInStack("Sombie");
 	zombieInStack.announce();
 
-	system("leaks zombie");
+	// system("leaks zombie");
 	return (0);
 }
