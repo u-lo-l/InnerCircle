@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_strsetlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/07 15:44:11 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/07 19:25:25 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
+#include "libft.h"
 
-typedef struct s_ray
+int	ft_strsetlen(char **strset)
 {
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
+	int	i;
 
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
-
-#endif
+	i = 0;
+	while (strset[i])
+		i++;
+	return (i);
+}

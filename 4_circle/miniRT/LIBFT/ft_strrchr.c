@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2021/11/22 12:36:46 by dkim2             #+#    #+#             */
+/*   Updated: 2021/12/07 16:26:19 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
+#include "libft.h"
 
-typedef struct s_ray
+char	*ft_strrchr(const char *s, int c)
 {
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
+	const char	*temp;
+	int			size;
+	int			i;
 
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
-
-#endif
+	size = ft_strlen(s);
+	temp = NULL;
+	i = 0;
+	while (i <= size)
+	{
+		if (s[i] == (char)c)
+			temp = &s[i];
+		i++;
+	}
+	return ((char *)temp);
+}

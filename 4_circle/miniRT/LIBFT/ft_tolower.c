@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2021/11/22 12:28:27 by dkim2             #+#    #+#             */
+/*   Updated: 2021/11/22 12:31:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
-
-typedef struct s_ray
+int	ft_tolower(int c)
 {
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
-
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
-
-#endif
+	if (c >= 'A' && c <= 'Z')
+		c += 'a' - 'A';
+	return (c);
+}

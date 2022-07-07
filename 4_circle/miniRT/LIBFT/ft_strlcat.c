@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2021/11/19 23:52:32 by dkim2             #+#    #+#             */
+/*   Updated: 2021/11/22 12:23:39 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
+#include "libft.h"
 
-typedef struct s_ray
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
+	size_t	i;
+	size_t	dstlen;
+	size_t	srclen;
 
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
-
-#endif
+	dstlen = ft_strlen(dst);
+	srclen = ft_strlen(src);
+	i = 0;
+	if (size < dstlen)
+		return (size + srclen);
+	while (dstlen + i + 1 < size && src[i])
+	{
+		dst[dstlen + i] = src[i];
+		i++;
+	}
+	dst[dstlen + i] = '\0';
+	return (dstlen + srclen);
+}

@@ -1,31 +1,56 @@
-.SUFFIXES : .c .o
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/07/06 19:49:19 by dkim2             #+#    #+#              #
+#    Updated: 2022/07/08 06:17:40 by dkim2            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = gcc
+.SUFFIXES: .c .o
+
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
-NAME  = miniRT
+NAME = miniRT
+LIBS = ./LIBFT/libft.a
+LIBV = ./Libft_vector/libvector.a
 
-OBJ_M_DIR = ./SRCS/
-OBJS_FILE = main
+OBJ_FILES = main.o read_file.o\
+			object.o light.o camera.o \
+			scene1.o scene2.o \
+			scene_utils.o print_scene.o print_scene2.o
+OBJS = ${addprefix SRC/, ${OBJ_FILES}}
 
-OBJS_M = ${addprefix ${OBJ_M_DIR}, ${addsuffix .o, ${OBJS_FILE}}}
-
-SRCS_M = ${OBJS_M.o=.c}
+SRCS = ${OBJS:.o = .c}
 
 all : ${NAME}
 
 clean :
-	${RM} ${OBJS_M} ${OBJS_B}
+	@make -C ./LIBFT clean
+	@make -C ./Libft_vector clean
+	${RM} ${OBJS}
 
 fclean : clean
+	@make -C ./LIBFT fclean
+	@make -C ./Libft_vector fclean
 	${RM} ${NAME}
 
 re : fclean all
 
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re
 
-${NAME} : ${OBJS}
-	${CC} ${OBJS} -Lmlx -lmlx -framework OpenGL -framework AppKit -o ${NAME}
+${NAME} : ${OBJS} ${LIBS} ${LIBV}
+	${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+
+${LIBS} :
+	@make -C ./LIBFT all
+${LIBV} :
+	@make -C ./Libft_vector all
+
 .c.o :
-	${CC} ${CFLAGS} -Wall -Wextra -Werror -Imlx -c $< -o $@
+	${CC} ${CFLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@

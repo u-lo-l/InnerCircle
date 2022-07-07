@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2021/11/22 12:40:02 by dkim2             #+#    #+#             */
+/*   Updated: 2022/06/01 13:19:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
+#include "libft.h"
 
-typedef struct s_ray
+typedef const unsigned char	t_cu_char;
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
+	size_t			i;
+	unsigned char	*temp1;
+	unsigned char	*temp2;
 
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
-
-#endif
+	temp1 = (unsigned char *)s1;
+	temp2 = (unsigned char *)s2;
+	i = 0;
+	while ((i < n) && (temp1[i] || temp2[i]))
+	{
+		if (temp1[i] != temp2[i])
+			return (temp1[i] - temp2[i]);
+		i++;
+	}
+	return (0);
+}

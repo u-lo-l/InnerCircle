@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   transform.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 08:02:51 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 17:22:06 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/08 04:50:53 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/08 07:21:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "../Libft_vector/vector3.h"
+#ifndef TRANSFORM_H
+# define TRANSFORM_H
+# include "matrix33.h"
+# include "quaternion.h"
 
-typedef struct s_ray
-{
-	t_vec3			*org;
-	t_vec3			*dir;
-	struct s_ray	*next;
-}	t_ray;
-
-t_ray	*set_ray(t_vec3 *org, t_vec3 *dir);
-void	**free_ray(t_ray **pray);
+t_vec3	transform_by_mat33(t_mat33 *T, t_vec3 *x);
+t_vec3	rotate_vec3_rad(t_vec3 *axis, double rad, t_vec3 *x);
+t_vec3	rotate_vec3_deg(t_vec3 *axis, double deg, t_vec3 *x);
 
 #endif

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quaternion.h                                       :+:      :+:    :+:   */
+/*   matrix33.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 07:30:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/08 07:21:12 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/06 20:12:33 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/08 07:21:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef QUATERNION_H
-# define QUATERNION_H
+#ifndef MATRIX33_H
+# define MATRIX33_H
 # include "vector3.h"
 
 # ifndef TRUE
@@ -21,25 +21,18 @@
 #  define FALSE (0)
 # endif
 
-typedef struct s_quat
+typedef struct s_mat33
 {
-	double	w;
-	t_vec3	k;
-}	t_quat;
+	t_vec3	r1;
+	t_vec3	r2;
+	t_vec3	r3;
+}	t_mat33;
 
-t_quat	quat_by_elements(double const x, double const y, \
-						double const z, double const w);
+t_mat33	create_mat33(t_vec3 *v1, t_vec3 *v2, t_vec3 *v3);
+t_mat33	mat33_trans(t_mat33 *v1);
 
-t_quat	quat_by_vector(double const w, t_vec3 *k);
-
-t_quat	quat_normalize(t_quat *quat);
-
-t_quat	quat_conjugate(t_quat *quat);
-
-t_quat	quat_inverse(t_quat *quat);
-
-double	quat_l2norm(t_quat *quat);
-
-t_quat	quat_mul(t_quat *quat1, t_quat *qaut2);
+t_mat33	add_mat33(t_mat33 *v1, t_mat33 *v2);
+t_mat33	subtract_mat33(t_mat33 *v1, t_mat33 *v2);
+t_mat33	mul_mat33(t_mat33 *v1, t_mat33 *v2);
 
 #endif
