@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/08 07:23:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/09 20:09:06 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 static void	put_mat33(t_mat33 m)
 {
-	printf("⎡%3.3f %3.3f %3.3f⎤\n", m.r1.x, m.r2.x, m.r3.x);
-	printf("⎢%3.3f %3.3f %3.3f⎥\n", m.r1.y, m.r2.y, m.r3.y);
-	printf("⎣%3.3f %3.3f %3.3f⎦\n", m.r1.z, m.r2.z, m.r3.z);
+	printf("⎡% 3.3f % 3.3f % 3.3f⎤\n", m.r1.x, m.r2.x, m.r3.x);
+	printf("⎢% 3.3f % 3.3f % 3.3f⎥\n", m.r1.y, m.r2.y, m.r3.y);
+	printf("⎣% 3.3f % 3.3f % 3.3f⎦\n", m.r1.z, m.r2.z, m.r3.z);
 }
 
 static t_mat33	get_transformation_mat(t_vec3 *k)
@@ -37,7 +37,7 @@ static t_mat33	get_transformation_mat(t_vec3 *k)
 		v = create_vec3(-1, 0, 0);
 	else
 	{
-		u = create_vec3(-w.y, -w.x, 0);
+		u = create_vec3(-w.y, w.x, 0);
 		v = vec3_cross(&w, &u);
 	}
 	mat = create_mat33(&u, &v, &w);

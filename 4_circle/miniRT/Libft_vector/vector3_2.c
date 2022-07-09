@@ -6,13 +6,14 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 22:44:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/09 20:09:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 t_vec3	vec3_subtract(t_vec3 *a, t_vec3 *b)
 {

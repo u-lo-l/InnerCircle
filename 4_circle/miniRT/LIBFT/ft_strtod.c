@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:32:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 19:27:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/09 20:25:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,54 +23,73 @@ static void	free_strset(char **strset)
 	free(strset);
 }
 
-static double	fractional_part(char *str)
+static int	fractional_part(char *str, double *frac)
 {
 	int		p;
 	int		i;
-	double	res;
 
 	p = 10;
 	while (ft_isspace(*str))
 		str++;
-	res = 0.0;
+	*frac = 0.0;
 	if (ft_strlen(str) > 7)
 		str[7] = '\0';
 	i = 0;
 	while (ft_isdigit(str[i]))
 	{
-		res += (double)(str[i++] - '0') / p;
+		*frac += (double)(str[i++] - '0') / p;
 		p *= 10;
 	}
 	if (str[i] != '\0')
-		return (-1.0);
-	return (res);
+		return (0);
+	return (1);
+}
+
+static char	**preprocess(const char *str, int *minus)
+{
+	char	*temp;
+	char	**num;
+
+	temp = ft_strtrim(str, " \t\v\n\r\f");
+	if (temp == NULL)
+		return (0);
+	*minus = 0;
+	if ((temp[0] == '-' || temp[0] == '+') && (temp[0] == '-'))
+		*minus = 1;
+	num = ft_split(temp + *minus, ".");
+	free(temp);
+	if (num == NULL)
+		return (NULL);
+	if (ft_isdigit(num[0][0]) == 0)
+		return (NULL);
+	return (num);
 }
 
 int	ft_strtod(const char *str, double *res)
 {
 	char	**num;
+	int		minus;
 	int		int_part;
 	double	frac_part;
 
-	num = ft_split(str, ".");
-	if (!num)
+	num = preprocess(str, &minus);
+	if (num == NULL)
 		return (0);
 	if (num[0] == NULL || ft_strtoi(num[0], &int_part) == 0)
 	{
 		free_strset(num);
 		return (0);
 	}
-	*res = (double)int_part;
+	frac_part = 0;
 	if (num[1] != NULL && num[2] == NULL)
 	{
-		frac_part = fractional_part(num[1]);
-		if (frac_part < 0)
+		if (fractional_part(num[1], &frac_part) == 0)
+		{
+			free_strset(num);
 			return (0);
-		if (*res < 0)
-			*res -= frac_part;
-		else
-			*res += frac_part;
+		}
 	}
+	*res = int_part + (1 - minus) * frac_part - minus * frac_part;
 	free_strset(num);
 	return (1);
 }
