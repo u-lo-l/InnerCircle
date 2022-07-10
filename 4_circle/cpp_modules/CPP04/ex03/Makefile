@@ -6,17 +6,17 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 00:20:11 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/10 05:22:07 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/10 23:47:21 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = animal
+NAME = materia
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
+SRCS = main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp MateriaSource.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 all : ${NAME}

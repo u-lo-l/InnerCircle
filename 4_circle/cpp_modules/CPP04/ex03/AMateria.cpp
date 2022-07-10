@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 06:09:18 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 20:58:09 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/10 20:33:14 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/11 02:11:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_HPP
-# define ICE_HPP
-# include "AMateria.hpp"
+#include "AMateria.hpp"
+#include <iostream>
 
-class Ice : public AMateria
+AMateria::AMateria( std::string const & type ) : _name(type)
 {
-public:
-	Ice( void );
-	Ice( const Ice & I );
-	virtual ~Ice( void );
-	Ice		&operator=( const Ice &other );
-	virtual AMateria	*clone( void ) const ;
-	virtual void		use(ICharacter& target);
-};
+	std::cout << "AMateria : Contructor with string called\n";
+}
 
-#endif
+AMateria::~AMateria()
+{
+	std::cout << "AMateria : Default Destructor called\n";
+}
+
+std::string	const & AMateria::getType( void ) const
+{
+	return (_name);
+}
