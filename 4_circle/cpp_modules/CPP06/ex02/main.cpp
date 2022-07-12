@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 08:03:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 15:59:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/12 17:23:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void identify( Base * p );
 
 void identify( Base & p);
 
+const int ITERATION = 10;
+
 int main()
 {
 	Base *b;
 
-	std::cout << "Identify by pointer (10times)\n";
-	for (int i = 0 ; i < 10; i++)
+	std::cout << "Identify by pointer (" << ITERATION << "times)\n";
+	for (int i = 0 ; i < ITERATION; i++)
 	{
 		std::cout << "#" << i << " : ";
 		b = generate();
@@ -39,8 +41,8 @@ int main()
 		delete b;
 	}
 
-	std::cout << "Identify by reference (10times)\n";
-	for (int i = 0 ; i < 10; i++)
+	std::cout << "Identify by reference (" << ITERATION << "times)\n";
+	for (int i = 0 ; i < ITERATION; i++)
 	{
 		std::cout << "#" << i << " : ";
 		b = generate();
