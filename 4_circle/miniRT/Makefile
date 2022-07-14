@@ -6,11 +6,13 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 19:49:19 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/08 06:17:40 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/14 09:54:24 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .c .o
+
+UNAME_S = ${shell uname -s}
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
@@ -27,6 +29,9 @@ OBJ_FILES = main.o read_file.o\
 OBJS = ${addprefix SRC/, ${OBJ_FILES}}
 
 SRCS = ${OBJS:.o = .c}
+
+
+
 
 all : ${NAME}
 
@@ -45,7 +50,12 @@ re : fclean all
 .PHONY : all clean fclean re
 
 ${NAME} : ${OBJS} ${LIBS} ${LIBV}
-	${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+ifeq ( $(UNAME_S), "Darwin" )
+		shell echo "HI"
+		${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+else
+		${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
+endif
 
 ${LIBS} :
 	@make -C ./LIBFT all
@@ -53,4 +63,8 @@ ${LIBV} :
 	@make -C ./Libft_vector all
 
 .c.o :
-	${CC} ${CFLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@
+ifeq ( ${UNAME_S}, "Darwin" )
+		${CC} ${CFLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@
+else
+		${CC} ${CFLAGS} -Imlx -c $< -o $@
+endif
