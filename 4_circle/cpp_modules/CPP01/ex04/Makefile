@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/28 13:48:11 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/04 15:04:15 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/15 19:27:54 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = no_more_sed
-SRC = main.cpp
+SRC = main.cpp no_more_sed.cpp
 OBJ = ${SRC:.cpp=.o}
 
 all : ${NAME}

@@ -6,20 +6,14 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:27:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/15 19:11:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 19:27:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "no_more_sed.hpp"
 #include <iostream>
-#include <cstdlib>
-#include <fstream>
 #include <istream>
-
-void exit_err(const std::string str);
-
-static bool read_from_file(const std::string & filename, std::string & temp);
-
-void ft_replace(std::string & source, const std::string & s1, const std::string &s2);
+#include <fstream>
 
 int main(int argc, char **argv)
 {
@@ -40,48 +34,5 @@ int main(int argc, char **argv)
 	ft_replace(temp, string1, string2);
 	outFile << temp;
 	outFile.close();
-}
-
-void exit_err(const std::string str)
-{
-	std::cout << str << std::endl;
-	exit (1);
-}
-
-static bool read_from_file(const std::string & filename, std::string & temp)
-{
-	std::ifstream inFile;
-	
-	inFile.open(filename.c_str());
-	if (inFile.is_open() == false)
-		exit_err("Fail to open " + filename);
-	temp = "";
-	std::string line;
-	while (true)
-	{
-		std::getline(inFile, line);
-		if (inFile.eof() == true)
-		{
-			temp += line;
-			break;
-		}
-		if (inFile.fail() == true)
-		{
-			std::cerr << "Failed to read file\n";
-			inFile.close();
-			return (false) ;
-		}
-		temp += (line + '\n');
-	}
-	inFile.close();
-	return (true);
-}
-
-void ft_replace(std::string & source, const std::string & s1, const std::string &s2)
-{
-	const size_t s1_len = s1.length();
-	size_t	start = 0;
-	
-	while ((start = source.find(s1, start)) != std::string::npos)
-		source.erase(start, s1_len).insert(start, s2);
+	return (0);
 }
