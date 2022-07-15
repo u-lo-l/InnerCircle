@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 19:22:53 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/15 19:27:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 20:36:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,22 @@ void exit_err(const std::string str)
 
 bool read_from_file(const std::string & filename, std::string & temp)
 {
+
 	std::ifstream inFile;
 	
 	inFile.open(filename.c_str());
 	if (inFile.is_open() == false)
 		exit_err("Fail to open " + filename);
-	temp = "";
+	temp = std::string();
 	std::string line;
+	inFile.seekg(0, std::ios::end);
+	if (static_cast<unsigned long>(inFile.tellg()) >= temp.max_size())
+	{
+		inFile.close();
+		std::cout << "file " << filename << " is too big\n";
+		return (false);
+	}
+	inFile.seekg(0);
 	while (true)
 	{
 		std::getline(inFile, line);
