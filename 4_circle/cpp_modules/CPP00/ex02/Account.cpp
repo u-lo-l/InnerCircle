@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:25:09 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/15 11:15:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 11:17:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ int Account::_totalNbWithdrawals = 0;
 //time stamp format : [YYYYMMDD_hhmmss]
 void Account::_displayTimestamp( void )
 {
-	// std::time_t currTime = std::time(0);
-	// struct tm localTime;
-	// localtime_r(&currTime, &localTime);
-	// std::cout << std::setfill('0');
-	// std::cout << "[";
-	// std::cout << std::setw(4) << localTime.tm_year + 1900;
-	// std::cout << std::setw(2) << localTime.tm_mon + 1;
-	// std::cout << std::setw(2) << localTime.tm_mday;
-	// std::cout << "_";
-	// std::cout << std::setw(2) << localTime.tm_hour;
-	// std::cout << std::setw(2) << localTime.tm_min;
-	// std::cout << std::setw(2) << localTime.tm_sec;
-	// std::cout << "] ";
-	// std::cout << std::setfill(' ');
-	std::cout << "[19920104_091532] ";
+	std::time_t currTime = std::time(0);
+	struct tm localTime;
+	localtime_r(&currTime, &localTime);
+	std::cout << std::setfill('0');
+	std::cout << "[";
+	std::cout << std::setw(4) << localTime.tm_year + 1900;
+	std::cout << std::setw(2) << localTime.tm_mon + 1;
+	std::cout << std::setw(2) << localTime.tm_mday;
+	std::cout << "_";
+	std::cout << std::setw(2) << localTime.tm_hour;
+	std::cout << std::setw(2) << localTime.tm_min;
+	std::cout << std::setw(2) << localTime.tm_sec;
+	std::cout << "] ";
+	std::cout << std::setfill(' ');
+	// std::cout << "[19920104_091532] ";
 
 }
 

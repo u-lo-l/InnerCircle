@@ -6,26 +6,31 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 06:38:10 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 07:56:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 11:38:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <stdint.h> // for uintptr_t
 
-struct Data
+struct BASE1 {};
+struct BASE2 {};
+
+struct Data : public BASE1, public BASE2
 {
-	int	a, b, c;
+	int	a;
+	std::string b;
+	float c;
 };
 
 inline uintptr_t serialize( Data * ptr)
 {
-	return (uintptr_t(ptr));
+	return (reinterpret_cast<uintptr_t>( ptr ));
 }
 
 inline Data * deserialize( uintptr_t raw )
 {
-	return ((Data *)(raw));
+	return (reinterpret_cast<Data *>( raw ));
 }
 
 int main()
@@ -35,12 +40,15 @@ int main()
 	uintptr_t	raw;
 
 	ptr->a = 10;
-	ptr->b = 20;
-	ptr->c = 30;
-	std::cout << "Original data : ";
-	std::cout << "a : " << ptr->a <<", b : " << ptr->b << ", c : " << ptr->c << std::endl;
+	ptr->b = "sampe string";
+	ptr->c = 123.45f;
+	std::cout << "Original data : \n";
+	std::cout << "	addr : " << ptr << " : " << reinterpret_cast<unsigned long>(ptr) << std::endl;
+	std::cout << "	a : " << ptr->a <<", b : " << ptr->b << ", c : " << ptr->c << std::endl;
 	raw = serialize(ptr);
+	std::cout << "Serialized -> " << raw << std::endl;
 	ptr2 = deserialize(raw);
-	std::cout << "   New   data : ";
-	std::cout << "a : " << ptr2->a << ", b : " << ptr2->b << ", c : " << ptr2->c << std::endl;
+	std::cout << "   New   data : \n";
+	std::cout << "	addr : " << ptr2 << " : " << reinterpret_cast<unsigned long>(ptr2) << std::endl;
+	std::cout << "	a : " << ptr2->a << ", b : " << ptr2->b << ", c : " << ptr2->c << std::endl;
 }
