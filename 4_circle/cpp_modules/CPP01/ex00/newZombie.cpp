@@ -6,13 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:11:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/06/27 12:13:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 11:43:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie * Zombie::newZombie( std::string name )
+Zombie *newZombie( std::string name )
 {
 	return (new Zombie(name));
 }

@@ -6,13 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:51:10 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 15:07:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 18:12:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string name, Weapon & weapon)
+HumanA::HumanA(const std::string & name, Weapon & weapon)
 : _name(name), _weapon(weapon) {}
 
 HumanA::~HumanA() {}

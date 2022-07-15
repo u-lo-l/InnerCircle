@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:27:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 15:13:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 19:11:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <istream>
 
 void exit_err(const std::string str);
+
+static bool read_from_file(const std::string & filename, std::string & temp);
 
 void ft_replace(std::string & source, const std::string & s1, const std::string &s2);
 
@@ -27,20 +29,33 @@ int main(int argc, char **argv)
 	std::string string1(argv[2]);
 	std::string string2(argv[3]);
 
-	std::ifstream inFile;
-	std::ofstream outFile;
+	std::string temp;
+	if (read_from_file(filename, temp) == false)
+		return (1);
 
+	std::ofstream outFile;
+	outFile.open((filename + ".replace").c_str());
+	if (outFile.is_open() == false)
+		exit_err("Fail to make .replace file");
+	ft_replace(temp, string1, string2);
+	outFile << temp;
+	outFile.close();
+}
+
+void exit_err(const std::string str)
+{
+	std::cout << str << std::endl;
+	exit (1);
+}
+
+static bool read_from_file(const std::string & filename, std::string & temp)
+{
+	std::ifstream inFile;
+	
 	inFile.open(filename.c_str());
 	if (inFile.is_open() == false)
 		exit_err("Fail to open " + filename);
-	outFile.open((filename + ".replace").c_str());
-
-	if (outFile.is_open() == false)
-	{
-		inFile.close();
-		exit_err("Fail to make replace file");
-	}
-	std::string temp("");
+	temp = "";
 	std::string line;
 	while (true)
 	{
@@ -52,24 +67,14 @@ int main(int argc, char **argv)
 		}
 		if (inFile.fail() == true)
 		{
-			inFile.clear();
 			std::cerr << "Failed to read file\n";
 			inFile.close();
-			outFile.close();
-			break ;
+			return (false) ;
 		}
 		temp += (line + '\n');
 	}
 	inFile.close();
-	ft_replace(temp, string1, string2);
-	outFile << temp;
-	outFile.close();
-}
-
-void exit_err(const std::string str)
-{
-	std::cout << str << std::endl;
-	exit (1);
+	return (true);
 }
 
 void ft_replace(std::string & source, const std::string & s1, const std::string &s2)

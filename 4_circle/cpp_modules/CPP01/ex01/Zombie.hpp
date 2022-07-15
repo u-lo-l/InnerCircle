@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:55:34 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 15:05:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 15:40:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ class Zombie
 private :
 	std::string _name;
 public :
-	Zombie( std::string name = "Anonymous");
+	Zombie( void );
+	Zombie( std::string name );
 	~Zombie( void );
 	void announce( void ) const;
 	void setname( std::string name );

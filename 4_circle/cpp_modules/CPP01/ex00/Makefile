@@ -6,13 +6,13 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 11:11:12 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/04 15:03:54 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/15 11:50:48 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
 NAME = zombie

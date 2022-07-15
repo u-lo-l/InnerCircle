@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:23:00 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 15:06:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/15 15:52:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int main()
 {
 	std::string	str("HI THIS IS BRAIN");
-	std::string * stringPTR = &str;
+	std::string * stringPTR;
+	stringPTR = &str;
 	std::string & stringREF = str;
 	
 	std::cout << "======================================" << std::endl;
 	std::cout << "mem address of  str   : " << &str << std::endl;
-	std::cout << "mem address of strPTR : " << &stringPTR << std::endl;
+	std::cout << "mem address of strPTR : " << stringPTR << std::endl;
 	std::cout << "mem address of strREF : " << &stringREF << std::endl;
 	std::cout << "======================================" << std::endl;
 	std::cout << "value of  str   : " << str << std::endl;
