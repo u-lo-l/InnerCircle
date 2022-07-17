@@ -16,17 +16,17 @@
 class Fixed
 {
 private :
+	const static int _FRACBITS;
 	int	_value;
-	const static int _bits;
 public :
 	Fixed( void );
 	Fixed(const Fixed & fp);
 	~Fixed( void );
 
-	Fixed & operator=(Fixed const & fp);
+	Fixed & operator=( const Fixed & fp );
 
 	int getRawBits( void ) const;
-	void setRawBits( int const raw);
+	void setRawBits( int const raw );
 };
 
 #endif

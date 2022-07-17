@@ -20,7 +20,10 @@ int	main( void )
 {
 	Point tri[3], p;
 
-	std::cout << "BSP : Ctrl + C to Quit\n\n";
+	std::cout << "BSP : Ctrl + C to Quit\n";
+	std::cout << "\033[3;31m";
+	std::cout << "unexpected input may occur error. \033[1mjust use number\n";
+	std::cout << "\033[0m";
 	if ( setTriangle(tri) == false)
 		return (1);
 	std::cout << "triangle info\n";

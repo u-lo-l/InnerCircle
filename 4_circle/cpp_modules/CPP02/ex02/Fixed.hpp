@@ -19,7 +19,7 @@ class Fixed
 {
 private :
 	int	_value;
-	const static int _bits;
+	const static int _FRACBITS;
 public :
 	Fixed( void );
 	Fixed(const Fixed & fp);

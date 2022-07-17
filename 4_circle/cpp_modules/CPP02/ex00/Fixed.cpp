@@ -13,7 +13,7 @@
 #include "Fixed.hpp"
 #include <iostream>
 
-const int Fixed::_bits = 8;
+const int Fixed::_FRACBITS = 8;
 
 Fixed::Fixed( void )
 {
@@ -21,16 +21,10 @@ Fixed::Fixed( void )
 	_value = 0;
 }
 
-// Fixed::Fixed(const Fixed & fp)
-// {
-// 	std::cout << "Copy constructor called\n";
-// 	_value = fp.getRawBits();
-// }
-
 Fixed::Fixed(const Fixed & fp)
 {
 	std::cout << "Copy constructor called\n";
-	*this = fp;
+	_value = fp.getRawBits();
 }
 
 Fixed::~Fixed( void )

@@ -14,7 +14,7 @@
 #include <iostream>
 #include <cmath>
 
-const int Fixed::_bits = 8;
+const int Fixed::_FRACBITS = 8;
 
 Fixed::Fixed( void )
 {
@@ -31,13 +31,13 @@ Fixed::Fixed(const Fixed & fp)
 Fixed::Fixed(const int n)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_value = n << Fixed::_bits;
+	this->_value = n << Fixed::_FRACBITS;
 }
 
 Fixed::Fixed(const float f)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->_value = roundf(f * (1 << Fixed::_bits));
+	this->_value = roundf(f * (1 << Fixed::_FRACBITS));
 }
 
 Fixed::~Fixed( void )
@@ -68,12 +68,12 @@ void Fixed::setRawBits( int const raw )
 
 float Fixed::toFloat(void) const
 {
-	return ((float)(this->_value) / float(1 << Fixed::_bits));
+	return ((float)(this->_value) / float(1 << Fixed::_FRACBITS));
 }
 
 int Fixed::toInt(void) const
 {
-	return (this->_value >> Fixed::_bits);
+	return (this->_value >> Fixed::_FRACBITS);
 }
 
 std::ostream & operator<<(std::ostream & os, const Fixed & fp)

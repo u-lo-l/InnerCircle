@@ -19,22 +19,23 @@ class Fixed
 {
 private :
 	int	_value;
-	const static int _bits;
+	const static int _FRACBITS;
 public :
 	Fixed( void );
 	Fixed(const Fixed & fp);
-	Fixed(const int n);
-	Fixed(const float f);
+	Fixed(const int n); // constructor takes constant integer
+	Fixed(const float f); // constructor takes constant float
 	~Fixed( void );
 
 	Fixed & operator=(Fixed const & fp);
 
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
-	float toFloat( void ) const;
-	int toInt( void ) const;
+	float toFloat( void ) const; //member function converts fixed to float
+	int toInt( void ) const; //member function converts fixed to int
 };
 
+//overload <<
 std::ostream & operator<<(std::ostream & os, const Fixed & c);
 
 #endif

@@ -14,7 +14,7 @@
 #include <iostream>
 #include <cmath>
 
-const int Fixed::_bits = 8;
+const int Fixed::_FRACBITS = 8;
 
 Fixed Fixed::min(Fixed & f1, Fixed & f2)
 {
@@ -48,10 +48,10 @@ Fixed::Fixed(const Fixed & fp)
 { *this = fp; }
 
 Fixed::Fixed(const int n)
-{ this->_value = n << Fixed::_bits; }
+{ this->_value = n << Fixed::_FRACBITS; }
 
 Fixed::Fixed(const float f)
-{ this->_value = roundf(f * (1 << Fixed::_bits)); }
+{ this->_value = roundf(f * (1 << Fixed::_FRACBITS)); }
 
 Fixed::~Fixed( void ){ }
 
@@ -91,7 +91,7 @@ bool Fixed::operator!=(const Fixed  & fp) const
 Fixed Fixed::operator+(const Fixed &fp) const
 {
 	Fixed	val = Fixed(*this);
-
+	
 	val.setRawBits(this->_value + fp.getRawBits());
 	return (val);
 }
@@ -105,17 +105,19 @@ Fixed Fixed::operator-(const Fixed &fp) const
 Fixed Fixed::operator*(const Fixed &fp) const
 {
 	Fixed	val = Fixed(*this);
-	long	temp[2] = {long(_value), long(fp.getRawBits())};
+	long	temp[2] = {_value, fp.getRawBits()};
 
-	val.setRawBits((temp[0] * temp[1]) >> Fixed::_bits);
+	int	res = static_cast<int>(temp[0] * temp[1]);
+	val.setRawBits(res >> Fixed::_FRACBITS);
 	return (val);
 }
 Fixed Fixed::operator/(const Fixed &fp) const
 {
 	Fixed	val = Fixed(*this);
-	long	temp[2] = {long(_value), long(fp.getRawBits())};
+	long	temp[2] = {_value, fp.getRawBits()};
 
-	val.setRawBits((temp[0] << Fixed::_bits) / temp[1]);
+	int	res = static_cast<int> (temp[0] << Fixed::_FRACBITS);
+	val.setRawBits(res / temp[1]);
 	return (val);
 }
 
@@ -151,10 +153,10 @@ void Fixed::setRawBits( int const raw )
 { this->_value = raw; }
 
 float Fixed::toFloat(void) const
-{ return ((float)(this->_value) / float(1 << Fixed::_bits)); }
+{ return ((float)(this->_value) / float(1 << Fixed::_FRACBITS)); }
 
 int Fixed::toInt(void) const
-{ return (this->_value >> Fixed::_bits); }
+{ return (this->_value >> Fixed::_FRACBITS); }
 
 std::ostream & operator<<(std::ostream & os, const Fixed & fp)
 {
