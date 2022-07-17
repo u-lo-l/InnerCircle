@@ -70,12 +70,12 @@ Harl::Harl( void )
 
 Harl::~Harl( void ) {}
 
-void	Harl::complain( std::string level)
+bool	Harl::complain( std::string level)
 {
 	if (level == _LEVEL[4])
 	{
 		_extra();
-		return ;
+		return (true);
 	}
 	for (int i = 0 ; i < 4 ; i++)
 	{
@@ -83,6 +83,8 @@ void	Harl::complain( std::string level)
 		{
 			for (;i < 4; i++)
 				(this->*_complaints[i])();
+			return (true);
 		}
 	}
+	return (false);
 }

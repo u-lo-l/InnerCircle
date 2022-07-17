@@ -26,5 +26,5 @@ private :
 public :
 	Harl( void );
 	~Harl( void );
-	void 	complain( std::string level);
+	bool 	complain( std::string level);
 };
