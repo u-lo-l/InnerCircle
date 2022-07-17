@@ -13,17 +13,19 @@
 #include "ScavTrap.hpp"
 #include <iostream>
 
+ScavTrap::ScavTrap() : ClapTrap() {}
+
 ScavTrap::ScavTrap(std::string name)
 	: ClapTrap(name, 100, 50, 20)
 {
 	std::cout << "ScavTrap constructor with name : ";
-	std::cout << getName() << std::endl;
+	std::cout << this->getName() << std::endl;
 }
 
 ScavTrap::~ScavTrap()
 {
 	std::cout << "ScavTrap default destructor name : ";
-	std::cout << getName() << std::endl;
+	std::cout << this->getName() << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap & c)
@@ -47,13 +49,13 @@ void ScavTrap::attack(const std::string & target)
 {
 	if (getHitPoint() == 0 || getEnergePoint() == 0)
 	{
-		std::cout << "ScavTrap | " << getName();
+		std::cout << "ScavTrap " << getName();
 		std::cout << " Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
 	}
-	std::cout << "ScavTrap | " << getName() <<  " attacks ";
+	std::cout << "ScavTrap " << getName() <<  " attacks ";
 	std::cout << target << ", causing " << getAttackDamage();
 	std::cout << " points of damage!\n";
 	setEnergePoint(getEnergePoint() - ScavTrap::_COST);
@@ -64,5 +66,5 @@ void ScavTrap::attack(const std::string & target)
 
 void ScavTrap::guardGate( void )
 {
-	std::cout << "ScavTrap | " << getName() << "is now in Gatekeeper mode\n";
+	std::cout << "ScavTrap " << this->getName() << "is now in Gatekeeper mode\n";
 }

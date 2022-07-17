@@ -18,29 +18,31 @@ int	main(void)
 	std::string s1 = "CLAP";
 	std::string s2 = "SCAV";
 
-	ClapTrap claptrap(s1);
-	ScavTrap scavtrap(s2);
+	ClapTrap * claptrap = new ClapTrap(s1);
+	ClapTrap * scavtrap = new ScavTrap(s2);
 
 	std::cout << std::endl;
-	claptrap.attack(s2);
-	scavtrap.takeDamage(0);
-	scavtrap.beRepaired(18);
+	claptrap->attack(s2);
+	scavtrap->takeDamage(0);
+	scavtrap->beRepaired(18);
 	std::cout << std::endl;
-	scavtrap.attack(s1);
-	claptrap.takeDamage(20);
-	scavtrap.attack(s1);
-	claptrap.takeDamage(20);
-	scavtrap.attack(s1);
-	claptrap.beRepaired(64);
+	scavtrap->attack(s1);
+	claptrap->takeDamage(20);
+	scavtrap->attack(s1);
+	claptrap->takeDamage(20);
+	scavtrap->attack(s1);
+	claptrap->beRepaired(64);
 	std::cout << std::endl;
-	scavtrap.guardGate();
-	scavtrap.attack(s1);
+	//scavtrap->guardGate();
+	scavtrap->attack(s1);
 	std::cout << std::endl;
-	scavtrap.takeDamage(100);
-	scavtrap.takeDamage(1);
-	scavtrap.attack(s2);
-	scavtrap.beRepaired(200);
+	scavtrap->takeDamage(100);
+	scavtrap->takeDamage(1);
+	scavtrap->attack(s2);
+	scavtrap->beRepaired(200);
 	
 	std::cout << std::endl;
+	delete claptrap;
+	delete scavtrap;
 	return (0);
 }

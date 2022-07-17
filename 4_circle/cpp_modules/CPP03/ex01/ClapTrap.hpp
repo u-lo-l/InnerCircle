@@ -23,16 +23,16 @@ private:
 	int				_energyPoint;
 	int				_attackDamage;
 protected :
-	static const int	_COST = 1;
+	enum	{_COST = 1};
 	void				_showPoints( void );
 public:
 	ClapTrap();
-	ClapTrap(std::string name, int h = 10, int e = 10, int a = 0);
+	ClapTrap(const std::string & name, int h = 10, int e = 10, int a = 0);
 	virtual ~ClapTrap( void );
 	ClapTrap(const ClapTrap & c);
 	ClapTrap & operator=(const ClapTrap & c);
 
-	void	setName( std::string name );
+	void	setName( const std::string & name );
 	void	setHitPoint( int amount );
 	void	setEnergePoint( int amount );
 	void	setAttackDamage( int ammount );
@@ -43,8 +43,8 @@ public:
 	int			getAttackDamage( void ) const;
 	
 	virtual void	attack( const std::string & target );
-	void			takeDamage( int amount );
-	void			beRepaired( int amount );
+	virtual void	takeDamage( int amount );
+	virtual void	beRepaired( int amount );
 };
 
 #endif

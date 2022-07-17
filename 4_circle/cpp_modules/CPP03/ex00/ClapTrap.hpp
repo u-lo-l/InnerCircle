@@ -26,7 +26,7 @@ private:
 	void	_showPoints( void );
 public:
 	ClapTrap();
-	ClapTrap(std::string name);
+	ClapTrap(const std::string & name);
 	~ClapTrap( void );
 	ClapTrap(const ClapTrap & c);
 	ClapTrap & operator=(const ClapTrap & c);

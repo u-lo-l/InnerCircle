@@ -25,7 +25,7 @@ ClapTrap::ClapTrap()
 	std::cout << "ClapTrap default constructor\n";
 }
 
-ClapTrap::ClapTrap( std::string name, int h, int e, int a)
+ClapTrap::ClapTrap( const std::string & name, int h, int e, int a)
 : _name(name), _hitPoint(h), _energyPoint(e), _attackDamage(a)
 {
 	std::cout << "ClapTrap constructor with name : ";
@@ -57,7 +57,7 @@ ClapTrap & ClapTrap::operator=(const ClapTrap & c)
 	return (*this);
 }
 
-void	ClapTrap::setName( std::string name )
+void	ClapTrap::setName( const std::string & name )
 {	this->_name = name; }
 void	ClapTrap::setHitPoint( int amount )
 {	this->_hitPoint = amount; }
@@ -79,13 +79,13 @@ void	ClapTrap::attack( const std::string & target )
 {
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
-		std::cout << "ClapTrap | " << _name;
+		std::cout << "ClapTrap " << _name;
 		std::cout << " Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
 	}
-	std::cout << "ClapTrap | " << _name <<  " attacks ";
+	std::cout << "ClapTrap " << _name <<  " attacks ";
 	std::cout << target << ", causing " << _attackDamage;
 	std::cout << " points of damage!\n";
 	_energyPoint -= ClapTrap::_COST;
@@ -98,13 +98,13 @@ void	ClapTrap::takeDamage( int amount )
 {
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
-		std::cout << "ClapTrap | " << _name;
+		std::cout << "ClapTrap " << _name;
 		std::cout << " Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
 	}
-	std::cout << "ClapTrap | " << _name <<  " got ";
+	std::cout << "ClapTrap " << _name <<  " got ";
 	std::cout << amount << " damages\n";
 	_hitPoint = std::max(0, _hitPoint - amount);
 	std::cout << "\tremain points -> ";
@@ -116,7 +116,7 @@ void	ClapTrap::beRepaired( int amount )
 {
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
-		std::cout << "ClapTrap | " << _name;
+		std::cout << "ClapTrap " << _name;
 		std::cout << " Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
@@ -124,7 +124,7 @@ void	ClapTrap::beRepaired( int amount )
 	}
 	_hitPoint = std::min(10, _hitPoint + amount);
 	_energyPoint -= ClapTrap::_COST;
-	std::cout << "ClapTrap | " << _name <<  " repaired ";
+	std::cout << "ClapTrap " << _name <<  " repaired ";
 	std::cout << amount << " hitpoints\n";
 	std::cout << "\tremain points -> ";
 	_showPoints();

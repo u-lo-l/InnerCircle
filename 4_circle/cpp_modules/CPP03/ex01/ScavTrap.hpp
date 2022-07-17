@@ -18,13 +18,14 @@
 class ScavTrap : public ClapTrap
 {
 public :
+	ScavTrap();
 	ScavTrap(std::string name);
 	ScavTrap(const ScavTrap & c);
 	virtual ~ScavTrap();
 	ScavTrap & operator=(const ScavTrap & c);
 
 	virtual void	attack(const std::string & target);
-	void 			guardGate( void );
+	virtual void	guardGate( void );
 };
 
 #endif
