@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:39 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 22:13:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/17 20:03:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,14 @@
 
 class ClapTrap
 {
-private:
-	std::string		_name;
-	int				_hitPoint;
-	int				_energyPoint;
-	int				_attackDamage;
 protected :
-	enum	{_COST = 1};
-	void				_showPoints( void );
-public:
+	std::string	_name;
+	int			_hitPoint;
+	int			_energyPoint;
+	int			_attackDamage;
+	void		_showPoints( void );
 	ClapTrap();
+public:
 	ClapTrap(const std::string & name, int h = 10, int e = 10, int a = 0);
 	virtual ~ClapTrap( void );
 	ClapTrap(const ClapTrap & c);
@@ -45,6 +43,8 @@ public:
 	virtual void	attack( const std::string & target );
 	virtual void	takeDamage( int amount );
 	virtual void	beRepaired( int amount );
+
+	virtual void	guardGate( void );
 };
 
 #endif

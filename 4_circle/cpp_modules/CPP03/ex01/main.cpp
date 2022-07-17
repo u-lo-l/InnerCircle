@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 01:38:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:27:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/17 20:10:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 	scavtrap->attack(s1);
 	claptrap->beRepaired(64);
 	std::cout << std::endl;
-	//scavtrap->guardGate();
+	scavtrap->guardGate();
 	scavtrap->attack(s1);
 	std::cout << std::endl;
 	scavtrap->takeDamage(100);
@@ -42,7 +42,7 @@ int	main(void)
 	scavtrap->beRepaired(200);
 	
 	std::cout << std::endl;
-	delete claptrap;
 	delete scavtrap;
+	delete claptrap;
 	return (0);
 }
