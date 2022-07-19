@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/17 20:06:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 18:43:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,3 @@ void	ClapTrap::beRepaired( int amount )
 	_showPoints();
 	std::cout << std::endl;
 }
-
-void	ClapTrap::guardGate( void ) {}

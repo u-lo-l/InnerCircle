@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:17:56 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 01:40:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 19:36:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ public :
 	DiamondTrap & operator=( const DiamondTrap & D );
 
 	virtual void	attack( const std::string & target );
+	virtual void	takeDamage( int amount );
+	virtual void	beRepaired( int amount );
 	void			whoAmI() const;
 };
 

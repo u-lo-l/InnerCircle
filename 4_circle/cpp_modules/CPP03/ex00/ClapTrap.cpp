@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 01:56:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 14:41:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,45 @@ ClapTrap & ClapTrap::operator=(const ClapTrap & c)
 }
 
 void	ClapTrap::setName( std::string name )
-{	this->_name = name; }
+{	
+	this->_name = name;
+}
 void	ClapTrap::setHitPoint( int amount )
-{	this->_hitPoint = amount; }
+{
+	this->_hitPoint = amount;
+}
 void	ClapTrap::setEnergePoint( int amount )
-{	this->_energyPoint = amount; }
+{
+	this->_energyPoint = amount;
+}
 void	ClapTrap::setAttackDamage( int amount )
-{	this->_attackDamage = amount; }
+{
+	this->_attackDamage = amount;
+}
 
 std::string		ClapTrap::getName( void ) const
-{	return (_name); }
+{
+	return (_name);
+}
 int	ClapTrap::getHitPoint( void ) const
-{	return (_hitPoint); }
+{
+	return (_hitPoint);
+}
 int	ClapTrap::getEnergePoint( void ) const
-{	return (_energyPoint); }
+{
+	return (_energyPoint);
+}
 int	ClapTrap::getAttackDamage( void ) const
-{	return (_attackDamage); }
+{
+	return (_attackDamage);
+}
 
 void	ClapTrap::attack( const std::string & target )
 {
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
 		std::cout << "ClapTrap " << _name;
-		std::cout << " : Not enough point -> ";
+		std::cout << " cannot attack. Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
@@ -93,7 +109,7 @@ void	ClapTrap::attack( const std::string & target )
 	std::cout << "ClapTrap " << _name <<  " attacks ";
 	std::cout << target << ", causing " << _attackDamage;
 	std::cout << " points of damage!\n";
-	_energyPoint -= ClapTrap::_COST;
+	_energyPoint--;;
 	std::cout << "\tremain points -> ";
 	_showPoints();
 	std::cout << std::endl;
@@ -104,7 +120,7 @@ void	ClapTrap::takeDamage( int amount )
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
 		std::cout << "ClapTrap " << _name;
-		std::cout << " : Not enough point -> ";
+		std::cout << " already dead. Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
@@ -122,13 +138,13 @@ void	ClapTrap::beRepaired( int amount )
 	if (_hitPoint == 0 || _energyPoint == 0)
 	{
 		std::cout << "ClapTrap " << _name;
-		std::cout << " : Not enough point -> ";
+		std::cout << " cannot repair. Not enough point -> ";
 		_showPoints();
 		std::cout << std::endl;
 		return ;
 	}
 	_hitPoint = std::min(10, _hitPoint + amount);
-	_energyPoint -= ClapTrap::_COST;
+	_energyPoint--;
 	std::cout << "ClapTrap " << _name <<  " repaired ";
 	std::cout << amount << " hitpoints\n";
 	std::cout << "\tremain points -> ";

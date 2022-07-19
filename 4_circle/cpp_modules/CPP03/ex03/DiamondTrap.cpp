@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:25:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 01:40:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 20:02:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 DiamondTrap::DiamondTrap()
 :	ClapTrap(), ScavTrap(), FragTrap()
 {
-	ClapTrap::setName("_clap_name");
-	std::cout << "DiamondTrap constructor\n";
+	std::cout << "DiamondTrap default constructor" << std::endl;
 }
 
 DiamondTrap::DiamondTrap( std::string name )
@@ -30,12 +29,12 @@ DiamondTrap::DiamondTrap( std::string name )
 
 DiamondTrap::~DiamondTrap()
 {
-	std::cout << "ScavTrap default destructor name : ";
+	std::cout << "DiamondTrap default destructor name : ";
 	std::cout << _name << std::endl;
 }
 
 DiamondTrap::DiamondTrap( const DiamondTrap & D )
-:	ClapTrap(D.getName() + "_clap_name", D.getHitPoint(),\
+:	ClapTrap(D.getName(), D.getHitPoint(),\
 				D.getEnergePoint(), D.getAttackDamage()),
 	ScavTrap(), FragTrap()
 {
@@ -58,11 +57,45 @@ void	DiamondTrap::attack( const std::string & target )
 	ClapTrap::attack( target );
 }
 
-void	DiamondTrap::whoAmI() const
+void	DiamondTrap::takeDamage( int amount )
 {
-	std::cout << "I am " << _name << "(DiamondTrap)\n";
+	if (_hitPoint == 0 || _energyPoint == 0)
+	{
+		std::cout << "DiamondTrap " << _name;
+		std::cout << " already dead. Not enough point -> ";
+		_showPoints();
+		std::cout << std::endl;
+		return ;
+	}
+	std::cout << "DiamondTrap " << _name <<  " got ";
+	std::cout << amount << " damages\n";
+	_hitPoint = std::max(0, _hitPoint - amount);
+	std::cout << "\tremain points -> ";
 	_showPoints();
 	std::cout << std::endl;
-	std::cout << "attack damage : " << getAttackDamage();
+}
+
+void	DiamondTrap::beRepaired( int amount )
+{
+	if (_hitPoint == 0 || _energyPoint == 0)
+	{
+		std::cout << "DiamondTrap " << _name;
+		std::cout << " cannot repair. Not enough point -> ";
+		_showPoints();
+		std::cout << std::endl;
+		return ;
+	}
+	_hitPoint = std::min(100, _hitPoint + amount);
+	_energyPoint--;
+	std::cout << "DiamondTrap " << _name <<  " repaired ";
+	std::cout << amount << " hitpoints\n";
+	std::cout << "\tremain points -> ";
+	_showPoints();
 	std::cout << std::endl;
+}
+
+void	DiamondTrap::whoAmI() const
+{
+	std::cout << "I am " << _name << "(DiamondTrap)" << std::endl;
+	std::cout << "and " << getName() << "(ClapTrap)" << std::endl;
 }

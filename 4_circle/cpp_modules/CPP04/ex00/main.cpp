@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:46:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 02:22:53 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 15:27:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,77 +20,29 @@
 int main()
 {
 	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;33mDog, Cat Default Constructor\033[0m\n";
-		Animal ani;
-		Dog dog;
-		Cat cat;
-		ani.makeSound();
-		dog.makeSound();
-		cat.makeSound();
+		std::cout << "\033[1;3;33msubject test\033[0m" << std::endl;
+		const Animal* meta = new Animal();
+		const Animal* j = new Dog();
+		const Animal* i = new Cat();
+		std::cout << j->getType() << " " << std::endl;
+		std::cout << i->getType() << " " << std::endl;
+		i->makeSound();
+		j->makeSound();
+		meta->makeSound();
+
+		delete meta;
+		delete i;
+		delete j;
 	}
 	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;33mCopy Constructor\033[0m\n";
-		Animal ani;
-		// Dog dog;
-		Cat cat;
-		Animal ani2(ani);
-		// Dog dog2(dog);
-		Cat cat2(cat);
-		ani2.makeSound();
-		// dog2.makeSound();
-		cat2.makeSound();
+		std::cout << "\033[1;3;33mWrongAnimal test\033[0m" << std::endl;
+		const WrongAnimal * wrongMeta = new WrongAnimal();
+		const WrongAnimal * wrongCat = new WrongCat();
+		wrongCat->makeSound();
+
+		delete wrongMeta;
+		delete wrongCat;
 	}
-	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;33mAssing operator\033[0m\n";
-		Animal ani;
-		// Dog dog;
-		Cat cat;
-		Animal ani2 = ani;
-		// Dog dog2 = dog;
-		Cat cat2 = cat;
-		ani2.makeSound();
-		// dog2.makeSound();
-		cat2.makeSound();
-	}
-	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;31mWrong Animal Copy\033[0m\n";
-		WrongAnimal wani;
-		WrongAnimal wcat = WrongCat();
-		WrongAnimal wani2(wani);
-		WrongAnimal	wcat2(wcat);
-		wani2.makeSound();
-		wcat2.makeSound();
-	}
-	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;31mWrong Animal Assign\033[0m\n";
-		WrongAnimal wani;
-		WrongAnimal	wcat = WrongCat();
-		wani.makeSound();
-		wcat.makeSound();
-	}
-	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;33mAnimal Assign\033[0m\n";
-		Animal ani;
-		Animal cat = Cat();
-		ani.makeSound();
-		cat.makeSound();
-	}
-	{
-		std::cout << "=============================\n";
-		std::cout << "\033[3;33mAnimal Assign\033[0m\n";
-		Animal * ani = new Animal();
-		Animal * cat = new Cat();
-		ani->makeSound();
-		cat->makeSound();
-		delete ani;
-		delete cat;
-	}
+	// system("leaks animal");
 	return (0);
-	
 }

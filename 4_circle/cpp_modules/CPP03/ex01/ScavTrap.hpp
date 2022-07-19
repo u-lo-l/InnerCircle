@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 02:20:45 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/17 19:37:09 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 18:54:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 class ScavTrap : public ClapTrap
 {
-private:
-	ScavTrap();
 public :
+	ScavTrap();
 	ScavTrap(const std::string & name);
 	ScavTrap(const ScavTrap & c);
 	virtual ~ScavTrap();
@@ -28,6 +27,7 @@ public :
 	virtual void	attack(const std::string & target);
 	virtual void	takeDamage( int amount );
 	virtual void	beRepaired( int amount );
+
 	void	guardGate( void );
 };
 

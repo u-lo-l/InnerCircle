@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 12:36:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/04 01:36:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 20:11:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@
 
 class FragTrap : virtual public ClapTrap
 {
-public:
+protected:
 	FragTrap();
-	FragTrap( std::string name );
-	FragTrap( const FragTrap & c );
+public:
+	FragTrap(const std::string & name);
+	FragTrap(const FragTrap & c);
 	virtual ~FragTrap();
 	FragTrap & operator=(const FragTrap & c);
-	
+
 	virtual void	attack(const std::string & target);
+	virtual void	takeDamage( int amount );
+	virtual void	beRepaired( int amount );
+	
 	void			highFivesGuys( void );
 };
 

@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:35:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 01:31:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 15:19:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Cat.hpp"
 
-Cat::Cat() : Animal()
+Cat::Cat() : Animal("Cat")
 {
-	_type = "Cat";
 	std::cout << "Cat : Default constructor called\n";
 }
 
@@ -38,5 +37,5 @@ Cat & Cat::operator=(const Cat & D)
 
 void Cat::makeSound( void ) const
 {
-	std::cout << "Cat : miaooo\n";
+	std::cout << "Cat : Meow\n";
 }

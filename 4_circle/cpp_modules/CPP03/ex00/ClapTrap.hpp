@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 00:59:39 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 01:54:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 14:39:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ private:
 	int	_hitPoint;
 	int	_energyPoint;
 	int	_attackDamage;
-	static const int _COST = 1;
 	void	_showPoints( void );
 public:
 	ClapTrap();

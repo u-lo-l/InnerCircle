@@ -6,13 +6,13 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/03 00:53:56 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/03 12:54:08 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/18 20:18:00 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = claptrap
+NAME = fragtrap
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 

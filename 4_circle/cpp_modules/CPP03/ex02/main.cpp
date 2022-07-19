@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 01:38:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/03 12:57:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/18 19:54:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,21 @@
 
 int	main(void)
 {
-	std::string s1 = "CLAP";
-	std::string s2 = "SCAV";
 	std::string s3 = "FRAG";
 
 	// Constructors
-	ClapTrap claptrap(s1);
-	ScavTrap scavtrap(s2);
 	FragTrap fragtrap(s3);
 	std::cout << std::endl;
 
-	// Attacks for each class
-	fragtrap.attack(s2);
-	claptrap.attack(s2);
-	scavtrap.attack(s1);
+	// Attacks 
+	fragtrap.attack("MONSTER");
 	std::cout << std::endl;
 
-	// New class attack until exhaustion
-	fragtrap.attack(s2);
-	fragtrap.attack(s2);
-	fragtrap.attack(s2);
-	fragtrap.attack(s2);
-	std::cout << std::endl;
-
-	// New class personal method call
+	// Frag::highFive
 	fragtrap.highFivesGuys();
 	std::cout << std::endl;
 
-	// Repair over max hp
+	// Repair
 	fragtrap.beRepaired(18);
 
 	// Take damage
@@ -54,7 +41,7 @@ int	main(void)
 
 	// Do something after dying
 	fragtrap.beRepaired(20);
-	fragtrap.attack(s2);
+	fragtrap.attack("MONSTER");
 
 	std::cout << std::endl;
 	return (0);

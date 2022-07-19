@@ -3,53 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:35:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 04:54:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:52:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Dog.hpp"
 
-Dog::Dog() : Animal()
+Dog::Dog() : Animal("Dog")
 {
-	this->_type = "Dog";
-	this->_brain = new Brain();
 	std::cout << "Dog : Default constructor called\n";
+	_pbrain = new Brain();
 }
 
 Dog::~Dog()
 {
-	delete	this->_brain;
 	std::cout << "Dog : Default destructor called\n";
+	delete _pbrain;
 }
 
-Dog::Dog( const Dog & D ) : Animal()
+Dog::Dog( const Dog & D ) : Animal("Dog")
 {
 	std::cout << "Dog : Copy constructor called\n";
-	this->_brain = new Brain(*(D.getBrain()));
-	this->_type = D.getType();
+	_pbrain = new Brain;
+	(*_pbrain) = (*D._pbrain);
 }
 
 Dog & Dog::operator=(const Dog & D)
 {
-	std::cout << "\033[3;31mDog : Assignment operator called\033[0m\n";
+	std::cout << "Dog : Assignment operator called\n";
 	if (this == &D)
 		return (*this);
-	delete this->_brain;
-	this->_brain = new Brain(*(D.getBrain()));
-	this->_type = D.getType();
+	this->_type = D._type;
+	delete this->_pbrain;
+	this->_pbrain = new Brain();
+	(*_pbrain) = (*D._pbrain);
 	return (*this);
 }
 
 void Dog::makeSound( void ) const
 {
-	std::cout << "Dog : miaooo\n";
+	std::cout << "Dog : bowwow\n";
 }
 
-Brain * Dog::getBrain( void ) const
+void Dog::addIdea(const std::string & idea ) const
 {
-	return (this->_brain);
+	_pbrain->addIdea(idea);
+}
+
+std::string Dog::getIdea( unsigned int i ) const
+{
+	return (_pbrain->getIdea(i));
 }
