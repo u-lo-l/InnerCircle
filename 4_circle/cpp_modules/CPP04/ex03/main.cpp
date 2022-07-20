@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 22:59:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 02:55:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 21:20:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "Cure.hpp"
 #include <iostream>
 
-void test1()
+int main()
 {
 	std::cout << "==============[Ice Creating]" << std::endl ;
 	Ice ice;
@@ -27,83 +27,81 @@ void test1()
 	Character c1("AAA");
 	std::cout << "===========[Char 2 Creating]" << std::endl;
 	Character c2("BBB");
-	std::cout << "===========[Equip ice to 1 ]" << std::endl;
+	std::cout << "===========[Equip ice to c1 ]" << std::endl;
 	c1.equip(&ice);
-	std::cout << "===========[1 use ice to 2 ]" << std::endl;
+	std::cout << "===========[c1 use ice to c2 ]" << std::endl;
 	c1.use(0, c2);
-	std::cout << "===========[Equip cure to 1]" << std::endl;
+	std::cout << "===========[Equip cure to c1]" << std::endl;
 	c1.equip(&cure);
-	std::cout << "===========[1 use cure to 2]" << std::endl;
+	std::cout << "===========[c1 use cure to c2]" << std::endl;
 	c1.use(1, c2);
-	std::cout << "===========[1 use wront idx]" << std::endl;
+	std::cout << "===========[c1 use wrong idx]" << std::endl;
 	c1.use(-1, c1);
+	c1.use(4, c1);
 }
 
-void test2()
-{
-	IMateriaSource * src = new MateriaSource();
+// void main()
+// {
+// 	IMateriaSource * src = new MateriaSource();
 
-	src->learnMateria(new Ice());
-	src->learnMateria(new Cure());
+// 	src->learnMateria(new Ice());
+// 	src->learnMateria(new Cure());
 	
-	ICharacter* me = new Character("me");
-	AMateria* tmp;
+// 	ICharacter* me = new Character("me");
+// 	AMateria* tmp;
 	
-	tmp = src->createMateria("ice");
-	me->equip(tmp);
-	tmp = src->createMateria("cure");
-	me->equip(tmp);
+// 	tmp = src->createMateria("ice");
+// 	std::cout << "\tice meteria addr : " << (tmp) << std::endl;
+// 	me->equip(tmp);
+// 	tmp = src->createMateria("cure");
+// 	std::cout << "\tcure meteria addr : " << (tmp) << std::endl;
+// 	me->equip(tmp);
+// 	me->showInventory();
+// 	ICharacter* bob = new Character("bob");
 	
-	ICharacter* bob = new Character("bob");
+// 	me->use(0, *bob);
+// 	me->use(1, *bob);
 	
-	me->use(0, *bob);
-	me->use(1, *bob);
+// 	delete bob;
+// 	delete me;
+// 	delete src;
 	
-	delete bob;
-	delete me;
-	delete src;
-}
+// 	system("leaks materia");
+// }
 
-void test3()
-{
-	MateriaSource * src = new MateriaSource();
+// void main()
+// {
+// 	MateriaSource * src = new MateriaSource();
 
-	src->learnMateria(new Ice());
+// 	src->learnMateria(new Ice());
 
-	MateriaSource * cpy = new MateriaSource();
-	std::cout << "[COPY!]" <<std::endl;
-	(*cpy) = (*src);
-	std::cout << "[COPY DONE!]" <<std::endl;
-	delete src;
+// 	MateriaSource * cpy = new MateriaSource();
+// 	std::cout << "[COPY!]" <<std::endl;
+// 	(*cpy) = (*src);
+// 	std::cout << "[COPY DONE!]" <<std::endl;
+// 	delete src;
 
-	AMateria * tmp;
-	// ICharacter me  = Character("me");
-	// ICharacter bob = Character("bob");
-	ICharacter * me  = new Character("me");
-	ICharacter * bob = new Character("bob");
+// 	AMateria * tmp;
+// 	ICharacter * me  = new Character("me");
+// 	ICharacter * bob = new Character("bob");
 	
 
-	cpy->learnMateria(new Cure());
+// 	cpy->learnMateria(new Cure());
 
-	tmp = cpy->createMateria("cure");
-	me->equip(tmp);
-	me->use(0, *bob);
+// 	tmp = cpy->createMateria("cure");
+// 	me->equip(tmp);
+// 	me->use(0, *bob);
 
-	delete tmp;
+// 	delete tmp;
 
-	tmp = cpy->createMateria("ice");
-	me->equip(tmp);
-	me->use(1, *bob);
+// 	tmp = cpy->createMateria("ice");
+// 	me->equip(tmp);
+// 	me->use(1, *bob);
 	
-	delete tmp;
-	delete cpy;
-	delete me;
-	delete bob;
-}
+// 	delete tmp;
+// 	delete cpy;
+// 	delete me;
+// 	delete bob;
 
-int main()
-{
-	// test1();
-	// test2();
-	test3();
-}
+// 	system("leaks materia");
+// }

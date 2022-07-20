@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:32:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/19 16:45:03 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 12:06:45 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ public :
 	Dog();
 	virtual ~Dog();
 	Dog( const Dog & D );
-	virtual Dog & operator=(const Dog & D);
+	Dog & operator=(const Dog & D);
 	virtual void makeSound( void ) const;
 	virtual void addIdea(const std::string & idea ) const;
 	virtual std::string getIdea( unsigned int i ) const;

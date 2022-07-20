@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AAnimal.cpp                                        :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:23:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 06:21:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:40:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "AAnimal.hpp"
 
-AAnimal::AAnimal()
+AAnimal::AAnimal(const std::string & animaltype)
+: _type(animaltype)
 {
-	_type = "";
 	std::cout << "AAnimal : Default constructor called\n";
 }
 

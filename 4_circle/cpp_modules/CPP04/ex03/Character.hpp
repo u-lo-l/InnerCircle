@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 21:32:29 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 02:12:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 18:19:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ public :
 	virtual void use(int idx, ICharacter& target);
 
 	const AMateria * getElement( int idx ) const;
+	void	showInventory( void )const;
 };
 
 #endif

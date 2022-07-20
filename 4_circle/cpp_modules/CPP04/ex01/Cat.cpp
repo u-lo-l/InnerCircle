@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:35:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/19 16:45:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 12:06:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Cat::Cat( const Cat & C ) : Animal(C)
 {
 	std::cout << "Cat : Copy constructor called\n";
 	_pbrain = new Brain;
-	_pbrain = C._pbrain;
+	(*_pbrain) = (*C._pbrain);
 }
 
 Cat & Cat::operator=(const Cat & C)
@@ -40,7 +40,7 @@ Cat & Cat::operator=(const Cat & C)
 	this->_type = C._type;
 	delete this->_pbrain;
 	this->_pbrain = new Brain();
-	_pbrain = C._pbrain;
+	(*_pbrain) = (*C._pbrain);
 	return (*this);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 21:04:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 02:12:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 18:24:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,13 @@ Character::Character( const Character & C )
 	_equipCnt = C.getCnt();
 	_name = C.getType();
 	for (int i = 0 ; i < _equipCnt ; i++)
-		_slot[i] = C._slot[i]->clone();
+		_slot[i] = C._slot[i];
 	std::cout << "Character : Copy Constructor called\n";
 }
 
 Character::~Character()
 {
 	std::cout << "Character : Default Destructor called\n";
-	for (int i = 0 ; i < _equipCnt ; i++)
-		delete _slot[i];
 }
 
 Character & Character::operator=( const Character & C )
@@ -50,7 +48,7 @@ Character & Character::operator=( const Character & C )
 	_equipCnt = C.getCnt();
 	_name = C.getType();
 	for (int i = 0 ; i < _equipCnt ; i++)
-		_slot[i] = C._slot[i]->clone();
+		_slot[i] = C._slot[i];
 	return ( *this );
 }
 
@@ -70,7 +68,7 @@ void Character::equip(AMateria* m)
 		std::cout << "Character(" << _name << ") : Inventory is full\n";
 		return ;
 	}
-	_slot[_equipCnt++] = m->clone();
+	_slot[_equipCnt++] = m;
 }
 
 void Character::unequip(int idx)
@@ -104,4 +102,20 @@ const AMateria * Character::getElement( int idx ) const
 	if (idx < 0 || idx >= Character::_SLOTSIZE)
 		return (NULL);
 	return (_slot[idx]);
+}
+
+void	Character::showInventory( void ) const
+{
+	std::cout << "Name : " << _name << " ";
+	if (_equipCnt == 0)
+		std::cout << "Inventory is empty" << std::endl;
+	else
+	{
+		std::cout << "Invectory list" << std::endl;
+		for (int i = 0 ; i < _equipCnt ; i++)
+		{
+			std::cout << "\t# : " << i << " " << _slot[i]->getType();
+			std::cout << " : " << reinterpret_cast<void *>(_slot[i])<< std::endl;
+		}
+	}		
 }

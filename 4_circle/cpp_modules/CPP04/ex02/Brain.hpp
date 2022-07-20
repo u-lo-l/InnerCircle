@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 02:25:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/10 04:06:21 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:43:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 class Brain
 {
 private:
-	int	_index;
+	unsigned int	_numOfIdeas;
 	std::string _ideas[100];
 public:
 	Brain();
@@ -25,8 +25,8 @@ public:
 	Brain( const Brain & B );
 	Brain &operator=( const Brain & B );
 	int			getIndex() const;
-	std::string getIdea( int i ) const ;
-	void setIdea( std::string str );
+	std::string getIdea( unsigned int i ) const ;
+	void addIdea( std::string str );
 };
 
 #endif
