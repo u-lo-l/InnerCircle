@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 03:49:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 04:51:03 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 13:32:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ Bureaucrat::Bureaucrat( const Bureaucrat & B )
 	std::cout << "\033[0m";
 }
 
-// _name은 const string인데 이게 복사가 되나?
-// _grade만 복사
+// _name은 const string인데 이게 대입 되나?
+// _grade만 대입
 Bureaucrat & Bureaucrat::operator = (const Bureaucrat & B )
 {
 	std::cout << "\033[3m";

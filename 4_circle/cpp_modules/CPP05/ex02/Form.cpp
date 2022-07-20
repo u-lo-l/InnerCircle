@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 05:38:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 09:44:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 13:38:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Form::Form(std::string name, unsigned int g2s, unsigned int g2e)
 :_name(name), _gradeToSign(g2s), _gradeToExec(g2e)
 {
 	std::cout << "\033[3m";
-	std::cout << "Form Default Constructor called\n";
+	std::cout << "Form Constructor called\n";
 	std::cout << "\033[0m";
 	if (g2s > Form::_MINGRADE || g2e > Form::_MINGRADE)
 		throw Form::GradeTooLowException();

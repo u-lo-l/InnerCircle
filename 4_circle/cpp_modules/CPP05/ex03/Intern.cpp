@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 10:37:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 11:32:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:27:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ Intern::Intern()
 	std::cout << "\033[0m";
 }
 
-// Intern::Intern( const Intern & I )
-// {
-// 	void (I);
-// 	std::cout << "\033[3m";
-// 	std::cout << "Intern Copy Constructor called";
-// 	std::cout << "\033[0m";
-// }
+Intern::Intern( const Intern & I )
+{
+	(void)I;
+	std::cout << "\033[3m";
+	std::cout << "Intern Copy Constructor called";
+	std::cout << "\033[0m";
+}
 
 Intern::~Intern()
 {
@@ -59,7 +59,7 @@ Form * Intern::makeForm( const std::string & formtype, const std::string & targe
 		&Intern::makeRobotomyRequestForm,
 		&Intern::makePresidentialPardonForm
 	};
-
+	
 	for (int i = 0 ; i < 3 ; i++)
 	{
 		if (formtype == TYPES[i])

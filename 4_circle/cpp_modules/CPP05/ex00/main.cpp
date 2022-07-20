@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 04:09:05 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 04:53:50 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 12:40:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main ()
 		{
 			Bureaucrat one("Jack", 75);
 		}
-		catch(const std::exception& e)
+		catch(const std::exception & e)
 		{
 			std::cerr << e.what() << '\n';
 		}
@@ -32,7 +32,7 @@ int main ()
 		{
 			Bureaucrat one("Jack", 190);
 		}
-		catch(const std::exception& e)
+		catch(const std::exception & e)
 		{
 			std::cerr << e.what() << '\n';
 		}
@@ -46,7 +46,7 @@ int main ()
 			one.decreaseGrade();
 			one.decreaseGrade();
 		}
-		catch(const std::exception& e)
+		catch(const std::exception & e)
 		{
 			std::cerr << e.what() << '\n';
 		}
