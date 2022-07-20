@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 14:21:14 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/20 15:12:22 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/20 18:10:33 by dkim2             #+#    #+#             */
+/*   Updated: 2022/07/20 18:18:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Span.hpp"
 #include <iostream>
-#include <algorithm>
 
-template< typename T >
-typename T::iterator easyfind(T & arr, const int & a)
+int main()
 {
-    typename T::iterator target = std::find(arr.begin(), arr.end(), a);
-    if (target == arr.end())
-        throw "Can't find value";
-    return (target);
+    Span span(20);
+    for (int i = 0 ; i < 20 ;i++)
+    {
+        try
+        {
+            span.addNumber(i * 2);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            std::cerr << i << std::endl;
+            break;
+        }
+    }
+    std::cout << span.getSize() << std::endl;
 }

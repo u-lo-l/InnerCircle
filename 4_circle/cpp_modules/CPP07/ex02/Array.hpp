@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 22:59:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 23:43:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 18:52:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ private :
 	T * _array;
 public :
 	Array();
-	Array(unsigned int n);
+	Array( unsigned int n );
 	Array( const Array & A );
 	~Array();
 	Array & operator=( const Array & A );
@@ -72,7 +72,7 @@ Array<T> & Array<T>::operator=( const Array & A )
 }
 
 template<typename T>
-T & Array<T>::operator[]( unsigned int index ) const throw(std::out_of_range &)
+T & Array<T>::operator[]( unsigned int index ) const
 {
 	std::cout << "const [] called\n";
 	if ( index >= _size )
@@ -82,7 +82,7 @@ T & Array<T>::operator[]( unsigned int index ) const throw(std::out_of_range &)
 }
 
 template<typename T>
-T & Array<T>::operator[]( unsigned int index ) throw(std::out_of_range &)
+T & Array<T>::operator[]( unsigned int index )
 {
 	std::cout << "[] called\n";
 	if ( index >= _size )

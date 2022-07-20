@@ -6,13 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:21:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/20 15:09:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 15:12:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "easyfind.hpp"
 #include <vector>
-#include <algorithm>
 
 int main()
 {
