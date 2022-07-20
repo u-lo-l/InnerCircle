@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stringToNum.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:03:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 02:40:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 18:44:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 # include <iostream>
 # include <exception>
 
-int ft_stoi( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &);
+int ft_stoi( const std::string & s );
 
-float ft_stof( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &);
+float ft_stof( const std::string & s );
 	
-double ft_stod( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &);
+double ft_stod( const std::string & s );
 
 #endif

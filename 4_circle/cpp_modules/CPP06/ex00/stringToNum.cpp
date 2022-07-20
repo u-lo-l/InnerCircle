@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stringToNum.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:05:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 03:41:01 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 18:45:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <sstream>
 
 int ft_stoi( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	long i;
 	int min, max;
@@ -36,7 +35,6 @@ int ft_stoi( const std::string & s )
 }
 
 float ft_stof( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	float f;
 	std::istringstream iss(s);
@@ -48,24 +46,13 @@ float ft_stof( const std::string & s )
 	else if (s == "-inff" || s == "-inf")
 		return (-std::numeric_limits<float>::infinity());
 	iss >> f;
-	if (iss.bad() == true)
-	{
-		std::cerr << "bad\n";
-	}
 	if (iss.fail() == true)
-	{
 		throw (std::invalid_argument("impossible"));
-	}
-	// else if () // overflow or underflow
-	// {
-		
-	// }
 	else
 		return (f);
 }
 
 double ft_stod( const std::string & s )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	double d;
 	std::istringstream iss(s);

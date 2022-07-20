@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printData.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 06:02:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 06:10:25 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/19 18:44:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <limits>
 
 void printChar( const std::string & literal )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	int		temp;
 	char	c;
@@ -37,7 +36,6 @@ void printChar( const std::string & literal )
 }
 
 void printInt( const std::string & literal )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	int	i;
 
@@ -53,7 +51,6 @@ void printInt( const std::string & literal )
 }
 
 void printFloat( const std::string & literal )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	float f;
 
@@ -70,7 +67,6 @@ void printFloat( const std::string & literal )
 }
 
 void printDouble( const std::string & literal )
-	throw(std::out_of_range &, std::invalid_argument &)
 {
 	double d;
 
