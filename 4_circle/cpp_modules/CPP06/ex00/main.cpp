@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 22:36:09 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 06:06:09 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 19:37:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printData.hpp"
+#include <iostream>
 
 int main(int argc, char **argv)
 {

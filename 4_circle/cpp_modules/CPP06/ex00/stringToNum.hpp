@@ -6,19 +6,16 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:03:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/19 18:44:32 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 19:37:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONVERSER_HPP
-# define CONVERSER_HPP
-# include <iostream>
-# include <exception>
+#ifndef STRINGTONUM_HPP
+# define STRINGTONUM_HPP
+# include <string>
 
 int ft_stoi( const std::string & s );
 
-float ft_stof( const std::string & s );
-	
 double ft_stod( const std::string & s );
 
 #endif

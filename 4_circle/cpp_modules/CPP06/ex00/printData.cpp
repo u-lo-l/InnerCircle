@@ -6,11 +6,14 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 06:02:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/19 18:44:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/20 19:47:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printData.hpp"
+#include "stringToNum.hpp"
+#include <iostream>
+#include <cstdlib>
 #include <limits>
 
 void printChar( const std::string & literal )
@@ -29,7 +32,7 @@ void printChar( const std::string & literal )
 		throw (std::out_of_range("impossible"));
 	else
 		c = static_cast<char>(temp);
-	if (isprint(c) == false)
+	if (std::isprint(c) == false)
 		throw (std::invalid_argument("Non displayable"));
 	else 
 		std::cout << "'" << c << "'\n";
@@ -47,7 +50,6 @@ void printInt( const std::string & literal )
 	else
 		i = ft_stoi(literal);
 	std::cout << i << std::endl;
-	
 }
 
 void printFloat( const std::string & literal )
@@ -60,7 +62,7 @@ void printFloat( const std::string & literal )
 	else if (literal.length() == 3 && literal[0] == '\'' && literal[2] == '\'')
 		f = static_cast<float>(literal[1]);
 	else
-		f = ft_stof(literal);
+		f = static_cast<float>(ft_stod(literal));
 	std::cout.setf(std::ios::fixed);
 	std::cout.precision(1);
 	std::cout << f << "f\n";
