@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 06:38:19 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/12 06:38:22 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/20 19:52:22 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = conversion
+NAME = reinterpret
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
