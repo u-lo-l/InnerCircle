@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 03:27:00 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/21 14:46:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/11 07:19:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ public:
 	void increaseGrade( unsigned int amount = 1);
 	void decreaseGrade( unsigned int amount = 1);
 	void signForm( Form & F ) const;
-	void executeForm( const Form & form);
+	// void signForm( const Form & F ); 는 안 된다.
+	//내부에서 beSigned(const Bureaucrat &B)를 사용하는데, 여기서 const가 걸린다.
 };
 
 std::ostream & operator<<(std::ostream & os, const Bureaucrat & B);

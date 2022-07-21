@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 05:38:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/21 14:25:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/11 09:44:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ Form::Form()
 	std::cout << "\033[3m";
 	std::cout << "Form Default Constructor called\n";
 	_sign = false;
-	std::cout << *this << std::endl;
 	std::cout << "\033[0m";
 }
 
@@ -27,7 +26,7 @@ Form::Form(std::string name, unsigned int g2s, unsigned int g2e)
 :_name(name), _gradeToSign(g2s), _gradeToExec(g2e)
 {
 	std::cout << "\033[3m";
-	std::cout << "Form Constructor called\n";
+	std::cout << "Form Default Constructor called\n";
 	std::cout << "\033[0m";
 	if (g2s > Form::_MINGRADE || g2e > Form::_MINGRADE)
 		throw Form::GradeTooLowException();
@@ -35,7 +34,6 @@ Form::Form(std::string name, unsigned int g2s, unsigned int g2e)
 		throw Form::GradeTooHighException();
 	std::cout << "\033[3m";
 	_sign = false;
-	std::cout << *this << std::endl;
 	std::cout << "\033[0m";
 }
 
@@ -45,7 +43,6 @@ Form::Form( const Form & F )
 	std::cout << "\033[3m";
 	std::cout << "Form Copy Constructor called\n";
 	_sign = F.getSign();
-	std::cout << *this << std::endl;
 	std::cout << "\033[0m";
 }
 
@@ -53,7 +50,6 @@ Form::~Form()
 {
 	std::cout << "\033[3m";
 	std::cout << "Form Default Destructor called\n";
-	std::cout << *this << std::endl;
 	std::cout << "\033[0m";
 }
 
@@ -63,7 +59,6 @@ Form & Form::operator=( const Form & F )
 	std::cout << "Form Assign operator called (" << _name << " <- " << F.getName() << ")\n";
 	std::cout << "only sign will be copied. not name, gradeToSign, gradeToExec\n";
 	this->_sign = F.getSign();
-	std::cout << *this << std::endl;
 	std::cout << "\033[0m";
 	return (*this);
 }
@@ -102,6 +97,12 @@ void Form::beSigned(const Bureaucrat & B)
 		throw Form::GradeTooLowException();
 }
 
+void Form::checkExecutable( const Bureaucrat & B ) const throw(std::exception)
+{
+	if (getSign() == false || B.getGrade() > _gradeToExec)
+		throw Form::ExecuteFailException();
+}
+
 const char * Form::GradeTooHighException::what() const throw()
 {
 	return ( "\033[3;31mGrade Too High\033[0m" );
@@ -112,11 +113,7 @@ const char * Form::GradeTooLowException::what() const throw()
 	return ( "\033[3;31mGrade Too Low\033[0m" );
 }
 
-std::ostream & operator<<(std::ostream & os, const Form & F )
+const char * Form::ExecuteFailException::what() const throw()
 {
-	os << "\n\tName : " << F.getName();
-	os << "\n\tsigned : " <<  (F.getSign() ? "TRUE" : "FALSE");
-	os << "\n\tGrade to sign : " <<  F.getG2S();
-	os << "\n\tGrade to execute: " <<  F.getG2E() << std::endl;
-	return (os);
+	return ( "\033[3;31mCannot Execute\033[0m" );
 }

@@ -6,29 +6,20 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 06:38:10 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/20 19:59:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/21 19:00:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <stdint.h> // for uintptr_t
 
-struct Base { virtual void func(){}};
 
-struct Data : public Base
+struct Data
 {
-	int	a;
+	int a;
 	std::string b;
 	float c;
-	virtual void func(){}
 };
-
-// struct Data
-// {
-// 	int a;
-// 	std::string b;
-// 	float c;
-// };
 
 inline uintptr_t serialize( Data * ptr)
 {
@@ -61,22 +52,6 @@ int main()
 		std::cout << "	a : " << ptr2->a << ", b : " << ptr2->b << ", c : " << ptr2->c << std::endl;
 
 		delete ptr;
-	}
-	std::cout << "====================difference between reinterpret and static====================" << std::endl;
-	{
-		Base * d1 = new Base();
-		Base * d2 = new Data();
-
-		std::cout << "reinterpret cast" << std::endl;
-		std::cout << "addr of d1 : " << reinterpret_cast<void *&>(d1->func()) << std::endl;
-		std::cout << "addr of d2 : " << reinterpret_cast<void *&>(d2->func()) << std::endl;
-		std::cout << std::endl;
-		std::cout << "static cast" << std::endl;
-		std::cout << "addr of d1 : " << static_cast<void *>(d1) << std::endl;
-		std::cout << "addr of d2 : " << static_cast<void *>(d2) << std::endl;
-
-		delete d1;
-		delete d2;
 	}
 	system("leaks reinterpret");
 }

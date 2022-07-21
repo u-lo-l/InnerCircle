@@ -3,24 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/10 00:20:11 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/21 12:33:49 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/11 04:57:46 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES: .cpp .o
 
-NAME = intern
+NAME = form
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp Bureaucrat.cpp Form.cpp \
-		ShrubberyCreationForm.cpp \
-		PresidentialPardonForm.cpp \
-		RobotomyRequestForm.cpp \
-		Intern.cpp
+SRCS = main.cpp Bureaucrat.cpp Form.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 all : ${NAME}

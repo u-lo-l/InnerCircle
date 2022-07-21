@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 08:03:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/12 17:23:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/21 19:13:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
 
 Base * generate( void );
@@ -27,7 +28,7 @@ const int ITERATION = 10;
 int main()
 {
 	Base *b;
-
+	std::srand(time(0));
 	std::cout << "Identify by pointer (" << ITERATION << "times)\n";
 	for (int i = 0 ; i < ITERATION; i++)
 	{
@@ -57,7 +58,7 @@ int main()
 
 Base * generate( void )
 {
-	int	random = rand() % 3;
+	int	random = std::rand() % 4;
 	
 	switch (random)
 	{
@@ -67,9 +68,11 @@ Base * generate( void )
 	case 1 : 
 		std::cout << "generate B ";
 		return (new B());
-	default :
+	case 2 :
 		std::cout << "generate C ";
 		return (new C());
+	default :
+		return (generate());
 	}
 }
 

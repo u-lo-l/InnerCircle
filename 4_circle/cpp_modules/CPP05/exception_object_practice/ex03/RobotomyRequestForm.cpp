@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 09:34:09 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/21 15:18:41 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/11 09:58:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,10 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	checkExecutable(executor);
 
 	std::cout << "Drrrrrrrrrrrrrr!!!!\n";
-
-	switch (rand() % 3)
-	{
-		case 0 : 
-			std::cout << _target << " robotomization failed\n";
-			break ;
-		case 1 : 
-			std::cout << _target << " robotomization successed\n";
-			break ;
-		default :
-			this->execute(executor);
-			break ;
-	}
+	if (rand() % 2)
+		std::cout << _target << " robotomization failed\n";
+	else
+		std::cout << _target << " robotomization successed\n";
 }
 
 std::ostream & operator<<(std::ostream & os, const RobotomyRequestForm & S )
