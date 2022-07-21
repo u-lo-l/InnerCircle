@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 22:59:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/20 18:52:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/21 23:42:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ Array<T> & Array<T>::operator=( const Array & A )
 }
 
 template<typename T>
-T & Array<T>::operator[]( unsigned int index ) const
+T & Array<T>::operator[]( unsigned int index ) const throw(std::out_of_range &)
 {
 	std::cout << "const [] called\n";
 	if ( index >= _size )
@@ -82,7 +82,7 @@ T & Array<T>::operator[]( unsigned int index ) const
 }
 
 template<typename T>
-T & Array<T>::operator[]( unsigned int index )
+T & Array<T>::operator[]( unsigned int index ) throw(std::out_of_range &)
 {
 	std::cout << "[] called\n";
 	if ( index >= _size )
