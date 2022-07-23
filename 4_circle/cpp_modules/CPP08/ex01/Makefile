@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 22:26:22 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/20 18:16:26 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/23 14:05:30 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ clean :
 fclean : clean
 	rm -r ${NAME}
 
-re : fclean all
+re : clean all
 
 .PHONY: all clean fclean re
 
