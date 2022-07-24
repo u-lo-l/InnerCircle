@@ -6,13 +6,13 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:14:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/23 16:28:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/24 19:52:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPAN_HPP
 # define SPAN_HPP
-# include <set>
+# include <vector>
 # include <exception>
 
 class Span
@@ -20,7 +20,7 @@ class Span
 private:
 	const unsigned int _capacity;
 	unsigned int _size;
-	std::multiset<int> _arr;
+	std::vector<int> _arr;
 public:
 	Span( unsigned int N = 0);
 	~Span();
@@ -38,7 +38,6 @@ public:
 
 	unsigned int shortestSpan( void ) const;
 	unsigned int longestSpan( void ) const;
-	void showInfo( void ) const;
 
 	unsigned int getSize( void ) const;
 	unsigned int getCapacity( void ) const;

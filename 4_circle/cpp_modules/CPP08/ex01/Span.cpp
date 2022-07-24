@@ -6,14 +6,15 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/23 16:33:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/24 19:52:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include <iostream>
+#include <algorithm>
+#include <limits>
 #include <cstdlib> // for abs
-
 
 
 Span::Span( unsigned int N ) :_capacity(N), _size(0) { }
@@ -49,7 +50,7 @@ void Span::addNumber( int a )
 		throw (tooManyElements());
 	std::cout << "\033[1;33mA number added : ";
 	std::cout << a << "\033[0m" << std::endl;
-	_arr.insert(a);
+	_arr.push_back(a);
 	_size++;
 }
 
@@ -57,35 +58,27 @@ unsigned int Span::shortestSpan( void ) const
 {
 	if (_size <= 1)
 		throw (notEnoughElemnts());
-	std::multiset<int>::iterator it = _arr.begin();
-	int min1 = *it;
-	int min2 = *(++it);
-	return (static_cast<unsigned int>(min2 - min1));
+	std::vector<int> temp(_arr.size());
+	unsigned int span = std::numeric_limits<unsigned int>::max();
+	std::copy(this->_arr.begin(), this->_arr.end(), temp.begin());
+	std::sort(temp.begin(), temp.end());
+	std::vector<int>::iterator it = temp.begin();
+	while ( it != temp.end() )
+	{
+		int one = *it;
+		int two = *++it;
+		span = std::min(span, static_cast<unsigned int>(two - one));
+	}
+	return (span);
 }
 unsigned int Span::longestSpan( void ) const
 {
 	if (_size <= 1)
 		throw (notEnoughElemnts());
-	int min = *_arr.begin();
-	int max = *_arr.rbegin();
-	return (static_cast<unsigned int>(max - min));
-}
-void Span::showInfo( void ) const
-{
-	std::cout << "\033[1;3;34m";
-	std::cout << "  Span Object Info" << std::endl;
-	std::cout << "\033[0;3;34m";
-	std::cout << "  Whole capacity : " << _capacity << std::endl;
-	std::cout << "  Current size   : " << _size << std::endl;
-	if (_size > 1)
-	{
-		std::multiset<int>::iterator it = _arr.begin();
-		std::cout << "  min1 : " << *(it++) << std::endl;
-		std::cout << "  min2 : " << *(it) << std::endl;
-		std::cout << "  max : " << *(_arr.rbegin()) << std::endl;
-		std::cout << "  Spans : " << shortestSpan() << ", " << longestSpan() << std::endl;
-	}
-	std::cout << "\033[0m";
+	std::vector<int> temp(_arr.size());
+	std::copy(this->_arr.begin(), this->_arr.end(), temp.begin());
+	std::sort(temp.begin(), temp.end());
+	return (static_cast<unsigned int>(temp.back() - temp.front()));
 }
 
 unsigned int Span::getSize( void ) const

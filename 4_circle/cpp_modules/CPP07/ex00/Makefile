@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42Seoul.kr>           +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 22:26:22 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/12 22:26:42 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/24 19:55:29 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ clean :
 fclean : clean
 	rm -r ${NAME}
 
-re : fclean all
+re : clean all
 
 .PHONY: all clean fclean re
 
