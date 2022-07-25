@@ -3,100 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/20 18:49:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/24 19:52:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include <iostream>
+#include <algorithm>
+#include <limits>
+#include <cstdlib> // for abs
 
-Span::Span( void )
-:_size(0), _capacity(0), _arr(std::vector<int>(0))
-{
-    //do nothing more
-}
 
-Span::Span( unsigned int N )
-:_size(0), _capacity(N), _arr(std::vector<int>(N))
-{
-    //do nothing more
-}
+Span::Span( unsigned int N ) :_capacity(N), _size(0) { }
 
-Span::~Span()
-{
-    //do nothing
-}
+Span::~Span() { }
 
-Span::Span( const Span & s)
-:_size(s._size), _capacity(s._capacity), _arr(s._capacity)
+Span::Span( const Span & s) :_capacity(s._capacity), _size(s._size)
 {
-    this->_arr.assign(s._arr.begin(), s._arr.end());
+	this->_arr = s._arr;
 }
 
 Span & Span::operator=( const Span & s)
 {
-    if (this == &s)
-        return (*this);
-    this->_arr.assign(s._arr.begin(), s._arr.end());
-    return (*this);
+	if (this == &s)
+		return (*this);
+	this->_arr = s._arr;
+	return (*this);
 }
 
 const char * Span::tooManyElements::what() const throw()
 {
-    return ("Excepction : too many elems");
+	return ("\033[3;31mExcepction : too many elems\033[0m");
 }
 
 const char * Span::notEnoughElemnts::what() const throw()
 {
-    return ("Excepction : not enoungh elems");
+	return ("\033[3;31mExcepction : not enoungh elems\033[0m");
 }
 
-void Span::addNumber( const int & a )
+void Span::addNumber( int a )
 {
-    if (_size >= _capacity)
-        throw (tooManyElements());
-    _arr.push_back(a);
-    _size++;
+	if (_size >= _capacity)
+		throw (tooManyElements());
+	std::cout << "\033[1;33mA number added : ";
+	std::cout << a << "\033[0m" << std::endl;
+	_arr.push_back(a);
+	_size++;
 }
 
 unsigned int Span::shortestSpan( void ) const
 {
-    unsigned int span = std::numeric_limits<unsigned int>::max();
-    int   tmp1, tmp2;
-    if (_size <= 1)
-        throw (notEnoughElemnts());
-    for (std::vector<int>::iterator iter = _arr.begin() ; iter + 1 != _arr.end() ; iter++)
-    {
-        tmp1 = *iter;
-        tmp2 = *(iter + 1);
-        span = std::min(span, static_cast<unsigned int>(std::abs(tmp1 - tmp2)));
-    }
-    return (span);
+	if (_size <= 1)
+		throw (notEnoughElemnts());
+	std::vector<int> temp(_arr.size());
+	unsigned int span = std::numeric_limits<unsigned int>::max();
+	std::copy(this->_arr.begin(), this->_arr.end(), temp.begin());
+	std::sort(temp.begin(), temp.end());
+	std::vector<int>::iterator it = temp.begin();
+	while ( it != temp.end() )
+	{
+		int one = *it;
+		int two = *++it;
+		span = std::min(span, static_cast<unsigned int>(two - one));
+	}
+	return (span);
 }
 unsigned int Span::longestSpan( void ) const
 {
-    unsigned int span = std::numeric_limits<unsigned int>::min();
-    int   tmp1, tmp2;
-    if (_size <= 1)
-        throw (notEnoughElemnts());
-    for (std::vector<int>::iterator iter = _arr.begin() ; iter + 1 != _arr.end() ; iter++)
-    {
-        tmp1 = *iter;
-        tmp2 = *(iter + 1);
-        span = std::max(span, static_cast<unsigned int>(std::abs(tmp1 - tmp2)));
-    }
-    return (span);
+	if (_size <= 1)
+		throw (notEnoughElemnts());
+	std::vector<int> temp(_arr.size());
+	std::copy(this->_arr.begin(), this->_arr.end(), temp.begin());
+	std::sort(temp.begin(), temp.end());
+	return (static_cast<unsigned int>(temp.back() - temp.front()));
 }
 
 unsigned int Span::getSize( void ) const
 {
-    return (_size);
+	return (_size);
 }
 
 unsigned int Span::getCapacity( void ) const
 {
-    return (_capacity);
+	return (_capacity);
 }
