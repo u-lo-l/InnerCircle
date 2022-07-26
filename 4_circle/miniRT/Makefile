@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 19:49:19 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/26 14:52:39 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/26 20:21:10 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,10 @@ OBJ_FILES = main.o read_file.o\
 			\
 			mlx_part.o mlx_event.o \
 			\
-			object_intersect.o
+			object_intersect.o ray.o
 OBJS = ${addprefix SRC/, ${OBJ_FILES}}
 
 SRCS = ${OBJS:.o = .c}
-
-
-
 
 all : ${NAME}
 
@@ -54,11 +51,10 @@ re : fclean all
 .PHONY : all clean fclean re
 
 ${NAME} : ${OBJS} ${LIBS} ${LIBV}
-ifeq ( $(UNAME_S), "Darwin" )
-		shell echo "HI"
-		${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+ifeq (${UNAME_S},Linux)
+	${CC} ${OBJS} ${LIBS} ${LIBV} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o ${NAME}
 else
-		${CC} ${OBJS} -o ${NAME} ${LIBS} ${LIBV} -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
+	${CC} ${OBJS} ${LIBS} ${LIBV} -Lmlx -lmlx -framework OpenGL -framework AppKit -lm -o ${NAME}
 endif
 
 ${LIBS} :
@@ -67,8 +63,8 @@ ${LIBV} :
 	@make -C ./Libft_vector all
 
 .c.o :
-ifeq ( ${UNAME_S}, "Darwin" )
-		${CC} ${CFLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@
+ifeq (${UNAME_S},Linux)
+	${CC} ${CFLAGS} -I/usr/include -Imlx_linux -O3 -c $< -o $@
 else
-		${CC} ${CFLAGS} -Imlx -c $< -o $@
+	${CC} ${CFLAGS} -Imlx -c $< -o $@
 endif

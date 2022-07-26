@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:32:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/09 20:25:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 19:28:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,13 @@ int	ft_strtod(const char *str, double *res)
 		free_strset(num);
 		return (0);
 	}
+	int_part = minus * (-int_part) + (1 - minus) * int_part;
 	frac_part = 0;
-	if (num[1] != NULL && num[2] == NULL)
+	if (num[1] != NULL && num[2] == NULL && \
+		fractional_part(num[1], &frac_part) == 0)
 	{
-		if (fractional_part(num[1], &frac_part) == 0)
-		{
-			free_strset(num);
-			return (0);
-		}
+		free_strset(num);
+		return (0);
 	}
 	*res = int_part + (1 - minus) * frac_part - minus * frac_part;
 	free_strset(num);

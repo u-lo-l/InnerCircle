@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 17:00:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 19:35:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 		u = vec3_normalize(u);
 		v = vec3_cross(w, u);
 	}
-	printf("U ⎡% 3.3f % 3.3f % 3.3f⎤\n", u.x, u.y, u.z);
-	printf("v ⎡% 3.3f % 3.3f % 3.3f⎤\n", v.x, v.y, v.z);
-	printf("W ⎡% 3.3f % 3.3f % 3.3f⎤\n", w.x, w.y, w.z);
-
 	mat = create_mat33(u, v, w);
 	return (mat33_trans(mat));
 }

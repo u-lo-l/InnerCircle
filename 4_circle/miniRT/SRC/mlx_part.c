@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_part.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 14:03:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 20:35:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-static void	ft_mlx_set_image_background(t_mlx *mlx)
+void	ft_mlx_set_image_background(t_mlx *mlx)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -33,10 +33,11 @@ static void	ft_mlx_set_image_background(t_mlx *mlx)
 	{
 		x = -1;
 		while (++x < mlx->width)
-			ft_mlx_set_pixel_color(mlx->image, x, y, BACKGROUND);
+			ft_mlx_set_pixel_color(mlx->image, x, y, 0xffffff);
 	}
 }
 
+#include <stdio.h>
 t_mlx *create_mlx(t_scene *scene, unsigned int width, unsigned int height )
 {
 	t_mlx   *mlx;
@@ -60,6 +61,7 @@ t_mlx *create_mlx(t_scene *scene, unsigned int width, unsigned int height )
 	mlx->height = height;
 	ft_mlx_set_image_background(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	printf("MLX DONE\n");
 	return (mlx);
 }
 
@@ -78,10 +80,9 @@ void	mlx_part(t_scene *scene, unsigned int width, unsigned int height)
 	t_mlx	*mlx;
 
 	mlx = create_mlx(scene, width, height);
-	{
-		
-	}
-	mlx_hook(mlx->win, 17, 0, destroy, mlx);
-	mlx_hook(mlx->win, 2, 0, keydown, mlx);
-	mlx_loop(mlx);
+	if (mlx == NULL) printf(">>???\n");
+	ft_mlx_set_image_background(mlx);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	
+	printf("ha\n");
 }

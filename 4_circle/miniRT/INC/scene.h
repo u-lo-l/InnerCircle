@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:37:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 20:20:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,31 @@ typedef struct s_scene
 	t_object_base	*obj;
 }	t_scene;
 
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line;
+	int		endian;
+}			t_image;
+
+typedef struct s_mlx
+{
+	void			*mlx;
+	void			*win;
+	unsigned int	width;
+	unsigned int	height;
+	t_image			*image;
+	t_scene			*scene;
+}					t_mlx;
+
+
 /*=====RAY=====*/
 t_ray	*create_ray(t_vec3 org, t_vec3 dir);
 void	free_raylst(t_ray **pray);
+void	ray_cast(t_mlx *mlx);
+
 
 /*=====LIGHT=====*/
 t_light	*create_light(t_vec3 pos, double b);
