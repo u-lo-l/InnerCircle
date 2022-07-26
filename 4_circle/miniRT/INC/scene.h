@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/08 06:17:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:37:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_object_base	t_object_base;
 struct s_object_base
 {
 	char			*type;
-	int				color;
+	unsigned int	color;
 	double			radius;
 	double			height;
 	t_vec3			org;
@@ -67,24 +67,15 @@ typedef struct s_cam
 typedef struct s_scene
 {
 	double			ambient_ratio;
-	int				ambient_color;
+	unsigned int	ambient_color;
 	t_cam			*cam;
 	t_mat33			global;
 	t_light			*light;
 	t_object_base	*obj;
 }	t_scene;
 
-typedef struct s_camscene
-{
-	double			ambient_ratio;
-	int				ambient_color;
-	t_mat33			global;
-	t_light			*light;
-	t_object_base	*obj;
-}	t_camscene;
-
 /*=====RAY=====*/
-t_ray	*create_ray(t_vec3 *org, t_vec3 *dir);
+t_ray	*create_ray(t_vec3 org, t_vec3 dir);
 void	free_raylst(t_ray **pray);
 
 /*=====LIGHT=====*/
@@ -111,13 +102,16 @@ int		transform_to_cam_cord(t_scene *scene);
 int		init_scene(t_scene *scene, char *filename);
 
 /*=====UTILS=====*/
-int	str_to_vec3(char *str, t_vec3 *v);
-int	str_to_color(char *str, int *color);
+int		str_to_vec3(char *str, t_vec3 *v);
+int		str_to_color(char *str, unsigned int *color);
 
 /*=====PRINT SCENE====*/
 void	info_light(t_light *light);
 void	info_camera(t_cam *cam);
 void	info_object(t_object_base *obj);
 void	info_scene(t_scene *scene);
+
+/*=====INTERSECT=====*/
+double object_intersect(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
 
 #endif

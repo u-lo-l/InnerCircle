@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 19:49:19 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/14 09:54:24 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/26 14:52:39 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,11 @@ LIBV = ./Libft_vector/libvector.a
 OBJ_FILES = main.o read_file.o\
 			object.o light.o camera.o \
 			scene1.o scene2.o \
-			scene_utils.o print_scene.o print_scene2.o
+			scene_utils.o print_scene.o print_scene2.o \
+			\
+			mlx_part.o mlx_event.o \
+			\
+			object_intersect.o
 OBJS = ${addprefix SRC/, ${OBJ_FILES}}
 
 SRCS = ${OBJS:.o = .c}

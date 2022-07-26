@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 22:20:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 14:59:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	str_to_vec3(char *str, t_vec3 *v)
 	return (res);
 }
 
-int	str_to_color(char *str, int *color)
+int	str_to_color(char *str, unsigned int *color)
 {
 	char	**pos_str;
 	int		rgb[3];

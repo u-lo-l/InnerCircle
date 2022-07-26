@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_scene2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 03:20:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/26 16:23:39 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static void	info_cylinder(t_object_base *obj)
 	red = (obj->color >> 16) & 0xff;
 	green = (obj->color >> 8) & 0xff;
 	blue = (obj->color) & 0xff;
-	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->org.x \
-												, obj->org.y \
-												, obj->org.z);
+	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->normal.x \
+												, obj->normal.y \
+												, obj->normal.z);
 	printf("\tradius : %3.4f\n", obj->radius);
 	printf("\theight : %3.4f\n", obj->height);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
