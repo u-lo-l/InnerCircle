@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 19:14:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/28 05:52:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../LIBFT/libft.h"
 #include <stdio.h>
 #include <math.h>
+// C    8.660254038,8.660254038,8.660254038  -0.577350269,-0.577350269,-0.577350269  70
+// C 0,0,0 -0.707106781,-0.707106781,0 70
 
 static double	solve_nearest_intersect_distance_or_nan(t_vec3 ray, t_vec3 org, double radius)
 {
@@ -34,7 +36,7 @@ static double	solve_nearest_intersect_distance_or_nan(t_vec3 ray, t_vec3 org, do
 		if (t[0] < 0)
 			t[0] = t[1];
 	}
-	if (t[0] < 0)
+	if (t[0] <= 0)
 		return (NAN);
 	return (t[0]);
 }
@@ -45,9 +47,11 @@ static double	intersect_plane(t_vec3 ray, t_object_base * obj, unsigned int * pc
 	double	dist;
 	t_vec3	intersection;
 	
-	if (vec3_dot(ray, obj->org) == 0)
+	if (vec3_dot(ray, obj->normal) == 0)
 		return (NAN);
 	t = vec3_dot(obj->org, obj->normal) / vec3_dot(ray, obj->normal);
+	if (t <= 0)
+		return (NAN);
 	intersection = vec3_scale(ray, t);
 	dist = vec3_l2norm(intersection);
 	*pcolor = obj->color;
@@ -78,6 +82,8 @@ static double	intersect_sphere(t_vec3 ray, t_object_base * obj, unsigned int * p
 //	원기둥의 높이 범위에 점이 존재하는지 확인하기
 //step4 :
 //	원기둥의 범위 밖에 교점이 존재한다면, 윗면 혹은 밑면에 존재할 수 있는지 확인한다.
+//ERROR!!
+//	카메라가 무한원기둥 내부에 존재하면 윗면 밑면을 볼 수 없다.
 static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor)
 {
 	double	distance;
@@ -116,7 +122,9 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 		height = -height;
 	if (height >= 0 && height <= obj->height)
 	{
+	// printf("on the side\n");
 		*pcolor = obj->color;
+	// printf("curr dist : %f, curr color : %x\n", distance, *pcolor);
 		return (distance);
 	}
 
@@ -127,12 +135,14 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 
 	if (height > obj->height && vec3_dot(obj->normal, ray) < 0)
 	{
+	// printf("on the top\n");
 		angle = acos(vec3_dot(obj->normal, ray));
 		heigt_diff = obj->height - height;
 		target_center = vec3_add(obj->org, vec3_scale(obj->normal, obj->height));
 	}
 	else if (height < 0 && vec3_dot(obj->normal, ray) > 0)
 	{
+	// printf("on the bot\n");
 		angle = acos(vec3_dot(obj->normal, ray));
 		heigt_diff = -height;
 		target_center = obj->org;
@@ -145,7 +155,9 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 	distance = vec3_l2norm(intersection);
 	if (vec3_l2norm(vec3_subtract(target_center, intersection)) > obj->radius)
 		return (NAN);
-	*pcolor = obj->color;
+	*pcolor = (obj->color & 0xff0000) / 2  + (obj->color & 0xff00) / 2 + (obj->color & 0xff) / 2;
+	
+// printf("curr dist : %f, curr color : %x\n", distance, *pcolor);
 	return (distance);
 }
 

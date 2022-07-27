@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 19:02:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/27 23:19:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	case_plane(t_scene *scene, char **single_scene)
 		|| (str_to_vec3(single_scene[2], &new_obj->normal) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
 		return (FALSE);
+	if (round(vec3_l2norm(new_obj->normal) * 10000) / 10000  != 1.0)
+		return (FALSE);
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
 	else
@@ -76,7 +78,7 @@ int	case_sphere(t_scene *scene, char **single_scene)
 		|| (ft_strtod(single_scene[2], &new_obj->radius) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
 		return (FALSE);
-	if (new_obj->radius < 0.0)
+	if (new_obj->radius <= 0.0)
 		return (FALSE);
 	new_obj->radius /= 2;
 	if (scene->obj == NULL)
@@ -87,6 +89,7 @@ int	case_sphere(t_scene *scene, char **single_scene)
 	return (TRUE);
 }
 
+#include <stdio.h>
 int	case_cylinder(t_scene *scene, char **single_scene)
 {
 	t_object_base	*new_obj;
@@ -103,9 +106,9 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 		|| (ft_strtod(single_scene[4], &new_obj->height) == FALSE)
 		|| (str_to_color(single_scene[5], &new_obj->color) == FALSE))
 		return (FALSE);
-	if (vec3_l2norm(new_obj->normal) != 1.0)
+	if (round(vec3_l2norm(new_obj->normal) * 10000) / 10000  != 1.0)
 		return (FALSE);
-	if (new_obj->radius < 0.0 || new_obj->height < 0.0)
+	if (new_obj->radius <= 0.0 || new_obj->height <= 0.0)
 		return (FALSE);
 	new_obj->radius /= 2;
 	if (scene->obj == NULL)
