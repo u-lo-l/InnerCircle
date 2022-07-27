@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 17:59:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/27 19:14:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 	if (distance == NAN)
 		return (NAN);
 	intersection = vec3_scale(ray_proj, distance);
-	// printf("\tintersection : [%3.4f, %3.4f, %3.4f]\n", intersection.x, intersection.y, intersection.z);
 	distance = vec3_l2norm(intersection);
 
 	//step2 : 실제 교점 구하기
@@ -105,9 +104,7 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 	beta = acos(vec3_dot(ray, ray_proj));
 	if (vec3_dot(obj->normal, ray) < 0)
 		beta = -beta;
-	// printf("distance, beta, tan : %f %f %f\n", distance, beta, tan(beta));
 	intersection = vec3_add(intersection, vec3_scale(obj->normal, distance * tan(beta)));
-	// printf("\tintersection : [%3.4f, %3.4f, %3.4f]\n", intersection.x, intersection.y, intersection.z);
 
 	//step3 : 높이 확인
 	t_vec3	ray_normal_projection;
@@ -117,8 +114,6 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 	height = vec3_l2norm(ray_normal_projection);
 	if (vec3_dot(ray_normal_projection, obj->normal) < 0)
 		height = -height;
-	// printf("height : %f\n", height);
-	// printf("Height : %f\n", obj->height);
 	if (height >= 0 && height <= obj->height)
 	{
 		*pcolor = obj->color;
@@ -146,18 +141,11 @@ static double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int *
 		return (NAN);
 	
 	intersection = vec3_add(intersection, vec3_scale(obj->normal, heigt_diff));
-	// printf("\tintersection : [%3.4f, %3.4f, %3.4f]\n", intersection.x, intersection.y, intersection.z);
-
-	// printf("angle, cos and tan diff: %f %f %f %f\n", angle, vec3_dot(obj->normal, ray), tan(angle), heigt_diff);
-	
 	intersection = vec3_add(intersection, vec3_scale(ray_proj, heigt_diff * tan(angle)));
-	// printf("\tintersection : [%3.4f, %3.4f, %3.4f]\n", intersection.x, intersection.y, intersection.z);
-	
-	// printf("dist : %f\n" , vec3_l2norm(vec3_subtract(target_center, intersection)) );
+	distance = vec3_l2norm(intersection);
 	if (vec3_l2norm(vec3_subtract(target_center, intersection)) > obj->radius)
 		return (NAN);
 	*pcolor = obj->color;
-	distance = vec3_l2norm(intersection);
 	return (distance);
 }
 

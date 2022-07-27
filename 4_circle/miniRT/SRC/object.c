@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:38:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/27 19:02:26 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	case_sphere(t_scene *scene, char **single_scene)
 		return (FALSE);
 	if (new_obj->radius < 0.0)
 		return (FALSE);
+	new_obj->radius /= 2;
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
 	else
@@ -106,6 +107,7 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 		return (FALSE);
 	if (new_obj->radius < 0.0 || new_obj->height < 0.0)
 		return (FALSE);
+	new_obj->radius /= 2;
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
 	else
