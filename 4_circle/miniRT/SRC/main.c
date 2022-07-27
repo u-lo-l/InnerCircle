@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 01:46:42 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/27 17:54:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 int	main(int argc, char **argv)
 {
 	t_scene	*global_scene;
-	t_mlx	*mlx;
 	
 	if (argc != 2 || argv == NULL)
 	{
@@ -42,10 +41,11 @@ int	main(int argc, char **argv)
 	printf("CAMERA COORDINATE\n");
 	info_scene(global_scene);
 
-	mlx = create_mlx(global_scene, 1200, 800);
+	t_mlx	*mlx;
+	mlx = create_mlx(global_scene, 1920, 1080);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
-	mlx->image->img = mlx_new_image(mlx->mlx, 1200, 800);
+	mlx->image->img = mlx_new_image(mlx->mlx, 1920, 1080);
 	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
 								&(mlx->image->line), &(mlx->image->endian));
 	ray_cast(mlx);
@@ -54,12 +54,12 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx->win, 2, 0, keydown, mlx);
 	mlx_loop(mlx->mlx);
 
-	//printf("INTERSECTION\n");
-	// unsigned int color;
-	// double d;
-	// d = object_intersect(vec3_normalize(create_vec3(0,0,3)), global_scene->obj, &color);
-	// printf("d : %f\n", d);
-	// d = object_intersect(vec3_normalize(create_vec3(0,0,3)), global_scene->obj->next, &color);
+	printf("INTERSECTION\n");
+	unsigned int color;
+	double d;
+	d = object_intersect(vec3_normalize(create_vec3(0,5,20)), global_scene->obj, &color);
+	printf("d : %f\n", d);
+	// d = object_intersect(vec3_normalize(create_vec3(0,0,1)), global_scene->obj->next, &color);
 	// printf("d : %f\n", d);
 
 
