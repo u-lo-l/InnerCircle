@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 19:49:19 by dkim2             #+#    #+#              #
-#    Updated: 2022/07/26 20:21:10 by dkim2            ###   ########.fr        #
+#    Updated: 2022/07/28 17:02:17 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ OBJ_FILES = main.o read_file.o\
 			\
 			mlx_part.o mlx_event.o \
 			\
-			object_intersect.o ray.o
+			object_intersect.o ray.o \
+			cylinder_intersection.o
 OBJS = ${addprefix SRC/, ${OBJ_FILES}}
 
 SRCS = ${OBJS:.o = .c}

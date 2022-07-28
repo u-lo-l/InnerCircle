@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 20:21:01 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/28 19:59:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 
 
-t_mlx	*create_mlx(t_scene *scene, unsigned int width, unsigned int height );
+t_mlx	*create_mlx(t_scene *scene, unsigned int width, unsigned int height, char * const filename );
 
 void	delete_mlx(t_mlx *mlx);
 

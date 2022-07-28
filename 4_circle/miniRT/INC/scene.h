@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 20:20:53 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:13:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	info_object(t_object_base *obj);
 void	info_scene(t_scene *scene);
 
 /*=====INTERSECT=====*/
-double object_intersect(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
+double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
+double	object_intersect(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
 
 #endif

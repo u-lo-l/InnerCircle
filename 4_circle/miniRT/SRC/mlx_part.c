@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 20:35:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/28 19:59:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_mlx_set_image_background(t_mlx *mlx)
 	}
 }
 
-#include <stdio.h>
-t_mlx *create_mlx(t_scene *scene, unsigned int width, unsigned int height )
+t_mlx *create_mlx(t_scene *scene, unsigned int width, \
+					unsigned int height, char * const filename )
 {
 	t_mlx   *mlx;
 
@@ -53,7 +53,7 @@ t_mlx *create_mlx(t_scene *scene, unsigned int width, unsigned int height )
 	}
 	mlx->scene = scene;
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, width, height, "MiniRT");
+	mlx->win = mlx_new_window(mlx->mlx, width, height, filename);
 	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
 	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
 								&(mlx->image->line), &(mlx->image->endian));
@@ -61,7 +61,6 @@ t_mlx *create_mlx(t_scene *scene, unsigned int width, unsigned int height )
 	mlx->height = height;
 	ft_mlx_set_image_background(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
-	printf("MLX DONE\n");
 	return (mlx);
 }
 
@@ -75,14 +74,13 @@ void	delete_mlx(t_mlx *mlx)
 	free(mlx);
 }
 
-void	mlx_part(t_scene *scene, unsigned int width, unsigned int height)
-{
-	t_mlx	*mlx;
+// void	mlx_part(t_scene *scene, unsigned int width, unsigned int height)
+// {
+// 	t_mlx	*mlx;
 
-	mlx = create_mlx(scene, width, height);
-	if (mlx == NULL) printf(">>???\n");
-	ft_mlx_set_image_background(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
-	
-	printf("ha\n");
-}
+// 	mlx = create_mlx(scene, width, height);
+// 	if (mlx == NULL)
+// 		return ;
+// 	ft_mlx_set_image_background(mlx);
+// 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+// }

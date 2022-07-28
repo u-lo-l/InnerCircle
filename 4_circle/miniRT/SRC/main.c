@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 23:20:25 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/28 20:02:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,37 +40,37 @@ int	main(int argc, char **argv)
 	transform_to_cam_cord(global_scene);
 	printf("CAMERA COORDINATE\n");
 	info_scene(global_scene);
-
-	t_mlx	*mlx;
-	mlx = create_mlx(global_scene, 900, 900);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
-	mlx_destroy_image(mlx->mlx, mlx->image->img);
-	mlx->image->img = mlx_new_image(mlx->mlx, 900, 900);
-	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
-								&(mlx->image->line), &(mlx->image->endian));
-	ray_cast(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
-	mlx_hook(mlx->win, 17, 0, destroy, mlx);
-	mlx_hook(mlx->win, 2, 0, keydown, mlx);
-
+	
+	
 	printf("INTERSECTION\n");
 	unsigned int color;
 	double d;
 	t_object_base * target = global_scene->obj;
 	while (target)
 	{
-		d = object_intersect(vec3_normalize(create_vec3(1,1,20)), target, &color);
+		d = object_intersect(vec3_normalize(create_vec3(0,3,15)), target, &color);
 		printf("d : %f\n", d);
 		if (d != NAN)
 			printf("color : %x\n", color);
 		target = target->next;
 	}
-
-	mlx_loop(mlx->mlx);
-
+	
+	{
+		t_mlx	*mlx;
+		mlx = create_mlx(global_scene, 900, 900, argv[1]);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+		mlx_destroy_image(mlx->mlx, mlx->image->img);
+		mlx->image->img = mlx_new_image(mlx->mlx, 900, 900);
+		mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
+									&(mlx->image->line), &(mlx->image->endian));
+		ray_cast(mlx);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+		mlx_hook(mlx->win, 17, 0, destroy, mlx);
+		mlx_hook(mlx->win, 2, 0, keydown, mlx);
+		mlx_loop(mlx->mlx);
+	}
 	free_scene(global_scene);
 
 	// system("leaks miniRT");
-
 }
 
