@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 13:13:27 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 19:05:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 # ifndef FALSE
 #  define FALSE (0)
 # endif
-# define T_PLANE ("plane")
-# define T_SPHERE ("sphere")
-# define T_CYLINDER ("cylinder")
 
 typedef struct s_ray	t_ray;
 struct s_ray
@@ -30,6 +27,13 @@ struct s_ray
 	t_vec3	org;
 	t_vec3	dir;
 	t_ray	*next;
+};
+
+enum e_type
+{
+	E_PLANE = 0,
+	E_SPHERE,
+	E_CYLINDER
 };
 
 /*
@@ -40,7 +44,7 @@ struct s_ray
 typedef struct s_object_base	t_object_base;
 struct s_object_base
 {
-	char			*type;
+	enum e_type		obj_type;
 	unsigned int	color;
 	double			radius;
 	double			height;

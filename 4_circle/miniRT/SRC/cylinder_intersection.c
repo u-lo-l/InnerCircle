@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_intersection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 20:23:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 20:30:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,48 @@ static double below_cylinder_inside(t_vec3 ray, t_object_base * obj, unsigned in
 	return (vec3_l2norm(intersection));
 }
 
-static double	solve_nearest_intersect_distance(t_vec3 ray, t_vec3 org, double radius)
+static double	solve_quadratic_equation(double a, double b, double c)
 {
-	double	dist;
-	double	discriminant;
-
-	discriminant = pow(vec3_l2norm(org), 2) - pow(radius, 2);
-	discriminant = discriminant * (pow(vec3_l2norm(ray), 2));
-	discriminant = (pow(vec3_dot(ray, org), 2)) - discriminant;
+	double solution;
+	double discriminant;
+	
+	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
-		dist = -1;
+		solution = -1;
 	else if (discriminant == 0)
-		dist = vec3_dot(ray, org) / pow(vec3_l2norm(ray), 2);
+		solution = -b;
 	else
 	{
-		dist = (vec3_dot(ray, org)) - sqrt(discriminant) / pow(vec3_l2norm(ray), 2);
-		if (dist <= 0)
-			dist = (vec3_dot(ray, org)) + sqrt(discriminant) / pow(vec3_l2norm(ray), 2);
-	}
-	if (dist <= 0)
+		solution = -b - sqrt(discriminant);
+		if (solution <= 0)
+			solution = -b + sqrt(discriminant);
+	} 
+	if (solution <= 0)
 		return (NAN);
-	return (dist);
+	return (solution / (2 * a));
 }
+
+// static double get_distance_of_nearest_intersection(double alpha, double cam_to_cen, double radius)
+// {
+// 	double	discriminant;
+// 	double	distance;
+
+// 	// printf("alpha : %f cam_to_o : %f radius : %f\n", alpha, cam_to_cen, radius);
+// 	discriminant =  cam_to_cen * sin(alpha);
+// 	// printf("discrimant : %f\n", discriminant);
+// 	if (discriminant > radius)
+// 		return (NAN);
+// 	else if (discriminant == radius)
+// 		distance = cam_to_cen * cos(alpha);
+// 	else
+// 	{
+// 		distance = cam_to_cen * cos(alpha) - (radius * radius - discriminant * discriminant);
+// 		if (distance <= 0)
+// 			distance = cam_to_cen * cos(alpha) + (radius * radius - discriminant * discriminant);
+// 	}
+// 	// printf("distance : %f\n", distance);
+// 	return (distance);
+// }
 
 static double	outside_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor)
 {
@@ -82,7 +102,9 @@ static double	outside_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * p
 
 	ray_proj = vec3_normalize(vec3_cross(obj->normal, vec3_cross(ray, obj->normal)));
 	org_proj = vec3_cross(obj->normal, vec3_cross(obj->org, obj->normal));
-	distance = solve_nearest_intersect_distance(ray_proj, org_proj, obj->radius);
+	distance = solve_quadratic_equation(vec3_dot(ray_proj, ray_proj), \
+	 				-2 * vec3_dot(org_proj, ray_proj), \
+	 				vec3_dot(org_proj, org_proj) - pow(obj->radius, 2));
 	if (distance == NAN)
 		return (NAN);
 	distance /= vec3_dot(ray, ray_proj);
@@ -95,7 +117,7 @@ static double	outside_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * p
 	else if (height < 0 || height > obj->height)
 		return (NAN);
 	*pcolor = obj->color;
-	return (vec3_l2norm(intersection));
+	return (distance);
 }
 
 double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor)

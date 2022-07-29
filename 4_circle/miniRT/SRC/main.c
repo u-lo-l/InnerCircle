@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 20:02:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 20:25:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	t_object_base * target = global_scene->obj;
 	while (target)
 	{
-		d = object_intersect(vec3_normalize(create_vec3(0,3,15)), target, &color);
+		d = object_intersect(vec3_normalize(create_vec3(0,0,1)), target, &color);
 		printf("d : %f\n", d);
 		if (d != NAN)
 			printf("color : %x\n", color);
@@ -57,10 +57,10 @@ int	main(int argc, char **argv)
 	
 	{
 		t_mlx	*mlx;
-		mlx = create_mlx(global_scene, 900, 900, argv[1]);
+		mlx = create_mlx(global_scene, 960, 540, argv[1]);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 		mlx_destroy_image(mlx->mlx, mlx->image->img);
-		mlx->image->img = mlx_new_image(mlx->mlx, 900, 900);
+		mlx->image->img = mlx_new_image(mlx->mlx, 960, 540);
 		mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
 									&(mlx->image->line), &(mlx->image->endian));
 		ray_cast(mlx);

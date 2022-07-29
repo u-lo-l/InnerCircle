@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/27 23:19:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 19:05:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_objectlst(t_object_base *objlst)
 	while (curr)
 	{
 		next = curr -> next;
-		free(curr->type);
 		free(curr);
 		curr = next;
 	}
@@ -50,7 +49,7 @@ int	case_plane(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_PLANE);
+	new_obj->obj_type = E_PLANE;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->normal) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
@@ -73,7 +72,7 @@ int	case_sphere(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_SPHERE);
+	new_obj->obj_type = E_SPHERE;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (ft_strtod(single_scene[2], &new_obj->radius) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
@@ -99,7 +98,7 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_CYLINDER);
+	new_obj->obj_type = E_CYLINDER;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->normal) == FALSE) \
 		|| (ft_strtod(single_scene[3], &new_obj->radius) == FALSE) \

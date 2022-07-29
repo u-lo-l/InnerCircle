@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:11:01 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:32:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 13:47:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../LIBFT/libft.h"
 #include "../Libft_vector/vector3.h"
 #include <stdlib.h>
+#include <math.h>
 
 int	case_camera(t_scene *scene, char **single_scene)
 {
@@ -31,5 +32,8 @@ int	case_camera(t_scene *scene, char **single_scene)
 	if (vec3_l2norm(scene->cam->dir) > 1.001 \
 		|| vec3_l2norm(scene->cam->dir) < 0.999)
 		return (FALSE);
+	if (scene->cam->hfov <= 0 || scene->cam->hfov >= 180)
+		return (FALSE);
+	scene->cam->hfov = scene->cam->hfov * M_PI / 180;
 	return (TRUE);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   print_scene.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 03:21:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 18:42:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/scene.h"
 #include "../LIBFT/libft.h"
 #include <stdio.h>
+#include <math.h>
 
 void	info_light(t_light *light)
 {
@@ -34,7 +35,8 @@ void	info_camera(t_cam *cam)
 	printf("\tdir : [%3.4f, %3.4f, %3.4f]\n", cam->dir.x \
 											, cam->dir.y \
 											, cam->dir.z);
-	printf("\tHFOV : %3.4f(deg)\n", cam->hfov);
+	printf("\tHFOV : %3.4f(rad)\n", cam->hfov);
+	printf("\tHFOV : %3.4f(deg)\n", (cam->hfov) * (180 / M_PI));
 }
 
 void	info_scene(t_scene *scene)

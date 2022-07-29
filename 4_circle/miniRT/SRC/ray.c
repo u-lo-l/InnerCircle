@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 20:08:03 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 18:45:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 // 	*pray = NULL;
 // }
 
-#include <stdio.h>
 
 static unsigned int single_ray_cast(t_mlx *mlx, int x, 
 									int y, double depth)
@@ -68,15 +67,19 @@ static unsigned int single_ray_cast(t_mlx *mlx, int x,
 	mlx->scene->camera->hfov에 저장된 라디안 값을 이용해, 공간 상의 가상의 스크린까지의 거리를 구해야 한다.(카메라로 부터 스크린 까지 거리)
 	tan(hfov / 2) = (mlx->width / 2) / depth. depth = (mlx->width / 2) / tan(hfov / 2) = mlx->width / 2 * atan(hfov / 2);
 */
+#include <stdio.h>
+#include <time.h>
 void	ray_cast(t_mlx *mlx)
 {
 	unsigned int	x;
 	unsigned int	y;
 	double			d;
 	unsigned int	color;
-
-	d = ((double)mlx->width / 2) * atan(mlx->scene->cam->hfov / 2);
+	clock_t start, end;
+	
+	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 	y = 0;
+	start = clock();
 	while (y < mlx->height)
 	{
 		x = 0;
@@ -88,4 +91,7 @@ void	ray_cast(t_mlx *mlx)
 		}
 		y++;
 	}
+	end = clock();
+
+	printf("time : %lu(ms)\n", ((end - start)/1000));
 }
