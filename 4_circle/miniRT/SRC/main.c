@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 20:25:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/30 15:01:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	t_object_base * target = global_scene->obj;
 	while (target)
 	{
-		d = object_intersect(vec3_normalize(create_vec3(0,0,1)), target, &color);
+		d = object_intersect(vec3_normalize(create_vec3(0,0,1)), target, &color, create_vec3(0,0,0));
 		printf("d : %f\n", d);
 		if (d != NAN)
 			printf("color : %x\n", color);

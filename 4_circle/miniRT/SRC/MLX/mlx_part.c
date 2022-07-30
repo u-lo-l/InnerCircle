@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 19:59:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/29 22:31:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = img->addr + (y * img->line + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
@@ -37,10 +37,10 @@ void	ft_mlx_set_image_background(t_mlx *mlx)
 	}
 }
 
-t_mlx *create_mlx(t_scene *scene, unsigned int width, \
-					unsigned int height, char * const filename )
+t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
+					unsigned int height, char *filename )
 {
-	t_mlx   *mlx;
+	t_mlx	*mlx;
 
 	mlx = malloc(sizeof(t_mlx));
 	if (NULL == mlx)

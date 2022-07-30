@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 19:35:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/30 15:02:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 	t_mat33	mat;
 
 	w = vec3_normalize(k);
-
 	u = create_vec3(0, 1, 0);
 	if (1.0 == w.z)
 		v = create_vec3(1, 0, 0);

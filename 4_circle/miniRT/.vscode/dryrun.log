@@ -1,0 +1,22 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ulol/Workspace/InnerCircle/4_circle/miniRT'
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/main.c -o SRC/main.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/read_file.c -o SRC/read_file.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/object.c -o SRC/object.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/light.c -o SRC/light.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/camera.c -o SRC/camera.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/scene1.c -o SRC/scene1.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/scene2.c -o SRC/scene2.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/scene_utils.c -o SRC/scene_utils.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/print_scene.c -o SRC/print_scene.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/print_scene2.c -o SRC/print_scene2.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/mlx_part.c -o SRC/mlx_part.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/mlx_event.c -o SRC/mlx_event.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/object_intersect.c -o SRC/object_intersect.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/ray.c -o SRC/ray.o
+cc -Wall -Werror -Wextra -I/usr/include -Imlx_linux -O3 -c SRC/cylinder_intersection.c -o SRC/cylinder_intersection.o
+make -C ./LIBFT all
+make -C ./Libft_vector all
+cc SRC/main.o SRC/read_file.o SRC/object.o SRC/light.o SRC/camera.o SRC/scene1.o SRC/scene2.o SRC/scene_utils.o SRC/print_scene.o SRC/print_scene2.o SRC/mlx_part.o SRC/mlx_event.o SRC/object_intersect.o SRC/ray.o SRC/cylinder_intersection.o ./LIBFT/libft.a ./Libft_vector/libvector.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o miniRT
+make: Leaving directory '/home/ulol/Workspace/InnerCircle/4_circle/miniRT'
+ 

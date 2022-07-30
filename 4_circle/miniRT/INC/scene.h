@@ -138,7 +138,7 @@ void	info_object(t_object_base *obj);
 void	info_scene(t_scene *scene);
 
 /*=====INTERSECT=====*/
-double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
-double	object_intersect(t_vec3 ray, t_object_base * obj, unsigned int * pcolor);
+double	intersect_cylinder(t_vec3 ray, t_object_base * obj, unsigned int * pcolor, t_vec3 offset);
+double	object_intersect(t_vec3 ray, t_object_base * obj, unsigned int * pcolor, t_vec3 offset);
 
 #endif
