@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 14:59:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:58:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/mlx_part.h"
-#include "../LIBFT/libft.h"
+#include "../../INC/mlx_part.h"
+#include "../../LIBFT/libft.h"
 #include <math.h>
 
 // discriminant : 이차방정식의 판별식

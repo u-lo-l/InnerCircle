@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 23:41:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
-#include "../INC/scene.h"
+#include "../../LIBFT/libft.h"
+#include "../../INC/scene.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>

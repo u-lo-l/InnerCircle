@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scene1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/08 04:32:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:58:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/scene.h"
-#include "../LIBFT/libft.h"
+#include "../../INC/scene.h"
+#include "../../LIBFT/libft.h"
 #include <stdlib.h>
 
 t_scene	*create_empty_scene(void)

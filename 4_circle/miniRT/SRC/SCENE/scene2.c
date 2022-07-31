@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scene2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 15:02:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:58:18 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/scene.h"
-#include "../LIBFT/libft.h"
-#include "../Libft_vector/transform.h"
+#include "../../INC/scene.h"
+#include "../../LIBFT/libft.h"
+#include "../../Libft_vector/transform.h"
 #include <stdio.h>
 
 static void	put_mat33(t_mat33 m)

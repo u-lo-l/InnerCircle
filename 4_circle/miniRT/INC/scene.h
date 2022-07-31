@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 19:05:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 23:42:19 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,9 @@ typedef struct s_mlx
 
 
 /*=====RAY=====*/
-t_ray	*create_ray(t_vec3 org, t_vec3 dir);
-void	free_raylst(t_ray **pray);
 void	ray_cast(t_mlx *mlx);
-
+t_vec3 get_normal_vector(t_object_base *obj, t_vec3 intersection);
+unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset, int print);
 
 /*=====LIGHT=====*/
 t_light	*create_light(t_vec3 pos, double b);

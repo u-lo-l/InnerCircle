@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_part.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 22:31:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/mlx_part.h"
-#include "../INC/scene.h"
+#include "../../INC/mlx_part.h"
+#include "../../INC/scene.h"
 #include <stdlib.h>
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \

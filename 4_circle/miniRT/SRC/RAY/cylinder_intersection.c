@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_intersection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 22:49:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/mlx_part.h"
-#include "../LIBFT/libft.h"
+#include "../../INC/mlx_part.h"
+#include "../../LIBFT/libft.h"
 #include <stdio.h>
 #include <math.h>
 

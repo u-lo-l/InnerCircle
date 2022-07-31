@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 23:09:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:02:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 typedef struct s_color
 {
-	unsigned int	alpha : 1;
-	unsigned int	red : 1;
-	unsigned int	green : 1;
-	unsigned int	blue : 1;
+	unsigned char	alpha;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
 }	t_color;
 
 t_color	hex_color(unsigned int hex_color);

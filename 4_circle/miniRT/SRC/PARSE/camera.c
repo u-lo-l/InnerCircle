@@ -6,13 +6,13 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:11:01 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 13:47:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/scene.h"
-#include "../LIBFT/libft.h"
-#include "../Libft_vector/vector3.h"
+#include "../../INC/scene.h"
+#include "../../LIBFT/libft.h"
+#include "../../Libft_vector/vector3.h"
 #include <stdlib.h>
 #include <math.h>
 

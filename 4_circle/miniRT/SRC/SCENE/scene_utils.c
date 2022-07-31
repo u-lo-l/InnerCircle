@@ -6,12 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 14:59:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:58:12 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
-#include "../INC/scene.h"
+#include "../../LIBFT/libft.h"
+#include "../../INC/scene.h"
 
 int	str_to_vec3(char *str, t_vec3 *v)
 {

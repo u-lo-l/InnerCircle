@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 22:50:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/scene.h"
-#include "../LIBFT/libft.h"
+#include "../../INC/scene.h"
+#include "../../LIBFT/libft.h"
 #include <stdlib.h>
 #include <math.h>
 

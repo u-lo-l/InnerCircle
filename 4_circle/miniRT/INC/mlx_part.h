@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_part.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/28 19:59:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 23:40:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ void	mlx_part(t_scene *scene, unsigned int width, unsigned int height);
 /*===MLX EVENT====*/
 int		destroy(t_mlx *mlx);
 int		keydown(int keycode, t_mlx *mlx);
+int		mousedown(int button, int x, int y, t_mlx *mlx);

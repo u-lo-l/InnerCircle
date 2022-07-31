@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/30 15:01:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/01 01:10:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/scene.h"
 #include "../LIBFT/libft.h"
 #include "../INC/mlx_part.h"
+#include "COLOR/color.h"
 #include <math.h>
 #include <mlx.h>
 #include <stdio.h>
@@ -41,20 +42,6 @@ int	main(int argc, char **argv)
 	printf("CAMERA COORDINATE\n");
 	info_scene(global_scene);
 	
-	
-	printf("INTERSECTION\n");
-	unsigned int color;
-	double d;
-	t_object_base * target = global_scene->obj;
-	while (target)
-	{
-		d = object_intersect(vec3_normalize(create_vec3(0,0,1)), target, &color, create_vec3(0,0,0));
-		printf("d : %f\n", d);
-		if (d != NAN)
-			printf("color : %x\n", color);
-		target = target->next;
-	}
-	
 	{
 		t_mlx	*mlx;
 		mlx = create_mlx(global_scene, 960, 540, argv[1]);
@@ -67,6 +54,7 @@ int	main(int argc, char **argv)
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 		mlx_hook(mlx->win, 17, 0, destroy, mlx);
 		mlx_hook(mlx->win, 2, 0, keydown, mlx);
+		mlx_hook(mlx->win, 4, 0, mousedown, mlx);
 		mlx_loop(mlx->mlx);
 	}
 	free_scene(global_scene);

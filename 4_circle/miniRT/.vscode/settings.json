@@ -1,3 +1,14 @@
 {
-	"makefile.extensionOutputFolder": "./.vscode"
+	"makefile.extensionOutputFolder": "./.vscode",
+	"files.associations": {
+		"vector3.h": "c",
+		"color.h": "c",
+		"scene.h": "c",
+		"libft.h": "c",
+		"stdlib.h": "c",
+		"mlx_part.h": "c",
+		"stdio.h": "c",
+		"transform.h": "c",
+		"iterator": "c"
+	}
 }

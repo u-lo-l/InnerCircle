@@ -6,12 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/29 19:10:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:58:09 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/scene.h"
-#include "../LIBFT/libft.h"
+#include "../../INC/scene.h"
+#include "../../LIBFT/libft.h"
 #include <stdio.h>
 
 static void	info_plane(t_object_base *obj)

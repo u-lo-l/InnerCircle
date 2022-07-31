@@ -6,12 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:11:03 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:36:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/07/31 22:57:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
-#include "../INC/scene.h"
+#include "../../LIBFT/libft.h"
+#include "../../INC/scene.h"
 #include <stdlib.h>
 
 t_light	*create_light(t_vec3 pos, double b)
