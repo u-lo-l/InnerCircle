@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/01 01:03:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/01 02:35:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ static unsigned int secondary_ray_cast(t_mlx *mlx, t_vec3 intersection, t_object
 	diffuse = vec3_dot(ray, normal) * mlx->scene->light->bright;
 	if ((isnan(dist[0]) || dist[0] >  vec3_l2norm(vec3_subtract(mlx->scene->light->org, intersection))) && diffuse > 0)
 	{
+		const int unit = 10;
+		double to_light = vec3_l2norm(vec3_subtract(mlx->scene->light->org, intersection));
+		if (to_light >= unit)
+			diffuse /= (to_light * to_light / (unit * unit));
 		color = color_add(color_scale(color, diffuse), color_scale(color, mlx->scene->ambient_ratio));
 		if (print)
 		{
